@@ -19,6 +19,11 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(
         db.DateTime, default=datetime.now, onupdate=datetime.now)
 
+    lists = db.relationship(
+        "List", cascade="all, delete-orphan", back_populates="users")
+    reviews = db.relationship(
+        "Review", cascade="all, delete-orphan", back_populates="users")
+
     @property
     def password(self):
         return self.hashed_password

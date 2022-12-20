@@ -38,9 +38,7 @@ class List(db.Model):
         "Anime", secondary=anime_list, cascade="delete-orphan", back_populates="lists"
     )
 
-    # users = db.relationship(
-    #     "User", cascade="all, delete-orphan", back_populates="lists"
-    # )
+    users = db.relationship("User", back_populates="lists")
 
     @property
     def _title(self):

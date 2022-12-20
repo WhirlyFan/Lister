@@ -16,6 +16,9 @@ class Anime(db.Model):
         "List", secondary="anime_list", back_populates="animes"
     )
 
+    reviews = db.relationship(
+        "Review", cascade="all, delete-orphan", back_populates="animes")
+
     @property
     def _title(self):
         return self.title
