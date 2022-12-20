@@ -9,9 +9,9 @@ anime_list = db.Table(
     db.Model.metadata,
     db.Column('id', db.Integer, primary_key=True),
     db.Column('anime_id', db.Integer, db.ForeignKey(
-        'anime.id'), primary_key=True),
+        'animes.id'), primary_key=True),
     db.Column('list_id', db.Integer, db.ForeignKey(
-        'list.id'), primary_key=True)
+        'lists.id'), primary_key=True)
 )
 
 if environment == "production":
@@ -19,7 +19,7 @@ if environment == "production":
 
 
 class List(db.Model):
-    __tablename__ = 'list'
+    __tablename__ = 'lists'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -28,7 +28,7 @@ class List(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(50), nullable=False)
-    type = db.Column(db.string(), nullable=False)
+    type = db.Column(db.String(20), nullable=False)
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(
@@ -46,7 +46,7 @@ class List(db.Model):
     def _title(self):
         return self.title
 
-    @title.setter
+    @_title.setter
     def _title(self, title):
         self.title = title
 
@@ -54,7 +54,7 @@ class List(db.Model):
     def _type(self):
         return self.type
 
-    @type.setter
+    @_type.setter
     def _type(self, type):
         self.type = type
 

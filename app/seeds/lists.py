@@ -1,4 +1,5 @@
-from app.models import db, List, environment, SCHEMA
+from app.models import db, environment, SCHEMA
+from app.models.list import List
 
 
 # Adds a demo user, you can add other users here if you want

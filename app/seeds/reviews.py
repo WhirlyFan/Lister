@@ -1,8 +1,9 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, environment, SCHEMA
+from app.models.review import Review
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_review():
+def seed_reviews():
     review1 = Review(
        user_id=1, anime_id=1, rating=5, review="This is a great anime!"
     )

@@ -9,7 +9,7 @@ class Review(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    anime_id = db.Column(db.Integer, db.ForeignKey('anime.id'), nullable=False)
+    anime_id = db.Column(db.Integer, db.ForeignKey('animes.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     review = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)

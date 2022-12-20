@@ -1,8 +1,9 @@
-from app.models import db, User, environment, SCHEMA
+from app.models import db, environment, SCHEMA
+from app.models.anime import Anime
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_anime():
+def seed_animes():
     full_metal_alchemist = Anime(
         mal_id=5114, title="Fullmetal Alchemist: Brotherhood", image="https://cdn.myanimelist.net/images/anime/1208/94745.jpg"
     )
@@ -22,11 +23,11 @@ def seed_anime():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_anime():
+def undo_animes():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.anime RESTART IDENTITY CASCADE;")
+            f"TRUNCATE table {SCHEMA}.animes RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM anime")
+        db.session.execute("DELETE FROM animes")
 
     db.session.commit()

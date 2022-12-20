@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class Anime(db.Model):
-    __tablename__ = 'anime'
+    __tablename__ = 'animes'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
@@ -17,19 +17,19 @@ class Anime(db.Model):
     )
 
     @property
-    def title(self):
+    def _title(self):
         return self.title
 
-    @title.setter
-    def title(self, title):
+    @_title.setter
+    def _title(self, title):
         self.title = title
 
     @property
-    def image(self):
+    def _image(self):
         return self.image
 
-    @image.setter
-    def image(self, image):
+    @_image.setter
+    def _image(self, image):
         self.image = image
 
     def to_dict(self):
