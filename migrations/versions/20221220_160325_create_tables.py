@@ -82,7 +82,7 @@ def upgrade():
                     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE anime_lists SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
 
     op.create_table('anime_list',
                     sa.Column('anime_id', sa.Integer(), nullable=False),
@@ -91,6 +91,9 @@ def upgrade():
                     sa.ForeignKeyConstraint(['list_id'], ['lists.id'], ),
                     sa.PrimaryKeyConstraint('anime_id', 'list_id')
                     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE anime_lists SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
