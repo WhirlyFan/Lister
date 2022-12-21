@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask import Blueprint, jsonify, session, request
+from flask_login import login_required, current_user
 from app.models import db, List
 from .auth_routes import validation_errors_to_error_messages, authorized
 from app.forms import CreateList, UpdateList
@@ -7,7 +7,7 @@ from app.forms import CreateList, UpdateList
 list_routes = Blueprint("lists", __name__)
 
 
-@list_routes.route("")
+@list_routes.route("", methods=["GET"])
 @login_required
 def lists():
     """
@@ -17,7 +17,7 @@ def lists():
     return {'lists': [list.to_dict() for list in lists]}
 
 
-@list_routes.route("/<int:id>")
+@list_routes.route("/<int:id>", methods=["GET"])
 @login_required
 def list(id):
     """
@@ -26,6 +26,8 @@ def list(id):
     list = List.query.get(id)
     if not list:
         return {"errors": ["List not found"]}, 404
+    if not authorized(list.owner_id) and list.private:
+        return {"errors": ["Unauthorized"]}, 401
     return list.to_dict()
 
 
@@ -40,7 +42,7 @@ def delete_list(id):
     if not list:
         return {"errors": ["List not found"]}, 404
 
-    if not authorized(list.userId):
+    if not authorized(list.owner_id):
         return {"errors": ["Unauthorized"]}, 401
 
     db.session.delete(list)
@@ -59,11 +61,12 @@ def update_list(id):
 
     list = List.query.get(id)
 
-    if not authorized(list.userId):
+    if not authorized(list.owner_id):
         return {"errors": ["Unauthorized"]}, 401
 
     if list and form.validate_on_submit():
         list.name = form.data['name']
+        list.private = form.data['private']
         db.session.commit()
         return list.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -79,8 +82,9 @@ def create_list():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         list = List(
+            owner_id=current_user.id,
             name=form.data['name'],
-            userId=form.data['userId'],
+            private=form.data['private']
         )
         db.session.add(list)
         db.session.commit()

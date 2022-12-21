@@ -53,7 +53,7 @@ class List(db.Model):
     def to_dict_base(self):
         return {
             'id': self.id,
-            'ownder_id': self.owner_id,
+            'owner_id': self.owner_id,
             'name': self.name,
             'private': self.private,
             'created_at': self.created_at,
@@ -63,7 +63,7 @@ class List(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'ownder_id': self.owner_id,
+            'owner_id': self.owner_id,
             'name': self.name,
             'private': self.private,
             'anime': [anime.to_dict() for anime in self.animes],
