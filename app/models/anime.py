@@ -8,7 +8,7 @@ class Anime(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    mal_id = db.Column(db.Integer, nullable=False)
+    mal_id = db.Column(db.Integer, nullable=False, unique=True)
     title = db.Column(db.String(255), nullable=False)
     image = db.Column(db.String(255), nullable=False)
 

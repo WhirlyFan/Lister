@@ -1,5 +1,4 @@
-from app.models import db, environment, SCHEMA
-from app.models.review import Review
+from app.models import db, Review, environment, SCHEMA
 
 
 # Adds a demo user, you can add other users here if you want
