@@ -9,9 +9,9 @@ anime_list = db.Table(
     db.Model.metadata,
     # db.Column('id', db.Integer, primary_key=True),
     db.Column('anime_id', db.Integer, db.ForeignKey(
-        'animes.id'), primary_key=True),
+        add_prefix_for_prod('animes.id')), primary_key=True),
     db.Column('list_id', db.Integer, db.ForeignKey(
-        'lists.id'), primary_key=True)
+        add_prefix_for_prod('lists.id')), primary_key=True)
 )
 
 if environment == "production":
