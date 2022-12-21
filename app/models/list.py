@@ -15,7 +15,7 @@ anime_list = db.Table(
 )
 
 if environment == "production":
-    __table_args__ = {'schema': SCHEMA}
+    anime_list.schema = SCHEMA
 
 
 class List(db.Model):
