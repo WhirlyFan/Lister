@@ -93,7 +93,7 @@ def upgrade():
                     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE anime_lists SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE anime_list SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
