@@ -83,14 +83,14 @@ def seed_lists_and_animes():
 def undo_lists_and_animes():
     if environment == "production":
         db.session.execute(
-            f"TRUNCATE table {SCHEMA}.anime_list RESTART IDENTITY CASCADE;")
-        db.session.execute(
             f"TRUNCATE table {SCHEMA}.lists RESTART IDENTITY CASCADE;")
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.animes RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.anime_list RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute("DELETE FROM anime_list")
         db.session.execute("DELETE FROM lists")
         db.session.execute("DELETE FROM animes")
+        db.session.execute("DELETE FROM anime_list")
 
     db.session.commit()
