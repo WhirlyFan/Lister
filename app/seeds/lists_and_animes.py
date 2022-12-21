@@ -4,40 +4,40 @@ from app.models import db, List, Anime, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_lists_and_animes():
     all_anime = List(
-        owner_id=1, title='All Anime', private=True
+        owner_id=1, name='All Anime', private=True
     )
     currently_watching = List(
-        owner_id=1, title='Currently Watching', private=True
+        owner_id=1, name='Currently Watching', private=True
     )
     completed = List(
-        owner_id=1, title='Completed', private=True
+        owner_id=1, name='Completed', private=True
     )
     on_hold = List(
-        owner_id=1, title='On Hold', private=True
+        owner_id=1, name='On Hold', private=True
     )
     dropped = List(
-        owner_id=1, title='Dropped', private=True
+        owner_id=1, name='Dropped', private=True
     )
     plan_to_watch = List(
-        owner_id=1, title='Plan to Watch', private=True
+        owner_id=1, name='Plan to Watch', private=True
     )
     all_anime2 = List(
-        owner_id=2, title='All Anime', private=True
+        owner_id=2, name='All Anime', private=True
     )
     currently_watching2 = List(
-        owner_id=2, title='Currently Watching', private=True
+        owner_id=2, name='Currently Watching', private=True
     )
     completed2 = List(
-        owner_id=2, title='Completed', private=True
+        owner_id=2, name='Completed', private=True
     )
     on_hold2 = List(
-        owner_id=2, title='On Hold', private=True
+        owner_id=2, name='On Hold', private=True
     )
     dropped2 = List(
-        owner_id=2, title='Dropped', private=True
+        owner_id=2, name='Dropped', private=True
     )
     plan_to_watch2 = List(
-        owner_id=2, title='Plan to Watch', private=True
+        owner_id=2, name='Plan to Watch', private=True
     )
 
     db.session.add_all([all_anime, currently_watching, completed, on_hold, dropped, plan_to_watch,

@@ -27,7 +27,7 @@ class List(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('users.id')), nullable=False)
-    title = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(
@@ -43,18 +43,18 @@ class List(db.Model):
     users = db.relationship("User", back_populates="lists")
 
     @property
-    def _title(self):
-        return self.title
+    def _name(self):
+        return self.name
 
-    @_title.setter
-    def _title(self, title):
-        self.title = title
+    @_name.setter
+    def _name(self, name):
+        self.name = name
 
     def to_dict_base(self):
         return {
             'id': self.id,
             'ownder_id': self.owner_id,
-            'title': self.title,
+            'name': self.name,
             'private': self.private,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
@@ -64,7 +64,7 @@ class List(db.Model):
         return {
             'id': self.id,
             'ownder_id': self.owner_id,
-            'title': self.title,
+            'name': self.name,
             'private': self.private,
             'anime': [anime.to_dict() for anime in self.animes],
             'created_at': self.created_at,

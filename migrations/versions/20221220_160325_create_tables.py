@@ -56,7 +56,7 @@ def upgrade():
     op.create_table('lists',
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('owner_id', sa.Integer(), nullable=False),
-                    sa.Column('title', sa.String(length=50), nullable=False),
+                    sa.Column('name', sa.String(length=50), nullable=False),
                     sa.Column('private', sa.Boolean(), nullable=True),
                     sa.Column('created_at', sa.DateTime(), nullable=True),
                     sa.Column('updated_at', sa.DateTime(), nullable=True),
