@@ -20,12 +20,17 @@ export default function Lists() {
   }
 
   return (
-    <div>
+    <div className={styles.lists}>
       {listsArr.map((list) => {
         return (
           <div key={`list-${list.id}`} className={styles.list}>
             <div className={styles.listName}>{list.name}</div>
-            <div className={styles.listStatus}>{list.private}</div>
+            <div className={styles.listStatus}>{`Private: ${list.private}`}</div>
+            {list.anime.map((anime) => {
+              return (
+                <div key={`anime-${anime.id}`} className={styles.anime}>{anime.title}</div>
+              )
+            })}
           </div>
         );
       })}

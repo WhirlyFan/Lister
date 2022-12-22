@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import styles from "./Lists.module.css";
+import styles from "./TopAnime.module.css";
+import TopAnimeCard from "./TopAnimeCard";
 
 export default function Lists() {
-  const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [data, setData] = useState({});
 
@@ -16,10 +15,15 @@ export default function Lists() {
       });
   }, []);
 
-  if (!isLoaded) {
+  if (!isLoaded || !data.data) {
     return null;
   }
-  console.log(data);
 
-  return <div>test</div>;
+  return (
+    <div>
+      {data.data.map((anime) => (
+        <TopAnimeCard key={`anime-${anime.mal_id}`} anime={anime} />
+      ))}
+    </div>
+  );
 }

@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./store/session";
 import Lists from "./components/Lists/Lists";
+import TopAnime from "./components/TopAnime/TopAnime";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,6 +47,9 @@ function App() {
         </Route>
         <Route path="/lists">
           <Lists />
+        </Route>
+        <Route path="/topanime">
+          <TopAnime />
         </Route>
         <Route>
           <h1>Page Not Found</h1>
