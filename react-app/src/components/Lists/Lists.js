@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getListsThunk } from "../../store/lists";
 import styles from "./Lists.module.css";
-import { Redirect } from "react-router-dom";
-//logout doesn't redirect to home page
+
 export default function Lists() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);

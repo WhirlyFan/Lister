@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TopAnime.module.css";
+// import styles from "./TopAnime.module.css";
 import TopAnimeCard from "./TopAnimeCard";
 
 export default function Lists() {

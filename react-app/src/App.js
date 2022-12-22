@@ -10,6 +10,7 @@ import User from "./components/User";
 import { authenticate } from "./store/session";
 import Lists from "./components/Lists/Lists";
 import TopAnime from "./components/TopAnime/TopAnime";
+import Home from "./components/Home/Home";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -43,7 +44,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <Route path="/" exact={true}>
-          <h1>My Home Page</h1>
+          <Home />
         </Route>
         <ProtectedRoute path="/lists">
           <Lists />
