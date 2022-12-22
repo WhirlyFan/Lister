@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import configureStore from "./store";
 
-import * as listActions from "./store/list";
+import * as listActions from "./store/lists";
 
 const store = configureStore();
 
