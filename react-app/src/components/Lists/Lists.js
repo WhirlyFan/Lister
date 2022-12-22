@@ -11,12 +11,11 @@ export default function Lists() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      return <Redirect to="/login" />;
+    if (user) {
+      dispatch(getListsThunk(user.id)).then(() => {
+        setIsLoaded(true);
+      });
     }
-    dispatch(getListsThunk(user.id)).then(() => {
-      setIsLoaded(true);
-    });
   }, [dispatch, user]);
 
   if (!isLoaded) {
@@ -38,6 +37,9 @@ export default function Lists() {
   //     </div>
   //   );
   // }
+  if (!user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className={styles.lists}>
