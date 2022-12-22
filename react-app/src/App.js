@@ -45,9 +45,9 @@ function App() {
         <Route path="/" exact={true}>
           <h1>My Home Page</h1>
         </Route>
-        <Route path="/lists">
+        <ProtectedRoute path="/lists">
           <Lists />
-        </Route>
+        </ProtectedRoute>
         <Route path="/topanime">
           <TopAnime />
         </Route>

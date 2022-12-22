@@ -37,9 +37,6 @@ export default function Lists() {
   //     </div>
   //   );
   // }
-  if (!user) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className={styles.lists}>

@@ -1,7 +1,6 @@
 //action types
 const GET_ALL_LISTS = "list/GET_ALL_LISTS";
 const GET_LIST = "list/GET_LIST";
-// const GET_MY_LISTS = "list/GET_MY_LISTS";
 const GET_LISTS = "list/GET_LISTS";
 
 //action creators
@@ -18,13 +17,6 @@ export const getAllLists = (payload) => {
     payload,
   };
 };
-
-// export const getMyLists = (payload) => {
-//   return {
-//     type: GET_MY_LISTS,
-//     payload,
-//   };
-// };
 
 export const getLists = (payload) => {
   return {
@@ -44,8 +36,8 @@ export const getListThunk = (id) => async (dispatch) => {
   return data;
 };
 
-export const getAllListsThunk = (id) => async (dispatch) => {
-  const res = await fetch(`/api/lists/${id}`);
+export const getAllListsThunk = () => async (dispatch) => {
+  const res = await fetch(`/api/lists`);
   if (!res.ok) {
     throw res;
   }
@@ -53,16 +45,6 @@ export const getAllListsThunk = (id) => async (dispatch) => {
   dispatch(getAllLists(data));
   return data;
 };
-
-// export const getMyListsThunk = () => async (dispatch) => {
-//   const res = await fetch(`/api/lists/current`);
-//   if (!res.ok) {
-//     throw res;
-//   }
-//   const data = await res.json();
-//   dispatch(getMyLists(data));
-//   return data;
-// };
 
 export const getListsThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/lists/users/${id}`);
@@ -80,10 +62,7 @@ export const createListThunk = (list) => async (dispatch) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      private: list.private,
-      title: list.title,
-    }),
+    body: JSON.stringify(list),
   });
   if (!res.ok) {
     throw res;
@@ -126,8 +105,9 @@ export const deleteListThunk = (id) => async (dispatch) => {
 
 //reducer
 const initialState = {
-  // allLists: null,
-  // list: null,
+  allLists: null,
+  list: null,
+  lists: null,
 };
 
 export const normalize = (lists) => {
@@ -136,18 +116,16 @@ export const normalize = (lists) => {
     normalized[list.id] = list;
   });
   return normalized;
-}
+};
 
 export const listReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case GET_LIST:
-    //   return { ...state, list: { ...action.payload } };
-    // case GET_ALL_LISTS:
-    //   return { ...state, allLists: { ...action.payload } };
-    // case GET_MY_LISTS:
-    //   return { ...state, myLists: { ...action.payload } };
+    case GET_LIST:
+      return { ...state, list: { ...action.payload } };
+    case GET_ALL_LISTS:
+      const normalizedAllLists = normalize(action.payload.lists);
+      return { ...state, allLists: { ...normalizedAllLists } };
     case GET_LISTS:
-      // const normalizedLists = normalize(action.payload.lists)
       return { ...state, ...action.payload };
     default:
       return state;
