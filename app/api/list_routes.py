@@ -31,6 +31,30 @@ def list(id):
     return list.to_dict()
 
 
+@list_routes.route("/current", methods=["GET"])
+@login_required
+def current_user_lists():
+    """
+    Query for all lists owned by current user and returns them in a list of list dictionaries
+    """
+    lists = List.query.filter(List.owner_id == current_user.id).all()
+    if not lists:
+        return {"errors": ["No lists found"]}, 404
+    return {'lists': [list.to_dict() for list in lists]}
+
+
+@list_routes.route("/users/<int:id>", methods=["GET"])
+@login_required
+def user_lists(id):
+    """
+    Query for all public lists owned by a user and returns them in a list of list dictionaries
+    """
+    lists = List.query.filter(List.owner_id == id, List.private == False).all()
+    if not lists:
+        return {"errors": ["No lists found"]}, 404
+    return {'lists': [list.to_dict() for list in lists]}
+
+
 @list_routes.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_list(id):
