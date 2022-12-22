@@ -4,7 +4,7 @@ from app.models import db, List, Anime, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_lists_and_animes():
     all_anime = List(
-        owner_id=1, name='All Anime', private=True
+        owner_id=1, name='All Anime', private=False
     )
     currently_watching = List(
         owner_id=1, name='Currently Watching', private=True
@@ -25,7 +25,7 @@ def seed_lists_and_animes():
         owner_id=2, name='All Anime', private=True
     )
     currently_watching2 = List(
-        owner_id=2, name='Currently Watching', private=True
+        owner_id=2, name='Currently Watching', private=False
     )
     completed2 = List(
         owner_id=2, name='Completed', private=True
