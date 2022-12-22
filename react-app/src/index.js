@@ -6,12 +6,14 @@ import App from "./App";
 import configureStore from "./store";
 
 import * as listActions from "./store/lists";
+import * as reviewActions from "./store/reviews";
 
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.listActions = listActions;
+  window.reviewActions = reviewActions;
 }
 
 ReactDOM.render(

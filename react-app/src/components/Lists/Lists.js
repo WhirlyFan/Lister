@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getListsThunk } from "../../store/lists";
 import styles from "./Lists.module.css";
-
+import { Redirect } from "react-router-dom";
+//logout doesn't redirect to home page
 export default function Lists() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -10,14 +11,32 @@ export default function Lists() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getListsThunk(user.id)).then(() => {
-      setIsLoaded(true);
-    });
-  }, [dispatch, user.id]);
+    if (user) {
+      dispatch(getListsThunk(user.id)).then(() => {
+        setIsLoaded(true);
+      });
+    }
+  }, [dispatch, user]);
 
   if (!isLoaded) {
     return null;
   }
+
+  if (!listsArr) {
+    return (
+      <div>
+        <h1>You don't have any lists yet!</h1>
+      </div>
+    );
+  }
+
+  // if (!user) {
+  //   return (
+  //     <div>
+  //       <h1>You must be logged in to view your lists!</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className={styles.lists}>
@@ -25,11 +44,15 @@ export default function Lists() {
         return (
           <div key={`list-${list.id}`} className={styles.list}>
             <div className={styles.listName}>{list.name}</div>
-            <div className={styles.listStatus}>{`Private: ${list.private}`}</div>
+            <div
+              className={styles.listStatus}
+            >{`Private: ${list.private}`}</div>
             {list.anime.map((anime) => {
               return (
-                <div key={`anime-${anime.id}`} className={styles.anime}>{anime.title}</div>
-              )
+                <div key={`anime-${anime.id}`} className={styles.anime}>
+                  {anime.title}
+                </div>
+              );
             })}
           </div>
         );
