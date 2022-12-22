@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
 import { listReducer } from "./lists";
+import { jikanReducer } from "./jikan";
 
 const rootReducer = combineReducers({
   session,
   lists: listReducer,
+  jikan: jikanReducer,
 });
 
 let enhancer;
