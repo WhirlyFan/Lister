@@ -10,16 +10,16 @@ def seed_lists_and_animes():
         owner_id=1, name='Currently Watching', private=True
     )
     completed = List(
-        owner_id=1, name='Completed', private=True
+        owner_id=1, name='Completed', private=False
     )
     on_hold = List(
-        owner_id=1, name='On Hold', private=True
+        owner_id=1, name='On Hold', private=False
     )
     dropped = List(
-        owner_id=1, name='Dropped', private=True
+        owner_id=1, name='Dropped', private=False
     )
     plan_to_watch = List(
-        owner_id=1, name='Plan to Watch', private=True
+        owner_id=1, name='Plan to Watch', private=False
     )
     all_anime2 = List(
         owner_id=2, name='All Anime', private=True
@@ -28,16 +28,16 @@ def seed_lists_and_animes():
         owner_id=2, name='Currently Watching', private=False
     )
     completed2 = List(
-        owner_id=2, name='Completed', private=True
+        owner_id=2, name='Completed', private=False
     )
     on_hold2 = List(
-        owner_id=2, name='On Hold', private=True
+        owner_id=2, name='On Hold', private=False
     )
     dropped2 = List(
-        owner_id=2, name='Dropped', private=True
+        owner_id=2, name='Dropped', private=False
     )
     plan_to_watch2 = List(
-        owner_id=2, name='Plan to Watch', private=True
+        owner_id=2, name='Plan to Watch', private=False
     )
 
     db.session.add_all([all_anime, currently_watching, completed, on_hold, dropped, plan_to_watch,
