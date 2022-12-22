@@ -13,17 +13,17 @@ export default function Lists() {
   useEffect(() => {
     dispatch(getTopAnimeThunk(page)).then((data) => {
       setIsLoaded(true);
-      setData(data);
+      setData(data.data);
     });
   }, [dispatch, page]);
 
-  if (!isLoaded || !data.data) {
+  if (!isLoaded || !Object.keys(data).length) {
     return null;
   }
 
   return (
     <div>
-      {data.data.map((anime) => (
+      {data.map((anime) => (
         <TopAnimeCard key={`anime-${anime.mal_id}`} anime={anime} />
       ))}
       <div>Page: {page}</div>
