@@ -151,7 +151,7 @@ const initialState = {
   anime: {},
 };
 
-export const jikanReducer = (state = initialState, action) => {
+export default function jikanReducer (state = initialState, action) {
   switch (action.type) {
     case GET_TOP_ANIME:
       return {

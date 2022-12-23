@@ -120,7 +120,7 @@ export const normalize = (lists) => {
   return normalized;
 };
 
-export const listReducer = (state = initialState, action) => {
+export default function listReducer (state = initialState, action) {
   switch (action.type) {
     case GET_LIST:
       return { ...state, list: { ...action.payload } };
