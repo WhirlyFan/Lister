@@ -43,7 +43,7 @@ export const getAnime = (payload) => {
 
 //thunks
 export const getTopAnimeThunk = (page) => async (dispatch) => {
-  if (page) {
+  try {
     const res = await fetch(`https://api.jikan.moe/v4/top/anime?page=${page}`);
     if (!res.ok) {
       throw res;
@@ -51,46 +51,71 @@ export const getTopAnimeThunk = (page) => async (dispatch) => {
     const data = await res.json();
     dispatch(getTopAnime(data));
     return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
   }
-  const res = await fetch("https://api.jikan.moe/v4/top/anime");
-  if (!res.ok) {
-    throw res;
-  }
-  const data = await res.json();
-  dispatch(getTopAnime(data));
-  return data;
 };
 
 export const getTopAiringAnimeThunk = () => async (dispatch) => {
-  const res = await fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
-  if (!res.ok) {
-    throw res;
+  try {
+    const res = await fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(getTopAiringAnime(data));
+    return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
   }
-  const data = await res.json();
-  dispatch(getTopAiringAnime(data));
-  return data;
 };
 
 export const getTopUpcomingAnimeThunk = () => async (dispatch) => {
-  const res = await fetch("https://api.jikan.moe/v4/top/anime?filter=upcoming");
-  if (!res.ok) {
-    throw res;
+  try {
+    const res = await fetch(
+      "https://api.jikan.moe/v4/top/anime?filter=upcoming"
+    );
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(getTopUpcomingAnime(data));
+    return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
   }
-  const data = await res.json();
-  dispatch(getTopUpcomingAnime(data));
-  return data;
 };
 
 export const getMostPopularAnimeThunk = () => async (dispatch) => {
-  const res = await fetch(
-    "https://api.jikan.moe/v4/top/anime?filter=bypopularity"
-  );
-  if (!res.ok) {
-    throw res;
+  try {
+    const res = await fetch(
+      "https://api.jikan.moe/v4/top/anime?filter=bypopularity"
+    );
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(getMostPopularAnime(data));
+    return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
   }
-  const data = await res.json();
-  dispatch(getMostPopularAnime(data));
-  return data;
 };
 
 export const getAnimeThunk = (id) => async (dispatch) => {
@@ -101,6 +126,20 @@ export const getAnimeThunk = (id) => async (dispatch) => {
   const data = await res.json();
   dispatch(getAnime(data));
   return data;
+};
+
+export const getHomeThunk = () => async (dispatch) => {
+  const topAiringAnime = await dispatch(getTopAiringAnimeThunk());
+  const topUpcomingAnime = await dispatch(getTopUpcomingAnimeThunk());
+  const mostPopularAnime = await dispatch(getMostPopularAnimeThunk());
+  if (
+    topAiringAnime.status === "429" ||
+    topUpcomingAnime.status === "429" ||
+    mostPopularAnime.status === "429"
+  ) {
+    return { error: "Too Many Requests!", status: "429" };
+  }
+  return { topAiringAnime, topUpcomingAnime, mostPopularAnime };
 };
 
 //reducer
@@ -135,9 +174,10 @@ export const jikanReducer = (state = initialState, action) => {
         mostPopularAnime: action.payload,
       };
     case GET_ANIME:
-        return {
-            ...state, anime: action.payload
-        }
+      return {
+        ...state,
+        anime: action.payload,
+      };
     default:
       return state;
   }

@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getTopAiringAnimeThunk,
-  getTopUpcomingAnimeThunk,
-  getMostPopularAnimeThunk,
-} from "../../store/jikan";
+import { getHomeThunk } from "../../store/jikan";
 import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
 
 export default function Home() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [topAiringAnime, setTopAiringAnime] = useState({});
-  const [topUpcomingAnime, setTopUpcomingAnime] = useState({});
-  const [mostPopularAnime, setMostPopularAnime] = useState({});
+  const [topAiringAnime, setTopAiringAnime] = useState(false);
+  const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);
+  const [mostPopularAnime, setMostPopularAnime] = useState(false);
+  const [delay, setDelay] = useState(false);
 
   useEffect(() => {
-    dispatch(getTopAiringAnimeThunk())
+    dispatch(getHomeThunk())
       .then((data) => {
-        setTopAiringAnime(data.data);
-      })
-      .then(() => {
-        dispatch(getTopUpcomingAnimeThunk()).then((data) => {
-          setTopUpcomingAnime(data.data);
-        });
-      })
-      .then(() => {
-        dispatch(getMostPopularAnimeThunk()).then((data) => {
-          setMostPopularAnime(data.data);
+        if (data.status) {
           setTimeout(() => {
-            setIsLoaded(true);
-          }, 1200);
-        });
+            setDelay(!delay);
+          }, 1500); //delay used because of API rate limit
+        } else {
+          setTopAiringAnime(data.topAiringAnime.data);
+          setTopUpcomingAnime(data.topUpcomingAnime.data);
+          setMostPopularAnime(data.mostPopularAnime.data);
+        }
+      })
+      .then(() => {
+        setIsLoaded(true);
       });
-  }, [dispatch]);
+  }, [dispatch, delay]);
 
-  if (!isLoaded) {
-    return <h1>LOADING...</h1>;
+  if (!isLoaded || !topAiringAnime || !topUpcomingAnime || !mostPopularAnime) {
+    return (
+      <div>
+        <h1>LOADING...</h1>
+      </div>
+    );
   }
 
   return (
