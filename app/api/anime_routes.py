@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Anime
+from app.models import db, Anime, List
 from .auth_routes import validation_errors_to_error_messages, authorized
 from app.forms import CreateAnime
 
@@ -27,6 +27,25 @@ def anime(id):
     if not anime:
         return {"errors": ["Anime not found"]}, 404
     return anime.to_dict()
+
+
+@anime_routes.route("/users/<int:id>", methods=["GET"])
+@login_required
+def user_animes(id):
+    """
+    Query for all animes in all of a user's lists and returns them in a list of anime dictionaries
+    """
+    Lists = List.query.filter(List.owner_id == id).all()
+    if not Lists:
+        return {"errors": ["No lists found"]}, 404
+    animes = []
+    for list in Lists:
+        if not list.private or id == current_user.id:
+            animes.extend(list.to_dict()['anime'])
+    anime_set = set([tuple(anime.items())
+                    for anime in animes])  # remove duplicates
+    anime_set = [dict(anime) for anime in anime_set]  # convert back to dict
+    return {'animes': [anime for anime in anime_set]}
 
 
 @anime_routes.route("", methods=["POST"])

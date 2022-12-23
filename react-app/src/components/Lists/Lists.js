@@ -33,10 +33,12 @@ export default function Lists() {
 
   return (
     <div>
-      <div>
+      <div className={styles.list_header}>
         <h1>{user.username}'s Lists</h1>
+        <button>New List</button>
       </div>
       <div className={styles.lists}>
+      {/* <div className={styles.list_name}>test</div> */}
         {listsArr.map((list) => {
           return (
             <div key={`list-${list.id}`} className={styles.list_name}>
