@@ -29,6 +29,20 @@ def anime(id):
     return anime.to_dict()
 
 
+@anime_routes.route("/lists/<int:id>", methods=["GET"])
+@login_required
+def list_animes(id):
+    """
+    Query for all animes in a list and returns them in a list of anime dictionaries
+    """
+    list = List.query.get(id)
+    if not list:
+        return {"errors": ["List not found"]}, 404
+    if not authorized(list.owner_id) and list.private:
+        return {"errors": ["Unauthorized"]}, 401
+    return {'animes': [anime for anime in list.to_dict()['anime']]}
+
+
 @anime_routes.route("/users/<int:id>", methods=["GET"])
 @login_required
 def user_animes(id):
@@ -43,8 +57,9 @@ def user_animes(id):
         if not list.private or id == current_user.id:
             animes.extend(list.to_dict()['anime'])
     unique_anime = set([tuple(anime.items())
-                    for anime in animes])  # remove duplicates
-    unique_anime = [dict(anime) for anime in unique_anime]  # convert back to dict
+                        for anime in animes])  # remove duplicates
+    unique_anime = [dict(anime)
+                    for anime in unique_anime]  # convert back to dict
     return {'animes': [anime for anime in unique_anime]}
 
 

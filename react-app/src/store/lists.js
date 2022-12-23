@@ -2,7 +2,6 @@
 const GET_ALL_LISTS = "list/GET_ALL_LISTS";
 const GET_LIST = "list/GET_LIST";
 const GET_LISTS = "list/GET_LISTS";
-const GET_ALL_LIST_ANIME = "list/GET_ALL_LIST_ANIME";
 
 //action creators
 export const getList = (payload) => {
@@ -26,12 +25,6 @@ export const getLists = (payload) => {
   };
 };
 
-export const getAllListAnime = (payload) => {
-  return {
-    type: GET_ALL_LIST_ANIME,
-    payload,
-  };
-};
 
 //thunks
 export const getListThunk = (id) => async (dispatch) => {
@@ -64,15 +57,6 @@ export const getListsThunk = (id) => async (dispatch) => {
   return data;
 };
 
-export const getAllListAnimeThunk = (id) => async (dispatch) => {
-  const res = await fetch(`/api/lists/${id}/anime`);
-  if (!res.ok) {
-    throw res;
-  }
-  const data = await res.json();
-  dispatch(getAllListAnime(data));
-  return data;
-}
 
 export const createListThunk = (list) => async (dispatch) => {
   const res = await fetch(`/api/lists`, {
