@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getAnimesByUserThunk } from "../../store/anime";
 import { getListsThunk } from "../../store/lists";
 import styles from "./Lists.module.css";
 
@@ -9,6 +10,8 @@ export default function Lists() {
   const { userId } = useParams();
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
+  const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
+  // const [animes, setAnimes] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -16,6 +19,7 @@ export default function Lists() {
       dispatch(getListsThunk(userId)).then(() => {
         setIsLoaded(true);
       });
+      dispatch(getAnimesByUserThunk(userId));
     }
   }, [dispatch, user, userId]);
 
@@ -31,33 +35,46 @@ export default function Lists() {
     );
   }
 
-  // if (!user) {
-  //   return (
-  //     <div>
-  //       <h1>You must be logged in to view your lists!</h1>
-  //     </div>
-  //   );
-  // }
+  if (!animeArr) {
+    return (
+      <div>
+        <h1>There are no anime here!</h1>
+      </div>
+    );
+  }
+
+  const hasClicked = (id) => {};
 
   return (
-    <div className={styles.lists}>
-      {listsArr.map((list) => {
-        return (
-          <div key={`list-${list.id}`} className={styles.list}>
-            <div className={styles.listName}>{list.name}</div>
-            <div
-              className={styles.listStatus}
-            >{`Private: ${list.private}`}</div>
-            {list.anime.map((anime) => {
-              return (
-                <div key={`anime-${anime.id}`} className={styles.anime}>
-                  {anime.title}
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+    <div>
+      <div className={styles.list_header}>
+        <h1>{user.username}'s Lists</h1>
+        <button>New List</button>
+      </div>
+      <div className={styles.lists}>
+        <div className={styles.list_name}>All Anime</div>
+        {listsArr.map((list) => {
+          return (
+            <div key={`list-${list.id}`} className={styles.list_name}>
+              <div
+                onClick={() => {
+                  hasClicked(list.id);
+                }}
+                className={styles.listName}
+              >
+                {list.name}
+              </div>
+              {/* <div
+                className={styles.listStatus}
+              >{`Private: ${list.private}`}</div> */}
+            </div>
+          );
+        })}
+      </div>
+      {animeArr &&
+        animeArr.map((anime) => {
+          return <div>{anime.title}</div>;
+        })}
     </div>
   );
 }

@@ -1,13 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session";
-import { listReducer } from "./lists";
-import { jikanReducer } from "./jikan";
+import listReducer from "./lists";
+import jikanReducer from "./jikan";
+import animeReducer from "./anime";
 
 const rootReducer = combineReducers({
   session,
   lists: listReducer,
   jikan: jikanReducer,
+  anime: animeReducer,
 });
 
 let enhancer;

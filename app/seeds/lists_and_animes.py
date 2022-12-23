@@ -3,9 +3,6 @@ from app.models import db, List, Anime, environment, SCHEMA
 
 # Adds a demo user, you can add other users here if you want
 def seed_lists_and_animes():
-    all_anime = List(
-        owner_id=1, name='All Anime', private=False
-    )
     currently_watching = List(
         owner_id=1, name='Currently Watching', private=True
     )
@@ -21,14 +18,11 @@ def seed_lists_and_animes():
     plan_to_watch = List(
         owner_id=1, name='Plan to Watch', private=False
     )
-    all_anime2 = List(
-        owner_id=2, name='All Anime', private=True
-    )
     currently_watching2 = List(
         owner_id=2, name='Currently Watching', private=False
     )
     completed2 = List(
-        owner_id=2, name='Completed', private=False
+        owner_id=2, name='Completed', private=True
     )
     on_hold2 = List(
         owner_id=2, name='On Hold', private=False
@@ -40,8 +34,8 @@ def seed_lists_and_animes():
         owner_id=2, name='Plan to Watch', private=False
     )
 
-    db.session.add_all([all_anime, currently_watching, completed, on_hold, dropped, plan_to_watch,
-                       all_anime2, currently_watching2, completed2, on_hold2, dropped2, plan_to_watch2])
+    db.session.add_all([currently_watching, completed, on_hold, dropped, plan_to_watch,
+                       currently_watching2, completed2, on_hold2, dropped2, plan_to_watch2])
     db.session.commit()
 
     full_metal_alchemist = Anime(
@@ -57,19 +51,13 @@ def seed_lists_and_animes():
     db.session.add_all([full_metal_alchemist, demon_slayer, naruto])
     db.session.commit()
 
-    all_anime.animes.append(full_metal_alchemist)
-    currently_watching.animes.append(full_metal_alchemist)
-    all_anime.animes.append(demon_slayer)
-    currently_watching.animes.append(demon_slayer)
-    all_anime.animes.append(naruto)
+    completed.animes.append(full_metal_alchemist)
+    completed.animes.append(demon_slayer)
     currently_watching.animes.append(naruto)
 
-    all_anime2.animes.append(full_metal_alchemist)
+    completed2.animes.append(naruto)
+    completed2.animes.append(demon_slayer)
     currently_watching2.animes.append(full_metal_alchemist)
-    all_anime2.animes.append(demon_slayer)
-    currently_watching2.animes.append(demon_slayer)
-    all_anime2.animes.append(naruto)
-    currently_watching2.animes.append(naruto)
 
     db.session.commit()
 
