@@ -14,7 +14,7 @@ const NavBar = () => {
           Home
         </NavLink>
         {!user && (
-          <div>
+          <div className={styles.nav_right}>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
                 Login
@@ -28,12 +28,7 @@ const NavBar = () => {
           </div>
         )}
         {user && (
-          <div>
-            <div>
-              <NavLink to="/login" exact={true} activeClassName="active">
-                {user.username}
-              </NavLink>
-            </div>
+          <div className={styles.nav_right}>
             <div>
               <NavLink
                 to={`/lists/${user.id}`}
@@ -41,6 +36,11 @@ const NavBar = () => {
                 activeClassName="active"
               >
                 Lists
+              </NavLink>
+            </div>
+            <div>
+              <NavLink to="/login" exact={true} activeClassName="active">
+                {user.username}
               </NavLink>
             </div>
           </div>

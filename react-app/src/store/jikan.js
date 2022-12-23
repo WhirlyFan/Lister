@@ -144,11 +144,11 @@ export const getHomeThunk = () => async (dispatch) => {
 
 //reducer
 const initialState = {
-  topAnime: null,
-  topAiringAnime: null,
-  topUpcomingAnime: null,
-  mostPopularAnime: null,
-  anime: null,
+  topAnime: {},
+  topAiringAnime: {},
+  topUpcomingAnime: {},
+  mostPopularAnime: {},
+  anime: {},
 };
 
 export const jikanReducer = (state = initialState, action) => {

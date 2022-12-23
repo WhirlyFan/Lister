@@ -31,33 +31,50 @@ export default function Lists() {
     );
   }
 
-  // if (!user) {
-  //   return (
-  //     <div>
-  //       <h1>You must be logged in to view your lists!</h1>
-  //     </div>
-  //   );
-  // }
-
   return (
-    <div className={styles.lists}>
-      {listsArr.map((list) => {
-        return (
-          <div key={`list-${list.id}`} className={styles.list}>
-            <div className={styles.listName}>{list.name}</div>
-            <div
-              className={styles.listStatus}
-            >{`Private: ${list.private}`}</div>
-            {list.anime.map((anime) => {
-              return (
-                <div key={`anime-${anime.id}`} className={styles.anime}>
-                  {anime.title}
-                </div>
-              );
-            })}
-          </div>
-        );
-      })}
+    <div>
+      <div>
+        <h1>{user.username}'s Lists</h1>
+      </div>
+      <div className={styles.lists}>
+        {listsArr.map((list) => {
+          return (
+            <div key={`list-${list.id}`} className={styles.list_name}>
+              <div className={styles.listName}>{list.name}</div>
+              {/* <div
+                className={styles.listStatus}
+              >{`Private: ${list.private}`}</div> */}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <div>
+  //       <h1>{user.username}'s Lists</h1>
+  //     </div>
+  //     <div className={styles.lists}>
+  //       {listsArr.map((list) => {
+  //         return (
+  //           <div key={`list-${list.id}`} className={styles.list}>
+  //             <div className={styles.listName}>{list.name}</div>
+  //             <div
+  //               className={styles.listStatus}
+  //             >{`Private: ${list.private}`}</div>
+  //             {list.anime.map((anime) => {
+  //               return (
+  //                 <div key={`anime-${anime.id}`} className={styles.anime}>
+  //                   {anime.title}
+  //                 </div>
+  //               );
+  //             })}
+  //           </div>
+  //         );
+  //       })}
+  //     </div>
+  //   </div>
+  // );
 }
