@@ -8,13 +8,13 @@ const NavBar = () => {
   const user = useSelector((state) => state.session.user);
 
   return (
-    <nav>
-      <div className={styles.nav}>
+    <nav className={styles.nav}>
+      <div className={styles.nav_top}>
         <NavLink to="/" exact={true} activeClassName="active">
           Home
         </NavLink>
         {!user && (
-          <div>
+          <div className={styles.nav_right}>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
                 Login
@@ -28,12 +28,7 @@ const NavBar = () => {
           </div>
         )}
         {user && (
-          <div>
-            <div>
-              <NavLink to="/login" exact={true} activeClassName="active">
-                {user.username}
-              </NavLink>
-            </div>
+          <div className={styles.nav_right}>
             <div>
               <NavLink
                 to={`/lists/${user.id}`}
@@ -43,10 +38,15 @@ const NavBar = () => {
                 Lists
               </NavLink>
             </div>
+            <div>
+              <NavLink to="/login" exact={true} activeClassName="active">
+                {user.username}
+              </NavLink>
+            </div>
           </div>
         )}
       </div>
-      <ul className={styles.nav}>
+      <ul className={styles.nav_bottom}>
         <li>
           <NavLink to="/topanime" exact={true} activeClassName="active">
             Top Anime
@@ -63,6 +63,7 @@ const NavBar = () => {
           </li>
         )}
       </ul>
+      <h1 className={styles.panel}>My Panel</h1>
     </nav>
   );
 };

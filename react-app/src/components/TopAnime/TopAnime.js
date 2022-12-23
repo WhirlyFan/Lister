@@ -14,7 +14,7 @@ export default function Lists() {
   useEffect(() => {
     dispatch(getTopAnimeThunk(page))
       .then((data) => {
-        if (data.status === 429) {
+        if (data.status) {
           setTimeout(() => {
             setDelay(!delay);
           }, 1000); //delay used because of API rate limit
@@ -41,8 +41,8 @@ export default function Lists() {
         <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} />
       ))}
       <div>Page: {page}</div>
-      <button onClick={() => setPage(page - 1)}>Previous</button>
-      <button onClick={() => setPage(page + 1)}>Next</button>
+      <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>Previous</button>
+      <button onClick={() => setPage(page >= 50 ? 10 : page + 1)}>Next</button>
     </div>
   );
 }

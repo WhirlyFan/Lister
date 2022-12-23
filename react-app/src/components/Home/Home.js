@@ -4,6 +4,8 @@ import { getHomeThunk } from "../../store/jikan";
 import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
 
+//try refactoring Home to pull data from the store instead of the API
+
 export default function Home() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

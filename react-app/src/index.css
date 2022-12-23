@@ -11,5 +11,18 @@ li {
 }
 
 body {
-  margin: 0;
+  display: block;
+  margin: 0 300px;
+}
+
+@media (max-width: 1800px) {
+  body {
+    margin: 0 200px;
+  }
+}
+
+@media (max-width: 1300px) {
+  body {
+    margin: 0 100px;
+  }
 }

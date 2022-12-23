@@ -25,6 +25,7 @@ export const getLists = (payload) => {
   };
 };
 
+
 //thunks
 export const getListThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/lists/${id}`);
@@ -55,6 +56,7 @@ export const getListsThunk = (id) => async (dispatch) => {
   dispatch(getLists(data));
   return data;
 };
+
 
 export const createListThunk = (list) => async (dispatch) => {
   const res = await fetch(`/api/lists`, {
@@ -105,9 +107,9 @@ export const deleteListThunk = (id) => async (dispatch) => {
 
 //reducer
 const initialState = {
-  allLists: null,
-  list: null,
-  lists: null,
+  allLists: {},
+  list: {},
+  lists: {},
 };
 
 export const normalize = (lists) => {
@@ -118,7 +120,7 @@ export const normalize = (lists) => {
   return normalized;
 };
 
-export const listReducer = (state = initialState, action) => {
+export default function listReducer (state = initialState, action) {
   switch (action.type) {
     case GET_LIST:
       return { ...state, list: { ...action.payload } };
