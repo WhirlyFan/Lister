@@ -9,3 +9,7 @@ ul {
 li {
   list-style: none;
 }
+
+body {
+  margin: 0;
+}
