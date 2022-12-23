@@ -42,10 +42,10 @@ def user_animes(id):
     for list in Lists:
         if not list.private or id == current_user.id:
             animes.extend(list.to_dict()['anime'])
-    anime_set = set([tuple(anime.items())
+    unique_anime = set([tuple(anime.items())
                     for anime in animes])  # remove duplicates
-    anime_set = [dict(anime) for anime in anime_set]  # convert back to dict
-    return {'animes': [anime for anime in anime_set]}
+    unique_anime = [dict(anime) for anime in unique_anime]  # convert back to dict
+    return {'animes': [anime for anime in unique_anime]}
 
 
 @anime_routes.route("", methods=["POST"])
