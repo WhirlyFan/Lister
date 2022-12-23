@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getListsThunk } from "../../store/lists";
 import styles from "./Lists.module.css";
 
 export default function Lists() {
   const dispatch = useDispatch();
+  const { userId } = useParams();
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (user) {
-      dispatch(getListsThunk(user.id)).then(() => {
+      dispatch(getListsThunk(userId)).then(() => {
         setIsLoaded(true);
       });
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, userId]);
 
   if (!isLoaded) {
     return null;
@@ -24,7 +26,7 @@ export default function Lists() {
   if (!listsArr) {
     return (
       <div>
-        <h1>You don't have any lists yet!</h1>
+        <h1>There are no lists here!</h1>
       </div>
     );
   }

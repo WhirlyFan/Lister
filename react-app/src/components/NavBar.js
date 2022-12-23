@@ -13,25 +13,38 @@ const NavBar = () => {
         <NavLink to="/" exact={true} activeClassName="active">
           Home
         </NavLink>
-        {!user && <div>
+        {!user && (
           <div>
-            <NavLink to="/login" exact={true} activeClassName="active">
-              Login
-            </NavLink>
+            <div>
+              <NavLink to="/login" exact={true} activeClassName="active">
+                Login
+              </NavLink>
+            </div>
+            <div>
+              <NavLink to="/sign-up" exact={true} activeClassName="active">
+                Sign Up
+              </NavLink>
+            </div>
           </div>
+        )}
+        {user && (
           <div>
-            <NavLink to="/sign-up" exact={true} activeClassName="active">
-              Sign Up
-            </NavLink>
+            <div>
+              <NavLink to="/login" exact={true} activeClassName="active">
+                {user.username}
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                to={`/lists/${user.id}`}
+                exact={true}
+                activeClassName="active"
+              >
+                Lists
+              </NavLink>
+            </div>
           </div>
-        </div>}
-        {user && <div>
-          <div>
-            <NavLink to="/login" exact={true} activeClassName="active">
-              {user.username}
-            </NavLink>
-          </div>
-        </div>}
+        )}
       </div>
       <ul className={styles.nav}>
         <li>
@@ -44,14 +57,11 @@ const NavBar = () => {
             Users
           </NavLink>
         </li> */}
-        <li>
-          <NavLink to="/lists" exact={true} activeClassName="active">
-            Lists
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
+        {user && (
+          <li>
+            <LogoutButton />
+          </li>
+        )}
       </ul>
     </nav>
   );

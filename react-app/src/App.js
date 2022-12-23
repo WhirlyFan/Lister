@@ -46,7 +46,7 @@ function App() {
         <Route path="/" exact={true}>
           <Home />
         </Route>
-        <ProtectedRoute path="/lists">
+        <ProtectedRoute path="/lists/:userId">
           <Lists />
         </ProtectedRoute>
         <Route path="/topanime">
