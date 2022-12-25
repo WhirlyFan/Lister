@@ -47,7 +47,7 @@ def list_animes(id):
 @login_required
 def user_animes(id):
     """
-    Query for all animes in all of a user's lists and returns them in a list of anime dictionaries
+    Query for all unique animes in all of a user's lists and returns them in a list of anime dictionaries
     """
     Lists = List.query.filter(List.owner_id == id).all()
     if not Lists:

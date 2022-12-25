@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAnimesByUserThunk } from "../../store/anime";
 import { getListsThunk } from "../../store/lists";
+import { getUserThunk } from "../../store/session";
+import ListModal from "../ListModal";
 import styles from "./Lists.module.css";
 
 export default function Lists() {
@@ -11,7 +13,9 @@ export default function Lists() {
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
-  // const [animes, setAnimes] = useState([]);
+  const getUser = useSelector((state) => state.session?.get_user);
+  const [animes, setAnimes] = useState({});
+  const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -20,8 +24,9 @@ export default function Lists() {
         setIsLoaded(true);
       });
       dispatch(getAnimesByUserThunk(userId));
+      dispatch(getUserThunk(userId));
     }
-  }, [dispatch, user, userId]);
+  }, [dispatch, user, userId, animes]);
 
   if (!isLoaded) {
     return null;
@@ -43,13 +48,22 @@ export default function Lists() {
     );
   }
 
-  const hasClicked = (id) => {};
+  if (!getUser) {
+    return null
+  }
+
+  const showAnime = (list) => {
+    setAnimes(list);
+    console.log(animes);
+  };
 
   return (
     <div>
       <div className={styles.list_header}>
-        <h1>{user.username}'s Lists</h1>
-        <button>New List</button>
+        <h1>{getUser.username}'s Lists</h1>
+        {user.id === Number(userId) && (
+          <ListModal setHasClicked={setHasClicked} hasClicked={hasClicked} />
+        )}
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name}>All Anime</div>
@@ -58,7 +72,7 @@ export default function Lists() {
             <div key={`list-${list.id}`} className={styles.list_name}>
               <div
                 onClick={() => {
-                  hasClicked(list.id);
+                  showAnime(list);
                 }}
                 className={styles.listName}
               >
@@ -73,7 +87,11 @@ export default function Lists() {
       </div>
       {animeArr &&
         animeArr.map((anime) => {
-          return <div>{anime.title}</div>;
+          return <div key={`anime-${anime.id}`}>{anime.title}</div>;
+        })}
+      {!animeArr &&
+        animes.map((anime) => {
+          return <div key={`anime-${anime.id}`}> {anime.title}</div>;
         })}
     </div>
   );

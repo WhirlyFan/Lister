@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, BooleanField, IntegerField
+from wtforms import StringField, BooleanField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Anime
 
@@ -14,3 +14,4 @@ class CreateAnime(FlaskForm):
     mal_id = IntegerField('mal_id', validators=[DataRequired()])
     title = StringField('title', validators=[DataRequired()])
     image = StringField('image', validators=[DataRequired()])
+    submit = SubmitField('Create Anime')
