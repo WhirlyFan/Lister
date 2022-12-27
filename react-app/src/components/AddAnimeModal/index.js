@@ -1,7 +1,7 @@
 // import React, { useState } from 'react';
 // import { Modal } from '../../context/Modal';
 // import AddAnimeForm from './AddAnimeForm';
-// function LoginFormModal() {
+// function AddAnimeModal() {
 //   const [showModal, setShowModal] = useState(false);
 
 //   return (
@@ -16,4 +16,4 @@
 //   );
 // }
 
-// export default LoginFormModal;
+// export default AddAnimeModal;
