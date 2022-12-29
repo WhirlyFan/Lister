@@ -26,7 +26,7 @@
   transform: scale(1.02);
 }
 
-.list_header {
+.list_settings {
   display: flex;
   justify-content: space-between;
   align-items: center;

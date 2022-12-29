@@ -14,8 +14,8 @@ export default function Lists() {
   const listsArr = useSelector((state) => state.lists.lists);
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
   const getUser = useSelector((state) => state.session?.get_user);
-  const [animes, setAnimes] = useState({});
-  const [hasClicked, setHasClicked] = useState(false);
+  const [animes, setAnimes] = useState(false);
+  // const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -48,25 +48,26 @@ export default function Lists() {
     );
   }
 
+  if (!animes) setAnimes(animeArr);
+
   if (!getUser) {
-    return null
+    return null;
   }
 
   const showAnime = (list) => {
-    setAnimes(list);
-    console.log(animes);
+    if (list) setAnimes(list);
+    else setAnimes(animeArr);
   };
 
   return (
     <div>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
-        {user.id === Number(userId) && (
-          <ListModal setHasClicked={setHasClicked} hasClicked={hasClicked} />
-        )}
       </div>
       <div className={styles.lists}>
-        <div className={styles.list_name}>All Anime</div>
+        <div className={styles.list_name} onClick={() => showAnime()}>
+          All Anime
+        </div>
         {listsArr.map((list) => {
           return (
             <div key={`list-${list.id}`} className={styles.list_name}>
@@ -78,21 +79,28 @@ export default function Lists() {
               >
                 {list.name}
               </div>
-              {/* <div
-                className={styles.listStatus}
-              >{`Private: ${list.private}`}</div> */}
             </div>
           );
         })}
       </div>
-      {animeArr &&
-        animeArr.map((anime) => {
-          return <div key={`anime-${anime.id}`}>{anime.title}</div>;
-        })}
-      {!animeArr &&
-        animes.map((anime) => {
-          return <div key={`anime-${anime.id}`}> {anime.title}</div>;
-        })}
+      <div className={styles.animes}>
+        <div className={styles.list_settings}>
+          {!animes.name && <h2>All Anime</h2>}
+          {animes.name && <h2>{animes.name}</h2>}
+          {animes.name && user.id === Number(userId) && <ListModal animes={animes}/>}
+        </div>
+        <div>
+          {animes &&
+            !animes.name &&
+            animes.map((anime) => {
+              return <div key={`anime-${anime.id}`}>{anime.title}</div>;
+            })}
+          {animes?.anime &&
+            animes?.anime.map((anime) => {
+              return <div key={`anime-${anime.id}`}>{anime.title}</div>;
+            })}
+        </div>
+      </div>
     </div>
   );
 }
