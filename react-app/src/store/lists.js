@@ -80,7 +80,7 @@ export const editListThunk = (list) => async (dispatch) => {
     },
     body: JSON.stringify({
       private: list.private,
-      title: list.title,
+      name: list.name,
     }),
   });
   if (!res.ok) {

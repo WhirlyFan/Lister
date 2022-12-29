@@ -79,15 +79,18 @@ export default function Lists() {
               >
                 {list.name}
               </div>
+              <div>{list.private && <i className="fas fa-lock"></i>}</div>
             </div>
           );
         })}
       </div>
       <div className={styles.animes}>
-        <div className={styles.list_settings}>
+        <div className={styles.list_edit}>
           {!animes.name && <h2>All Anime</h2>}
           {animes.name && <h2>{animes.name}</h2>}
-          {animes.name && user.id === Number(userId) && <ListModal animes={animes}/>}
+          {animes.name && user.id === Number(userId) && (
+            <ListModal list={animes} />
+          )}
         </div>
         <div>
           {animes &&
@@ -97,7 +100,11 @@ export default function Lists() {
             })}
           {animes?.anime &&
             animes?.anime.map((anime) => {
-              return <div key={`anime-${anime.id}`}>{anime.title}</div>;
+              return (
+                <div key={`anime-${anime.id}`} className={styles.anime}>
+                  <div>{anime.title}</div>
+                </div>
+              );
             })}
         </div>
       </div>
