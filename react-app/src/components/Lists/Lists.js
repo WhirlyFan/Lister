@@ -78,8 +78,8 @@ export default function Lists() {
                 className={styles.listName}
               >
                 {list.name}
+              {list.private && <i className="fas fa-lock"></i>}
               </div>
-              <div>{list.private && <i className="fas fa-lock"></i>}</div>
             </div>
           );
         })}

@@ -10,7 +10,7 @@ export default function ListModal({ list }) {
       <button onClick={() => setShowModal(true)}>Edit List</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <ListForm list={list}/>
+          <ListForm list={list} setShowModal={setShowModal}/>
         </Modal>
       )}
     </>

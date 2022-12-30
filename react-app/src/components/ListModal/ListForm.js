@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { editListThunk } from "../../store/lists";
 import styles from "./ListForm.module.css";
 
-export default function ListForm({ list }) {
+export default function ListForm({ list, setShowModal }) {
   const [name, setName] = useState(list.name);
   const [priv, setPriv] = useState(list.private);
   const [errors, setErrors] = useState([]);
@@ -18,6 +18,7 @@ export default function ListForm({ list }) {
     };
     dispatch(editListThunk(payload))
       .then(() => {
+        setShowModal(false);
         setName("");
         setPriv(false);
       })
@@ -43,7 +44,7 @@ export default function ListForm({ list }) {
         onChange={(e) => setName(e.target.value)}
         required
       />
-            <label>Private</label>
+      <label>Private</label>
       <input
         type="checkbox"
         checked={priv}
