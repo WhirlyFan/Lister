@@ -37,11 +37,13 @@ export default function Lists() {
 
   return (
     <div>
-      {topAnime.map((anime) => (
-        <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} />
+      {topAnime.map((anime, index) => (
+        <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} index={index} />
       ))}
       <div>Page: {page}</div>
-      <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>Previous</button>
+      <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>
+        Previous
+      </button>
       <button onClick={() => setPage(page >= 50 ? 10 : page + 1)}>Next</button>
     </div>
   );

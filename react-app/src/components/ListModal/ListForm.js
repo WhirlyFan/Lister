@@ -1,68 +1,89 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createListThunk,
-  getAllListsThunk,
   deleteListThunk,
   editListThunk,
+  getListsThunk,
 } from "../../store/lists";
-import styles from "./ListForm.module.css";
+// import styles from "./ListForm.module.css";
 
-export default function ListForm({ setHasClicked, hasClicked }) {
-  const listsArr = useSelector((state) => state.lists.lists);
+export default function ListForm({
+  list,
+  setShowModal,
+  setHasClicked,
+  hasClicked,
+  setAnimes,
+}) {
+  const [name, setName] = useState(list.name);
+  const [priv, setPriv] = useState(list.private);
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-  //   const [hasClicked, setHasClicked] = useState(false);
-  //   const [errors, setErrors] = useState([]);
+  const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
 
-  //   useEffect(() => {
-  //     dispatch(getAllListsThunk());
-  //   }, [dispatch, hasClicked]);
+  if (!animeArr) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const list = {
-      name: e.target.name.value,
-      private: e.target.checkbox.checked,
+    const payload = {
+      id: list.id,
+      name,
+      private: priv,
     };
-    dispatch(createListThunk(list)).then(() => {
-      setHasClicked(!hasClicked);
-    });
+    dispatch(editListThunk(payload))
+      .then(() => {
+        setShowModal(false);
+        // setName("");
+        // setPriv(false);
+        setHasClicked(!hasClicked);
+        setAnimes(animeArr);
+      })
+      .then(dispatch(getListsThunk(list.owner_id)))
+      .catch((res) => {
+        if (res.data && res.data.errors) setErrors(res.data.errors);
+      });
   };
 
-  const deleteList = (listId) => {
-    dispatch(deleteListThunk(listId)).then(() => {
-      setHasClicked(!hasClicked);
-    });
-  };
-
-  const editList = (listId) => {
-    dispatch(editListThunk(listId)).then(() => {
-      setHasClicked(!hasClicked);
-    });
+  const handleDelete = (id) => {
+    dispatch(deleteListThunk(id))
+      .then(() => {
+        setShowModal(false);
+        // setName("");
+        // setPriv(false);
+        setHasClicked(!hasClicked);
+      })
+      .then(() => {
+        setAnimes(animeArr);
+      });
+    // .then(dispatch(getListsThunk(list.owner_id)))
+    // .catch((res) => {
+    //   if (res.data && res.data.errors) setErrors(res.data.errors);
+    // });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      {listsArr.map((list) => {
-        return (
-          <div key={`list ${list.id}`} className={styles.list_name}>
-            <div>{list.name}</div>
-            <div>
-              <button onClick={() => editList(list.id)}>Edit</button>
-              <button onClick={() => deleteList(list.id)}>Delete</button>
-            </div>
-          </div>
-        );
-      })}
-      <label>
-        List Name
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Private
-        <input type="checkbox" name="checkbox" />
-      </label>
-      <button type="submit">Create List</button>
+      <ul>
+        {errors.map((error, idx) => (
+          <li key={idx} className="error">
+            {error}
+          </li>
+        ))}
+      </ul>
+      <label>List Name</label>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <label>Private</label>
+      <input
+        type="checkbox"
+        checked={priv}
+        onChange={(e) => setPriv(e.target.checked)}
+      />
+      <button type="submit">Edit</button>
+      <button onClick={() => handleDelete(list.id)}>Delete</button>
     </form>
   );
 }

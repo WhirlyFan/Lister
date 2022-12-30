@@ -52,7 +52,7 @@ def delete_list(id):
     Deletes a list by id
     """
     list = List.query.get(id)
-
+    list_owner = list.owner_id
     if not list:
         return {"errors": ["List not found"]}, 404
 
@@ -61,7 +61,7 @@ def delete_list(id):
 
     db.session.delete(list)
     db.session.commit()
-    return {"message": "Successfully deleted list"}
+    return {"message": "Successfully deleted list", "owner_id": list_owner}
 
 
 @list_routes.route("/<int:id>", methods=["PUT"])

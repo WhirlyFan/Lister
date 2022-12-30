@@ -1,10 +1,11 @@
 import styles from "./Home.module.css";
 
-export default function AnimeCard({ anime }) {
+export default function AnimeCard({ anime, index }) {
   return (
     <div className={styles.anime}>
       <div>
-        {anime.rank && `Rank: ${anime.rank} - `} {anime.title}
+        {`${index + 1}: `}
+        {anime.title}
       </div>
     </div>
   );
