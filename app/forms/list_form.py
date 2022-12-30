@@ -12,6 +12,7 @@ class CreateList(FlaskForm):
 
 
 class UpdateList(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired(), Length(
+        min=3, max=50, message='List name must be between 3 and 50 characters long')])
     private = BooleanField('private')
     submit = SubmitField('Update List')
