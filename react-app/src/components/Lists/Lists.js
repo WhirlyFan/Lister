@@ -15,7 +15,7 @@ export default function Lists() {
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
   const getUser = useSelector((state) => state.session?.get_user);
   const [animes, setAnimes] = useState(false);
-  // const [hasClicked, setHasClicked] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Lists() {
       dispatch(getAnimesByUserThunk(userId));
       dispatch(getUserThunk(userId));
     }
-  }, [dispatch, user, userId, animes]);
+  }, [dispatch, user, userId, animes, hasClicked]);
 
   if (!isLoaded) {
     return null;
@@ -78,7 +78,7 @@ export default function Lists() {
                 className={styles.listName}
               >
                 {list.name}
-              {list.private && <i className="fas fa-lock"></i>}
+                {list.private && <i className="fas fa-lock"></i>}
               </div>
             </div>
           );
@@ -89,7 +89,12 @@ export default function Lists() {
           {!animes.name && <h2>All Anime</h2>}
           {animes.name && <h2>{animes.name}</h2>}
           {animes.name && user.id === Number(userId) && (
-            <ListModal list={animes} />
+            <ListModal
+              list={animes}
+              setAnimes={setAnimes}
+              setHasClicked={setHasClicked}
+              hasClicked={hasClicked}
+            />
           )}
         </div>
         <div>

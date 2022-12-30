@@ -68,7 +68,8 @@ export const createListThunk = (list) => async (dispatch) => {
     throw res;
   }
   const data = await res.json();
-  dispatch(getAllListsThunk(data));
+  // dispatch(getAllListsThunk(data));
+  // dispatch(getListsThunk(data.id))
   return data;
 };
 
@@ -87,7 +88,7 @@ export const editListThunk = (list) => async (dispatch) => {
     throw res;
   }
   const data = await res.json();
-  dispatch(getListThunk(data.id));
+  // dispatch(getListsThunk(data.owner_id));
   return data;
 };
 
@@ -99,7 +100,7 @@ export const deleteListThunk = (id) => async (dispatch) => {
     throw res;
   }
   const data = await res.json();
-  dispatch(getListThunk(data.id));
+  // dispatch(getListsThunk(data.owner_id));
   return data;
 };
 
