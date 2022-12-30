@@ -6,6 +6,7 @@ import { getListsThunk } from "../../store/lists";
 import { getUserThunk } from "../../store/session";
 import ListModal from "../ListModal";
 import styles from "./Lists.module.css";
+import NewListModal from "../NewListModal";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export default function Lists() {
     <div>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
+        <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name} onClick={() => showAnime()}>

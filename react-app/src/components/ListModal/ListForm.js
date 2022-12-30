@@ -32,28 +32,23 @@ export default function ListForm({
     dispatch(editListThunk(payload))
       .then(() => {
         setShowModal(false);
-        // setName("");
-        // setPriv(false);
         setHasClicked(!hasClicked);
-        setAnimes(animeArr);
+        // setAnimes(animeArr);
       })
-      .then(dispatch(getListsThunk(list.owner_id)))
+      // .then(dispatch(getListsThunk(list.owner_id)))
       .catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
       });
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteListThunk(id))
-      .then(() => {
-        setShowModal(false);
-        // setName("");
-        // setPriv(false);
-        setHasClicked(!hasClicked);
-      })
-      .then(() => {
-        setAnimes(animeArr);
-      });
+    dispatch(deleteListThunk(id)).then(() => {
+      setAnimes(animeArr);
+
+      // setHasClicked(!hasClicked);
+    });
+    setShowModal(false);
+
     // .then(dispatch(getListsThunk(list.owner_id)))
     // .catch((res) => {
     //   if (res.data && res.data.errors) setErrors(res.data.errors);
