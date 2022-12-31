@@ -11,6 +11,7 @@ import { authenticate } from "./store/session";
 import Lists from "./components/Lists/Lists";
 import TopAnime from "./components/TopAnime/TopAnime";
 import Home from "./components/Home/Home";
+import AnimeDetails from "./components/AnimeDetails/AnimeDetails";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -51,6 +52,9 @@ function App() {
         </ProtectedRoute>
         <Route path="/topanime">
           <TopAnime />
+        </Route>
+        <Route path="/anime/:malAnimeId">
+          <AnimeDetails />
         </Route>
         <Route>
           <h1>Page Not Found</h1>

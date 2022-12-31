@@ -63,7 +63,7 @@ const NavBar = () => {
           </li>
         )}
       </ul>
-      <h1 className={styles.panel}>My Panel</h1>
+      {/* <h1 className={styles.panel}>My Panel</h1> */}
     </nav>
   );
 };
