@@ -25,7 +25,6 @@ export const getLists = (payload) => {
   };
 };
 
-
 //thunks
 export const getListThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/lists/${id}`);
@@ -57,7 +56,6 @@ export const getListsThunk = (id) => async (dispatch) => {
   return data;
 };
 
-
 export const createListThunk = (list) => async (dispatch) => {
   const res = await fetch(`/api/lists`, {
     method: "POST",
@@ -70,11 +68,12 @@ export const createListThunk = (list) => async (dispatch) => {
     throw res;
   }
   const data = await res.json();
-  dispatch(getAllLists(data));
+  // dispatch(getAllListsThunk(data));
+  // dispatch(getListsThunk(data.id))
   return data;
 };
 
-export const updateListThunk = (list) => async (dispatch) => {
+export const editListThunk = (list) => async (dispatch) => {
   const res = await fetch(`/api/lists/${list.id}`, {
     method: "PUT",
     headers: {
@@ -82,14 +81,14 @@ export const updateListThunk = (list) => async (dispatch) => {
     },
     body: JSON.stringify({
       private: list.private,
-      title: list.title,
+      name: list.name,
     }),
   });
   if (!res.ok) {
     throw res;
   }
   const data = await res.json();
-  dispatch(getAllLists(data));
+  // dispatch(getListsThunk(data.owner_id));
   return data;
 };
 
@@ -101,7 +100,7 @@ export const deleteListThunk = (id) => async (dispatch) => {
     throw res;
   }
   const data = await res.json();
-  dispatch(getAllLists(data));
+  // dispatch(getListsThunk(data.owner_id));
   return data;
 };
 
@@ -120,7 +119,7 @@ export const normalize = (lists) => {
   return normalized;
 };
 
-export default function listReducer (state = initialState, action) {
+export default function listReducer(state = initialState, action) {
   switch (action.type) {
     case GET_LIST:
       return { ...state, list: { ...action.payload } };
@@ -132,4 +131,4 @@ export default function listReducer (state = initialState, action) {
     default:
       return state;
   }
-};
+}

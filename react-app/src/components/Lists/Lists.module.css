@@ -3,7 +3,6 @@
   justify-content: space-around;
   width: 100%;
   height: 100%;
-  /* padding: 0 20px; */
 }
 
 .list_name {
@@ -26,11 +25,18 @@
   transform: scale(1.02);
 }
 
+.list_edit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
 .list_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 20%;
-  /* padding: 0 10px; */
 }

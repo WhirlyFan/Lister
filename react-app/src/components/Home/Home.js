@@ -47,16 +47,34 @@ export default function Home() {
       <h3>Sign up or log in to get started!</h3>
       <div>
         <h2>Top Airing Anime</h2>
-        {topAiringAnime.slice(0, 10).map((anime) => {
-          return <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} />;
+        {topAiringAnime.slice(0, 10).map((anime, index) => {
+          return (
+            <AnimeCard
+              key={`anime-${anime.mal_id}`}
+              anime={anime}
+              index={index}
+            />
+          );
         })}
         <h2>Top Upcoming Anime</h2>
-        {topUpcomingAnime.slice(0, 10).map((anime) => {
-          return <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} />;
+        {topUpcomingAnime.slice(0, 10).map((anime, index) => {
+          return (
+            <AnimeCard
+              key={`anime-${anime.mal_id}`}
+              anime={anime}
+              index={index}
+            />
+          );
         })}
         <h2>Most Popular Anime</h2>
-        {mostPopularAnime.slice(0, 10).map((anime) => {
-          return <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} />;
+        {mostPopularAnime.slice(0, 10).map((anime, index) => {
+          return (
+            <AnimeCard
+              key={`anime-${anime.mal_id}`}
+              anime={anime}
+              index={index}
+            />
+          );
         })}
       </div>
     </div>
