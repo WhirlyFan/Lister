@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getAnimesByUserThunk } from "../../store/anime";
 import { getListsThunk } from "../../store/lists";
 import { getUserThunk } from "../../store/session";
@@ -10,6 +10,7 @@ import NewListModal from "../NewListModal";
 
 export default function Lists() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { userId } = useParams();
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
@@ -60,6 +61,10 @@ export default function Lists() {
     else setAnimes(animeArr);
   };
 
+  const animeDetails = (mal_id) => {
+    history.push(`/anime/${mal_id}`);
+  };
+
   return (
     <div>
       <div className={styles.list_header}>
@@ -103,12 +108,23 @@ export default function Lists() {
           {animes &&
             !animes.name &&
             animes.map((anime) => {
-              return <div key={`anime-${anime.id}`}>{anime.title}</div>;
+              return (
+                <div
+                  key={`anime-${anime.id}`}
+                  onClick={() => animeDetails(anime.mal_id)}
+                >
+                  {anime.title}
+                </div>
+              );
             })}
           {animes?.anime &&
             animes?.anime.map((anime) => {
               return (
-                <div key={`anime-${anime.id}`} className={styles.anime}>
+                <div
+                  key={`anime-${anime.id}`}
+                  className={styles.anime}
+                  onClick={() => animeDetails(anime.id)}
+                >
                   <div>{anime.title}</div>
                 </div>
               );

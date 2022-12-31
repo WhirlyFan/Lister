@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getTopAnimeThunk } from "../../store/jikan";
 // import styles from "./TopAnime.module.css";
 import AnimeCard from "../Home/AnimeCard";
 
 export default function Lists() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
   const [topAnime, setTopAnime] = useState(false);
   const [page, setPage] = useState(1);
@@ -35,10 +37,19 @@ export default function Lists() {
     );
   }
 
+  const animeDetails = (id) => {
+    history.push(`/anime/${id}`);
+  };
+
   return (
     <div>
       {topAnime.map((anime, index) => (
-        <AnimeCard key={`anime-${anime.mal_id}`} anime={anime} index={index} />
+        <AnimeCard
+          key={`anime-${anime.mal_id}`}
+          anime={anime}
+          index={index}
+          onClick={() => animeDetails(anime.mal_id)}
+        />
       ))}
       <div>Page: {page}</div>
       <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>
