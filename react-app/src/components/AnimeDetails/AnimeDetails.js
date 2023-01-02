@@ -5,12 +5,15 @@ import { getAnimeThunk } from "../../store/jikan";
 import { getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
+import ReviewModal from "../ReviewModal";
+import AddReviewModal from "../AddReviewModal";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
   const { malAnimeId } = useParams();
   const anime = useSelector((state) => state.anime.anime);
   const malAnime = useSelector((state) => state.jikan.anime.data);
+  const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [reviews, setReviews] = useState(null);
 
@@ -43,7 +46,10 @@ export default function AnimeDetails() {
         <p>{malAnime.synopsis}</p>
       </div>
       <div>
-        <h2>Reviews</h2>
+        <div className={styles.review_header}>
+          <h2>Reviews</h2>
+          <AddReviewModal />
+        </div>
         <ul>
           {!reviews && <li>No reviews yet!</li>}
           {reviews &&
@@ -55,6 +61,11 @@ export default function AnimeDetails() {
                     <div>★{review.rating}</div>
                   </div>
                   <div>{review.review}</div>
+                  {user && user.id === review.user_id && (
+                    <div>
+                      <ReviewModal />
+                    </div>
+                  )}
                 </li>
               );
             })}
