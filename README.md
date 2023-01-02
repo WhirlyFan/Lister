@@ -1,4 +1,4 @@
-# Flask React Project
+# Flask React Project with Lister (Similar to MyAnimeList)
 
 This is the starter for the Flask React project.
 
