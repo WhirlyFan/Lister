@@ -3,6 +3,7 @@ const GET_ALL_ANIMES = "animes/GET_ALL_ANIMES";
 const GET_ANIME = "animes/GET_ANIME";
 const GET_ANIMES_BY_LIST = "animes/GET_ANIMES_BY_LIST";
 const GET_ANIMES_BY_USER = "animes/GET_ANIMES_BY_USER";
+const GET_MAL_ANIME = "animes/GET_MAL_ANIME";
 
 //action creators
 export const getAllAnimes = (payload) => {
@@ -29,6 +30,13 @@ export const getAnimesByList = (payload) => {
 export const getAnimesByUser = (payload) => {
   return {
     type: GET_ANIMES_BY_USER,
+    payload,
+  };
+};
+
+export const getMalAnime = (payload) => {
+  return {
+    type: GET_MAL_ANIME,
     payload,
   };
 };
@@ -74,12 +82,31 @@ export const getAnimesByUserThunk = (id) => async (dispatch) => {
   return data;
 };
 
+export const getMalAnimeThunk = (mal_id) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/animes/mal/${mal_id}`);
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(getMalAnime(data));
+    return data;
+  } catch (e) {
+    if (e.status === 404) {
+      return { error: "Anime Not Found!", status: "404", e };
+    } else {
+      return { error: "Error!", e };
+    }
+  }
+};
+
 //reducer
 const initialState = {
   allAnimes: {},
   anime: {},
   animesByList: {},
   animesByUser: {},
+  malAnime: {},
 };
 
 export default function animeReducer(state = initialState, action) {
@@ -92,6 +119,8 @@ export default function animeReducer(state = initialState, action) {
       return { ...state, animeByList: action.payload };
     case GET_ANIMES_BY_USER:
       return { ...state, animeByUser: action.payload };
+    case GET_MAL_ANIME:
+      return { ...state, malAnime: action.payload };
     default:
       return state;
   }

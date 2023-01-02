@@ -4,12 +4,14 @@ import session from "./session";
 import listReducer from "./lists";
 import jikanReducer from "./jikan";
 import animeReducer from "./anime";
+import reviewReducer from "./reviews";
 
 const rootReducer = combineReducers({
   session,
   lists: listReducer,
   jikan: jikanReducer,
   anime: animeReducer,
+  reviews: reviewReducer,
 });
 
 let enhancer;

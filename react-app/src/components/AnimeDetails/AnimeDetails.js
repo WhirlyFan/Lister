@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAnimeThunk as getMalAnimeThunk } from "../../store/jikan";
+import { getAnimeThunk } from "../../store/jikan";
+import { getMalAnimeThunk } from "../../store/anime";
+import { getAnimeReviewsThunk } from "../../store/reviews";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
@@ -9,10 +11,19 @@ export default function AnimeDetails() {
   const anime = useSelector((state) => state.anime.anime);
   const malAnime = useSelector((state) => state.jikan.anime.data);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    dispatch(getMalAnimeThunk(malAnimeId)).then(() => {
+    dispatch(getAnimeThunk(malAnimeId)).then((anime) => {
       setIsLoaded(true);
+    });
+    dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
+      if (anime.status) {
+      } else {
+        dispatch(getAnimeReviewsThunk(anime.id)).then((reviews) => {
+          setReviews(reviews.reviews);
+        });
+      }
     });
   }, [dispatch, malAnimeId]);
 
@@ -33,7 +44,17 @@ export default function AnimeDetails() {
       <div>
         <h2>Reviews</h2>
         <ul>
-          <li>Review 1</li>
+          {!reviews && <li>No reviews yet!</li>}
+          {reviews &&
+            reviews.map((review) => {
+              return (
+                <li key={`review-${review.id}`}>
+                  <div>{review.user.username}</div>
+                  <div>★{review.rating}</div>
+                  <div>{review.review}</div>
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>
