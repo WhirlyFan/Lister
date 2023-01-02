@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getAnimeThunk } from "../../store/jikan";
 import { getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk } from "../../store/reviews";
+import styles from "./AnimeDetails.module.css";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
@@ -48,9 +49,11 @@ export default function AnimeDetails() {
           {reviews &&
             reviews.map((review) => {
               return (
-                <li key={`review-${review.id}`}>
-                  <div>{review.user.username}</div>
-                  <div>★{review.rating}</div>
+                <li key={`review-${review.id}`} className={styles.review}>
+                  <div className={styles.review_info}>
+                    <div>{review.user.username}</div>
+                    <div>★{review.rating}</div>
+                  </div>
                   <div>{review.review}</div>
                 </li>
               );
