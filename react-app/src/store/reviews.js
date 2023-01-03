@@ -4,6 +4,7 @@ import { normalize } from "./lists";
 const GET_ALL_REVIEWS = "review/GET_ALL_REVIEWS";
 const GET_REVIEW = "review/GET_REVIEW";
 const GET_REVIEWS = "review/GET_REVIEWS";
+const GET_ANIME_REVIEWS = "review/GET_ANIME_REVIEWS";
 
 //action creators
 
@@ -24,6 +25,13 @@ export const getReview = (payload) => {
 export const getReviews = (payload) => {
   return {
     type: GET_REVIEWS,
+    payload,
+  };
+};
+
+export const getAnimeReviews = (payload) => {
+  return {
+    type: GET_ANIME_REVIEWS,
     payload,
   };
 };
@@ -59,6 +67,16 @@ export const getReviewsThunk = (id) => async (dispatch) => {
   return data;
 };
 
+export const getAnimeReviewsThunk = (id) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/anime/${id}`);
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  dispatch(getAnimeReviews(data));
+  return data;
+};
+
 export const createReviewThunk = (review) => async (dispatch) => {
   const res = await fetch(`/api/reviews`, {
     method: "POST",
@@ -75,7 +93,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
   return data;
 };
 
-export const updateReviewThunk = (review) => async (dispatch) => {
+export const editReviewThunk = (review) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${review.id}`, {
     method: "PUT",
     headers: {
@@ -118,6 +136,8 @@ export default function reviewReducer(state = initial_state, action) {
       return { ...state, allReviews: { ...normalizedAllReviews } };
     case GET_REVIEWS:
       return { ...state, ...action.payload };
+    case GET_ANIME_REVIEWS:
+      return { ...state, animeReviews: { ...action.payload } };
     default:
       return state;
   }

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteListThunk,
   editListThunk,
-  getListsThunk,
 } from "../../store/lists";
 // import styles from "./ListForm.module.css";
 

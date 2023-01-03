@@ -1,32 +1,34 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, Review
+from app.models import db, Review, User
 from .auth_routes import validation_errors_to_error_messages, authorized
 from app.forms import CreateReview, UpdateReview
 
 review_routes = Blueprint("reviews", __name__)
 
 
-@review_routes.route("", methods=["GET"])
-@login_required
-def reviews():
-    """
-    Query for all reviews and returns them in a list of review dictionaries
-    """
-    reviews = Review.query.all()
-    return {'reviews': [review.to_dict() for review in reviews]}
+# @review_routes.route("", methods=["GET"])
+# @login_required
+# def reviews():
+#     """
+#     Query for all reviews and returns them in a list of review dictionaries
+#     """
+#     reviews = Review.query.all()
+#     return {'reviews': [review.to_dict() for review in reviews]}
 
 
 @review_routes.route("/<int:id>", methods=["GET"])
-@login_required
 def review(id):
     """
     Query for a review by id and returns that review in a dictionary
     """
+    response = []
     review = Review.query.get(id)
     if not review:
         return {"errors": ["Review not found"]}, 404
-    return review.to_dict()
+    user = User.query.get(review.user_id)
+    response.append({**review.to_dict(), "user": user.to_dict()})
+    return {'review': response}
 
 
 @review_routes.route("/users/<int:id>", methods=["GET"])
@@ -39,6 +41,21 @@ def user_reviews(id):
     if not reviews:
         return {"errors": ["No reviews found"]}, 404
     return {'reviews': [review.to_dict() for review in reviews]}
+
+
+@review_routes.route("/anime/<int:id>", methods=["GET"])
+def anime_reviews(id):
+    """
+    Query for all reviews for an anime and returns them in a list of review dictionaries
+    """
+    response = []
+    reviews = Review.query.filter(Review.anime_id == id).all()
+    if not reviews:
+        return {"errors": ["No reviews found"]}, 404
+    for review in reviews:
+        user = User.query.get(review.user_id)
+        response.append({**review.to_dict(), "user": user.to_dict()})
+    return {'reviews': response}
 
 
 @review_routes.route("/<int:id>", methods=["DELETE"])
