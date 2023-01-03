@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAnimeThunk } from "../../store/jikan";
-import { getMalAnimeThunk } from "../../store/anime";
+import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
 import ReviewModal from "../ReviewModal";
@@ -26,7 +26,6 @@ export default function AnimeDetails() {
     });
     dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
       setAnime(anime);
-      console.log(anime)
       if (!anime.status) {
         dispatch(getAnimeReviewsThunk(anime.id)).then((reviews) => {
           setReviews(reviews.reviews);
@@ -41,21 +40,40 @@ export default function AnimeDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const review = dispatch(getAnimeThunk(anime.id));
-    // if (!review) {
-    //   console.log("test");
-    // }
-    dispatch(
-      createReviewThunk({ rating, review: rev, anime_id: anime.id })
-    ).then((data) => {
-      if (data.errors) {
-        setErrors(data.errors);
-      } else {
-        setHasClicked(!hasClicked);
-        setRev("");
-        setRating("");
-      }
-    });
+    console.log(anime);
+    if (anime.status) {
+      dispatch(
+        addAnimeThunk({
+          mal_id: malAnimeId,
+          image: malAnime.images.jpg.image_url,
+          title: malAnime.title,
+        })
+      ).then((anime) => {
+        dispatch(
+          createReviewThunk({ rating, review: rev, anime_id: anime.id })
+        ).then((data) => {
+          if (data.errors) {
+            setErrors(data.errors);
+          } else {
+            setHasClicked(!hasClicked);
+            setRev("");
+            setRating("");
+          }
+        });
+      });
+    } else {
+      dispatch(
+        createReviewThunk({ rating, review: rev, anime_id: anime.id })
+      ).then((data) => {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setHasClicked(!hasClicked);
+          setRev("");
+          setRating("");
+        }
+      });
+    }
   };
 
   return (
@@ -123,7 +141,7 @@ export default function AnimeDetails() {
               onChange={(e) => setRating(e.target.value)}
               required
             />
-            <button type="submit">Create Review</button>
+            <button type="submit">Submit</button>
           </form>
         </div>
       </div>

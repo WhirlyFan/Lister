@@ -39,9 +39,6 @@ export const getAnimeReviews = (payload) => {
 //thunks
 export const getAllReviewsThunk = () => async (dispatch) => {
   const res = await fetch(`/api/reviews`);
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getAllReviews(data));
   return data;
@@ -49,9 +46,6 @@ export const getAllReviewsThunk = () => async (dispatch) => {
 
 export const getReviewThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${id}`);
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getReview(data));
   return data;
@@ -59,9 +53,6 @@ export const getReviewThunk = (id) => async (dispatch) => {
 
 export const getReviewsThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/users/${id}`);
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
@@ -69,9 +60,6 @@ export const getReviewsThunk = (id) => async (dispatch) => {
 
 export const getAnimeReviewsThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/anime/${id}`);
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getAnimeReviews(data));
   return data;
@@ -85,9 +73,6 @@ export const createReviewThunk = (review) => async (dispatch) => {
     },
     body: JSON.stringify(review),
   });
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
@@ -101,9 +86,6 @@ export const editReviewThunk = (review) => async (dispatch) => {
     },
     body: JSON.stringify(review),
   });
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
@@ -113,9 +95,6 @@ export const deleteReviewThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${id}`, {
     method: "DELETE",
   });
-  // if (!res.ok) {
-  //   throw res;
-  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
