@@ -1,18 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAnimeThunk as getMalAnimeThunk } from "../../store/jikan";
+import { getAnimeThunk } from "../../store/jikan";
+import { getMalAnimeThunk } from "../../store/anime";
+import { getAnimeReviewsThunk } from "../../store/reviews";
+import styles from "./AnimeDetails.module.css";
+import ReviewModal from "../ReviewModal";
+import AddReviewModal from "../AddReviewModal";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
   const { malAnimeId } = useParams();
   const anime = useSelector((state) => state.anime.anime);
   const malAnime = useSelector((state) => state.jikan.anime.data);
+  const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [reviews, setReviews] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
 
   useEffect(() => {
-    dispatch(getMalAnimeThunk(malAnimeId)).then(() => {
+    dispatch(getAnimeThunk(malAnimeId)).then((anime) => {
       setIsLoaded(true);
+    });
+    dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
+      if (anime.status) {
+      } else {
+        dispatch(getAnimeReviewsThunk(anime.id)).then((reviews) => {
+          setReviews(reviews.reviews);
+        });
+      }
     });
   }, [dispatch, malAnimeId]);
 
@@ -31,9 +47,36 @@ export default function AnimeDetails() {
         <p>{malAnime.synopsis}</p>
       </div>
       <div>
-        <h2>Reviews</h2>
+        <div className={styles.review_header}>
+          <h2>Reviews</h2>
+          <AddReviewModal
+            hasClicked={hasClicked}
+            setHasClicked={setHasClicked}
+          />
+        </div>
         <ul>
-          <li>Review 1</li>
+          {!reviews && <li>No reviews yet!</li>}
+          {reviews &&
+            reviews.map((review) => {
+              return (
+                <li key={`review-${review.id}`} className={styles.review}>
+                  <div className={styles.review_info}>
+                    <div>{review.user.username}</div>
+                    <div>★{review.rating}</div>
+                  </div>
+                  <div>{review.review}</div>
+                  {user && user.id === review.user_id && (
+                    <div>
+                      <ReviewModal
+                        review={review}
+                        hasClicked={hasClicked}
+                        setHasClicked={setHasClicked}
+                      />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
         </ul>
       </div>
     </div>

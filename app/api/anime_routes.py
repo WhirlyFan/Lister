@@ -29,6 +29,17 @@ def anime(id):
     return anime.to_dict()
 
 
+@anime_routes.route("/mal/<int:mal_id>", methods=["GET"])
+def mal_anime(mal_id):
+    """
+    Query for an anime by mal_id in Lister and returns that anime in a dictionary
+    """
+    anime = Anime.query.filter(Anime.mal_id == mal_id).first()
+    if not anime:
+        return {"errors": ["Anime not found"]}, 404
+    return anime.to_dict()
+
+
 @anime_routes.route("/lists/<int:id>", methods=["GET"])
 @login_required
 def list_animes(id):
