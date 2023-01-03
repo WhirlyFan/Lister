@@ -28,9 +28,13 @@ export default function ReviewForm({
       review: rev,
       rating: rating,
     };
-    dispatch(editReviewThunk(payload)).then((e) => {
-      setHasClicked(!hasClicked);
-      setShowModal(false);
+    dispatch(editReviewThunk(payload)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setHasClicked(!hasClicked);
+        setShowModal(false);
+      }
     });
   };
 

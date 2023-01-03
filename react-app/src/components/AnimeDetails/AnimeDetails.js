@@ -26,8 +26,8 @@ export default function AnimeDetails() {
     });
     dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
       setAnime(anime);
-      if (anime.status) {
-      } else {
+      console.log(anime)
+      if (!anime.status) {
         dispatch(getAnimeReviewsThunk(anime.id)).then((reviews) => {
           setReviews(reviews.reviews);
         });
@@ -35,12 +35,16 @@ export default function AnimeDetails() {
     });
   }, [dispatch, malAnimeId, hasClicked]);
 
-  if (!anime || !malAnime || !isLoaded) {
+  if (!malAnime || !isLoaded) {
     return null;
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // const review = dispatch(getAnimeThunk(anime.id));
+    // if (!review) {
+    //   console.log("test");
+    // }
     dispatch(
       createReviewThunk({ rating, review: rev, anime_id: anime.id })
     ).then((data) => {
