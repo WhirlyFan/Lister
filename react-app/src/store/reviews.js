@@ -85,9 +85,9 @@ export const createReviewThunk = (review) => async (dispatch) => {
     },
     body: JSON.stringify(review),
   });
-  if (!res.ok) {
-    throw res;
-  }
+  // if (!res.ok) {
+  //   throw res;
+  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
@@ -101,9 +101,9 @@ export const editReviewThunk = (review) => async (dispatch) => {
     },
     body: JSON.stringify(review),
   });
-  if (!res.ok) {
-    throw res;
-  }
+  // if (!res.ok) {
+  //   throw res;
+  // }
   const data = await res.json();
   dispatch(getReviews(data));
   return data;
