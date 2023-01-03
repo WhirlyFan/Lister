@@ -13,7 +13,7 @@ def seed_lists_and_animes():
         owner_id=1, name='On Hold', private=False
     )
     dropped = List(
-        owner_id=1, name='Dropped', private=False
+        owner_id=1, name='Favorites', private=False
     )
     plan_to_watch = List(
         owner_id=1, name='Plan to Watch', private=False
@@ -28,7 +28,7 @@ def seed_lists_and_animes():
         owner_id=2, name='On Hold', private=False
     )
     dropped2 = List(
-        owner_id=2, name='Dropped', private=False
+        owner_id=2, name='Favorites', private=False
     )
     plan_to_watch2 = List(
         owner_id=2, name='Plan to Watch', private=False
@@ -48,11 +48,16 @@ def seed_lists_and_animes():
         mal_id=20, title="Naruto", image="https://cdn.myanimelist.net/images/anime/13/17405.jpg"
     )
 
+    one_piece = Anime(
+        mal_id=21, title="One Piece", image="https://cdn.myanimelist.net/images/anime/6/73245.jpg"
+    )
+
     db.session.add_all([full_metal_alchemist, demon_slayer, naruto])
     db.session.commit()
 
     completed.animes.append(full_metal_alchemist)
     completed.animes.append(demon_slayer)
+    completed.animes.append(one_piece)
     currently_watching.animes.append(naruto)
 
     completed2.animes.append(naruto)

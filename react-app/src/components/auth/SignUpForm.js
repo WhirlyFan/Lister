@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import { createListThunk } from "../../store/lists";
+import { createListThunk } from "../../store/lists";
 import { signUp } from "../../store/session";
 
 const SignUpForm = () => {
@@ -21,6 +21,12 @@ const SignUpForm = () => {
     );
     if (data) {
       setErrors(data);
+    } else {
+      dispatch(createListThunk({ name: "Currently Watching", private: false }));
+      dispatch(createListThunk({ name: "Completed", private: false }));
+      dispatch(createListThunk({ name: "On Hold", private: false }));
+      dispatch(createListThunk({ name: "Favorites", private: false }));
+      dispatch(createListThunk({ name: "Plan to Watch", private: false }));
     }
   };
 

@@ -32,7 +32,6 @@ export default function ListForm({
         setHasClicked(!hasClicked);
         setAnimes(animes);
       })
-      // .then(dispatch(getListsThunk(list.owner_id)))
       .catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
       });
@@ -40,17 +39,11 @@ export default function ListForm({
 
   const handleDelete = (id) => {
     dispatch(deleteListThunk(id)).then(() => {
-      dispatch(getAnimesByUserThunk(list.owner_id)).then((animes) => {
-        setAnimes(animes.animes);
+      dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+        setAnimes(res.animes);
       });
-      // setHasClicked(!hasClicked);
     });
     setShowModal(false);
-
-    // .then(dispatch(getListsThunk(list.owner_id)))
-    // .catch((res) => {
-    //   if (res.data && res.data.errors) setErrors(res.data.errors);
-    // });
   };
 
   return (
