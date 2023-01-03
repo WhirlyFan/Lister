@@ -16,6 +16,7 @@ export default function AnimeDetails() {
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [reviews, setReviews] = useState(null);
+  const [hasClicked, setHasClicked] = useState(false);
 
   useEffect(() => {
     dispatch(getAnimeThunk(malAnimeId)).then((anime) => {
@@ -48,7 +49,10 @@ export default function AnimeDetails() {
       <div>
         <div className={styles.review_header}>
           <h2>Reviews</h2>
-          <AddReviewModal />
+          <AddReviewModal
+            hasClicked={hasClicked}
+            setHasClicked={setHasClicked}
+          />
         </div>
         <ul>
           {!reviews && <li>No reviews yet!</li>}
@@ -63,7 +67,11 @@ export default function AnimeDetails() {
                   <div>{review.review}</div>
                   {user && user.id === review.user_id && (
                     <div>
-                      <ReviewModal />
+                      <ReviewModal
+                        review={review}
+                        hasClicked={hasClicked}
+                        setHasClicked={setHasClicked}
+                      />
                     </div>
                   )}
                 </li>

@@ -93,7 +93,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
   return data;
 };
 
-export const updateReviewThunk = (review) => async (dispatch) => {
+export const editReviewThunk = (review) => async (dispatch) => {
   const res = await fetch(`/api/reviews/${review.id}`, {
     method: "PUT",
     headers: {
