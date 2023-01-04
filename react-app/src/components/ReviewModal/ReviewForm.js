@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+// import { useParams, useHistory } from "react-router-dom";
 import {
   editReviewThunk,
-  getReviewsThunk,
+  // getReviewsThunk,
   deleteReviewThunk,
 } from "../../store/reviews";
 
@@ -14,12 +14,12 @@ export default function ReviewForm({
   setShowModal,
 }) {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { malAnimeId } = useParams();
+  // const history = useHistory();
+  // const { malAnimeId } = useParams();
   const [rev, setRev] = useState(review.review);
   const [rating, setRating] = useState(review.rating);
   const [errors, setErrors] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,9 +28,13 @@ export default function ReviewForm({
       review: rev,
       rating: rating,
     };
-    dispatch(editReviewThunk(payload)).then((e) => {
-      setHasClicked(!hasClicked);
-      setShowModal(false);
+    dispatch(editReviewThunk(payload)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setHasClicked(!hasClicked);
+        setShowModal(false);
+      }
     });
   };
 

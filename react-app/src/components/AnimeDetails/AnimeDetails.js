@@ -2,39 +2,79 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAnimeThunk } from "../../store/jikan";
-import { getMalAnimeThunk } from "../../store/anime";
-import { getAnimeReviewsThunk } from "../../store/reviews";
+import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
+import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
 import ReviewModal from "../ReviewModal";
-import AddReviewModal from "../AddReviewModal";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
   const { malAnimeId } = useParams();
-  const anime = useSelector((state) => state.anime.anime);
+  const [anime, setAnime] = useState(null);
   const malAnime = useSelector((state) => state.jikan.anime.data);
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [reviews, setReviews] = useState(null);
   const [hasClicked, setHasClicked] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [rating, setRating] = useState("");
+  const [rev, setRev] = useState("");
 
   useEffect(() => {
-    dispatch(getAnimeThunk(malAnimeId)).then((anime) => {
+    dispatch(getAnimeThunk(malAnimeId)).then(() => {
       setIsLoaded(true);
     });
     dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
-      if (anime.status) {
-      } else {
+      setAnime(anime);
+      if (!anime.status) {
         dispatch(getAnimeReviewsThunk(anime.id)).then((reviews) => {
           setReviews(reviews.reviews);
         });
       }
     });
-  }, [dispatch, malAnimeId]);
+  }, [dispatch, malAnimeId, hasClicked]);
 
-  if (!anime || !malAnime || !isLoaded) {
+  if (!malAnime || !isLoaded) {
     return null;
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(anime);
+    if (anime.status) {
+      dispatch(
+        addAnimeThunk({
+          mal_id: malAnimeId,
+          image: malAnime.images.jpg.image_url,
+          title: malAnime.title,
+        })
+      ).then((anime) => {
+        dispatch(
+          createReviewThunk({ rating, review: rev, anime_id: anime.id })
+        ).then((data) => {
+          if (data.errors) {
+            setErrors(data.errors);
+          } else {
+            setHasClicked(!hasClicked);
+            setRev("");
+            setRating("");
+          }
+        });
+      });
+    } else {
+      dispatch(
+        createReviewThunk({ rating, review: rev, anime_id: anime.id })
+      ).then((data) => {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setHasClicked(!hasClicked);
+          setRev("");
+          setRating("");
+        }
+      });
+    }
+  };
 
   return (
     <div>
@@ -49,10 +89,6 @@ export default function AnimeDetails() {
       <div>
         <div className={styles.review_header}>
           <h2>Reviews</h2>
-          <AddReviewModal
-            hasClicked={hasClicked}
-            setHasClicked={setHasClicked}
-          />
         </div>
         <ul>
           {!reviews && <li>No reviews yet!</li>}
@@ -78,6 +114,36 @@ export default function AnimeDetails() {
               );
             })}
         </ul>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <ul>
+              {errors.map((error, idx) => (
+                <li key={idx} className="error">
+                  {error}
+                </li>
+              ))}
+            </ul>
+            <label>Add Review</label>
+            <input
+              type="textarea"
+              name="add review"
+              value={rev}
+              onChange={(e) => setRev(e.target.value)}
+              required
+            />
+            <label>Rating</label>
+            <input
+              type="number"
+              name="rating"
+              min="1"
+              max="5"
+              value={rating}
+              onChange={(e) => setRating(e.target.value)}
+              required
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   );

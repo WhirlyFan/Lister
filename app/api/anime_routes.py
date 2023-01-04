@@ -82,6 +82,10 @@ def create_anime():
     """
     form = CreateAnime()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    if Anime.query.filter(Anime.mal_id == form.data['mal_id']).first():
+        return {"errors": ["Anime already exists"]}, 401
+
     if form.validate_on_submit():
         anime = Anime(
             mal_id=form.data['mal_id'],

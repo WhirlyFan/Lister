@@ -20,8 +20,19 @@ def username_exists(form, field):
         raise ValidationError('Username is already in use.')
 
 
+def password_match(form, field):
+    # Checking if passwords match
+    password = form.password.data
+    repeat_password = field.data
+    if password != repeat_password:
+        raise ValidationError('Passwords do not match.')
+
+
 class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[DataRequired(), username_exists])
     email = StringField('email', validators=[DataRequired(), user_exists])
-    password = StringField('password', validators=[DataRequired()])
+    password = StringField('password', validators=[
+                           DataRequired()])
+    repeat_password = StringField(
+        'repeat_password', validators=[DataRequired(), password_match])

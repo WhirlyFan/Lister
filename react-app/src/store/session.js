@@ -73,32 +73,34 @@ export const logout = () => async (dispatch) => {
   }
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
-  const response = await fetch("/api/auth/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  });
+export const signUp =
+  (username, email, password, repeatPassword) => async (dispatch) => {
+    const response = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+        repeat_password: repeatPassword,
+      }),
+    });
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(setUser(data));
-    return null;
-  } else if (response.status < 500) {
-    const data = await response.json();
-    if (data.errors) {
-      return data.errors;
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setUser(data));
+      return null;
+    } else if (response.status < 500) {
+      const data = await response.json();
+      if (data.errors) {
+        return data.errors;
+      }
+    } else {
+      return ["An error occurred. Please try again."];
     }
-  } else {
-    return ["An error occurred. Please try again."];
-  }
-};
+  };
 
 export const getUserThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`);
