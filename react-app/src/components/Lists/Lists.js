@@ -123,7 +123,7 @@ export default function Lists() {
                 <div
                   key={`anime-${anime.id}`}
                   className={styles.anime}
-                  onClick={() => animeDetails(anime.id)}
+                  onClick={() => animeDetails(anime.mal_id)}
                 >
                   <div>{anime.title}</div>
                 </div>

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteListThunk,
-  editListThunk,
-} from "../../store/lists";
+import { deleteListThunk, editListThunk } from "../../store/lists";
+import { getAnimesByUserThunk } from "../../store/anime";
 // import styles from "./ListForm.module.css";
 
 export default function ListForm({
@@ -29,12 +27,11 @@ export default function ListForm({
       private: priv,
     };
     dispatch(editListThunk(payload))
-      .then(() => {
+      .then((animes) => {
         setShowModal(false);
         setHasClicked(!hasClicked);
-        // setAnimes(animeArr);
+        setAnimes(animes);
       })
-      // .then(dispatch(getListsThunk(list.owner_id)))
       .catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
       });
@@ -42,16 +39,11 @@ export default function ListForm({
 
   const handleDelete = (id) => {
     dispatch(deleteListThunk(id)).then(() => {
-      setAnimes(animeArr);
-
-      // setHasClicked(!hasClicked);
+      dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+        setAnimes(res.animes);
+      });
     });
     setShowModal(false);
-
-    // .then(dispatch(getListsThunk(list.owner_id)))
-    // .catch((res) => {
-    //   if (res.data && res.data.errors) setErrors(res.data.errors);
-    // });
   };
 
   return (

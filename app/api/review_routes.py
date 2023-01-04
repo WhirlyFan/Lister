@@ -74,30 +74,32 @@ def delete_review(id):
     return {"message": "Successfully deleted review"}
 
 
-@review_routes.route("/anime/<int:id>", methods=["POST"])
+@review_routes.route("", methods=["POST"])
 @login_required
-def create_review(id):
+def create_review():
     """
-    Create a review
+    Create a new review
     """
-
-    review = Review.query.filter(
-        Review.user_id == current_user.id, Review.anime_id == id).first()
-    if review:
-        return {"errors": ["Review already exists"]}, 401
-
     form = CreateReview()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    reviews = Review.query.filter(
+        Review.user_id == current_user.id).all()
+    for review in reviews:
+        if review.anime_id == form.data['anime_id']:
+            return {"errors": ["You have already reviewed this anime"]}, 401
+
     if form.validate_on_submit():
         review = Review(
             user_id=current_user.id,
-            anime_id=id,
+            anime_id=form.data['anime_id'],
             rating=form.data['rating'],
             review=form.data['review']
         )
         db.session.add(review)
         db.session.commit()
         return review.to_dict()
+    print(form.errors)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

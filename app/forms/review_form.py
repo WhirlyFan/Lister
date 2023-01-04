@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import Review
 
@@ -14,6 +14,7 @@ class CreateReview(FlaskForm):
         min=3, max=255, message='Review must be between 3 and 255 characters long')])
     rating = StringField('rating', validators=[
                          DataRequired(), rating_validator])
+    anime_id = IntegerField('anime_id', validators=[DataRequired()])
     submit = SubmitField('Create Review')
 
 

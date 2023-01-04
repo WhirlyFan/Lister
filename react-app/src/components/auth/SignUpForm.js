@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import { createListThunk } from "../../store/lists";
+import { createListThunk } from "../../store/lists";
 import { signUp } from "../../store/session";
 
 const SignUpForm = () => {
@@ -16,11 +16,17 @@ const SignUpForm = () => {
   //! need to add default lists to the user
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
-      if (data) {
-        setErrors(data);
-      }
+    const data = await dispatch(
+      signUp(username, email, password, repeatPassword)
+    );
+    if (data) {
+      setErrors(data);
+    } else {
+      dispatch(createListThunk({ name: "Currently Watching", private: false }));
+      dispatch(createListThunk({ name: "Completed", private: false }));
+      dispatch(createListThunk({ name: "On Hold", private: false }));
+      dispatch(createListThunk({ name: "Favorites", private: false }));
+      dispatch(createListThunk({ name: "Plan to Watch", private: false }));
     }
   };
 
@@ -41,36 +47,6 @@ const SignUpForm = () => {
   };
 
   if (user) {
-    // dispatch(
-    //   createListThunk({
-    //     name: "Currently Watching",
-    //     private: false,
-    //   })
-    // );
-    // dispatch(
-    //   createListThunk({
-    //     name: "Completed",
-    //     private: false,
-    //   })
-    // );
-    // dispatch(
-    //   createListThunk({
-    //     name: "On Hold",
-    //     private: false,
-    //   })
-    // );
-    // dispatch(
-    //   createListThunk({
-    //     name: "Dropped",
-    //     private: false,
-    //   })
-    // );
-    // dispatch(
-    //   createListThunk({
-    //     name: "Plan to Watch",
-    //     private: false,
-    //   })
-    // );
     return <Redirect to="/" />;
   }
 
@@ -88,6 +64,7 @@ const SignUpForm = () => {
           name="username"
           onChange={updateUsername}
           value={username}
+          required
         ></input>
       </div>
       <div>
@@ -97,6 +74,7 @@ const SignUpForm = () => {
           name="email"
           onChange={updateEmail}
           value={email}
+          required
         ></input>
       </div>
       <div>
@@ -106,6 +84,7 @@ const SignUpForm = () => {
           name="password"
           onChange={updatePassword}
           value={password}
+          required
         ></input>
       </div>
       <div>
@@ -115,7 +94,7 @@ const SignUpForm = () => {
           name="repeat_password"
           onChange={updateRepeatPassword}
           value={repeatPassword}
-          required={true}
+          required
         ></input>
       </div>
       <button type="submit">Sign Up</button>
