@@ -25,7 +25,7 @@ export default function Lists() {
       dispatch(getListsThunk(userId)).then(() => {
         setIsLoaded(true);
       });
-      dispatch(getAnimesByUserThunk(userId));
+      dispatch(getAnimesByUserThunk(userId))
       dispatch(getUserThunk(userId));
     }
   }, [dispatch, user, userId, animes, hasClicked]);
