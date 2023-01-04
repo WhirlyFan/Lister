@@ -107,8 +107,6 @@ def delete_anime(id):
     anime = Anime.query.get(id)
     if not anime:
         return {"errors": ["Anime not found"]}, 404
-    if not authorized(anime.user_id):
-        return {"errors": ["Unauthorized"]}, 401
     db.session.delete(anime)
     db.session.commit()
     return {"message": "Successfully deleted anime"}
@@ -134,3 +132,24 @@ def edit_anime(id):
         db.session.commit()
         return anime.to_dict()
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+
+
+@anime_routes.route("/<int:anime_id>/lists/<int:list_id>", methods=["POST"])
+@login_required
+def add_anime(anime_id, list_id):
+    """
+    Add a anime to a list
+    """
+    anime = Anime.query.get(anime_id)
+    if not anime:
+        return {"errors": ["Anime not found"]}, 404
+    list = List.query.get(list_id)
+    if not list:
+        return {"errors": ["List not found"]}, 404
+    if not authorized(list.owner_id):
+        return {"errors": ["Unauthorized"]}, 401
+    if anime in list.animes:
+        return {"errors": ["Anime already in list"]}, 401
+    list.animes.append(anime)
+    db.session.commit()
+    return anime.to_dict()
