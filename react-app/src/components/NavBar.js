@@ -11,7 +11,7 @@ const NavBar = () => {
     <nav className={styles.nav}>
       <div className={styles.nav_top}>
         <NavLink to="/" exact={true} activeClassName="active">
-          Home
+          Lister
         </NavLink>
         {!user && (
           <div className={styles.nav_right}>

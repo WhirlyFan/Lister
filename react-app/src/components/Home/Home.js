@@ -47,35 +47,75 @@ export default function Home() {
       <h3>Sign up or log in to get started!</h3>
       <div>
         <h2>Top Airing Anime</h2>
-        {topAiringAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
-        <h2>Top Upcoming Anime</h2>
-        {topUpcomingAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              <th>Add to List</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topAiringAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+        </table>
         <h2>Most Popular Anime</h2>
-        {mostPopularAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              <th>Add to List</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mostPopularAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+        <h2>Top Upcoming Anime</h2>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              <th>Add to List</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topUpcomingAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+          {/* <tfoot></tfoot> */}
+        </table>
       </div>
     </div>
   );

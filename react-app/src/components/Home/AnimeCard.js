@@ -1,7 +1,8 @@
 import styles from "./Home.module.css";
 import { useHistory } from "react-router-dom";
+import AddAnimeModal from "../AddAnimeModal";
 
-export default function AnimeCard({ anime, index }) {
+export default function AnimeCard({ anime, index, top }) {
   const history = useHistory();
 
   const animeDetails = (id) => {
@@ -9,16 +10,31 @@ export default function AnimeCard({ anime, index }) {
   };
 
   return (
-    <div
-      className={styles.anime}
-      onClick={() => {
-        animeDetails(anime.mal_id);
-      }}
-    >
-      <div>
-        {`${index + 1}: `}
+    <tr className={styles.anime}>
+      {top && <td>{anime.rank}</td>}
+      {!top && <td>{index + 1}</td>}
+      <td
+        className={styles.image}
+        onClick={() => {
+          animeDetails(anime.mal_id);
+        }}
+      >
+        <img src={anime.images.jpg.image_url} alt={anime.title} />
+      </td>
+      <td
+        className={styles.title}
+        onClick={() => {
+          animeDetails(anime.mal_id);
+        }}
+      >
         {anime.title}
-      </div>
-    </div>
+      </td>
+      {/* fix this */}
+      {!anime.score && <td>n/a</td>}
+      {anime.score && <td>{anime.score}</td>}
+      <td>
+        <AddAnimeModal />
+      </td>
+    </tr>
   );
 }

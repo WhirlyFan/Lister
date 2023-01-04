@@ -1,0 +1,12 @@
+.image > *{
+    width: 5vw;
+    height: auto;
+}
+
+.table {
+    width: 100%;
+}
+
+.title {
+    word-wrap: break-word;
+}

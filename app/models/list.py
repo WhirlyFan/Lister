@@ -50,16 +50,6 @@ class List(db.Model):
     def _name(self, name):
         self.name = name
 
-    def to_dict_base(self):
-        return {
-            'id': self.id,
-            'owner_id': self.owner_id,
-            'name': self.name,
-            'private': self.private,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
-        }
-
     def to_dict(self):
         return {
             'id': self.id,
