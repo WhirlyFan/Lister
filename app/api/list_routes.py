@@ -36,7 +36,7 @@ def user_lists(id):
     Query for all lists owned by a user and returns them in a list of list dictionaries
     """
     lists = List.query.filter(List.owner_id == id).all()
-    if id != current_user.id:
+    if current_user.is_anonymous or id != current_user.id:
         lists = [list for list in lists if not list.private]
     if not lists:
         return {"errors": ["No lists found"]}, 404

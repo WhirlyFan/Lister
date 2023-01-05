@@ -22,14 +22,12 @@ export default function Lists() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (user) {
-      (async () => {
-        await dispatch(getListsThunk(userId));
-        await dispatch(getAnimesByUserThunk(userId));
-        await dispatch(getUserThunk(userId));
-        setIsLoaded(true);
-      })();
-    }
+    (async () => {
+      await dispatch(getListsThunk(userId));
+      await dispatch(getAnimesByUserThunk(userId));
+      await dispatch(getUserThunk(userId));
+      setIsLoaded(true);
+    })();
   }, [dispatch, user, userId, list, hasClicked]);
 
   if (!isLoaded) {

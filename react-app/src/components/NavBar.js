@@ -18,12 +18,12 @@ const NavBar = () => {
           <div className={styles.nav_right}>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
-                Login
+                <button>Login</button>
               </NavLink>
             </div>
             <div>
               <NavLink to="/sign-up" exact={true} activeClassName="active">
-                Sign Up
+                <button>Sign Up</button>
               </NavLink>
             </div>
           </div>
