@@ -8,7 +8,13 @@ import {
   removeAnimeFromListThunk,
 } from "../../store/anime";
 
-export default function AddAnimeModal({ setShowModal, anime, listMode }) {
+export default function AddAnimeModal({
+  setShowModal,
+  anime,
+  list,
+  setList,
+  listMode,
+}) {
   const dispatch = useDispatch();
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
@@ -25,7 +31,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
   if (!Object.keys(listsArr).length || !isLoaded) {
     return null;
   }
-  // need to add default value to select
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getMalAnimeThunk(anime.mal_id)).then((data) => {
@@ -50,6 +56,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
           if (data.errors) {
             setErrors(data.errors);
           } else {
+            if (listMode) setList(data.list);
             setShowModal(false);
           }
         });
@@ -58,14 +65,14 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
   };
 
   const handleDelete = () => {
-    console.log(anime, listId)
-    // dispatch(removeAnimeFromListThunk(anime.id, listId)).then((data) => {
-    //   if (data.errors) {
-    //     setErrors(data.errors);
-    //   } else {
-    //     setShowModal(false);
-    //   }
-    // });
+    dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setList(data.list);
+        setShowModal(false);
+      }
+    });
   };
 
   return (
@@ -91,7 +98,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
         })}
       </select>
       <button type="submit">Submit</button>
-      {/* {listMode && (
+      {listMode && (
         <button
           type="button"
           onClick={() => {
@@ -100,7 +107,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
         >
           Delete
         </button>
-      )} */}
+      )}
     </form>
   );
 }
