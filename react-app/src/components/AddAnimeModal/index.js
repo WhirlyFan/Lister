@@ -1,19 +1,19 @@
-// import React, { useState } from 'react';
-// import { Modal } from '../../context/Modal';
-// import AddAnimeForm from './AddAnimeForm';
-// function AddAnimeModal() {
-//   const [showModal, setShowModal] = useState(false);
+import React, { useState } from "react";
+import { Modal } from "../../context/Modal";
+import AddAnimeForm from "./AddAnimeForm";
+function AddAnimeModal({anime}) {
+  const [showModal, setShowModal] = useState(false);
 
-//   return (
-//     <>
-//       <button onClick={() => setShowModal(true)}>+</button>
-//       {showModal && (
-//         <Modal onClose={() => setShowModal(false)}>
-//           <AddAnimeForm />
-//         </Modal>
-//       )}
-//     </>
-//   );
-// }
+  return (
+    <>
+      <button onClick={() => setShowModal(true)}>Add to List</button>
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <AddAnimeForm setShowModal={setShowModal} anime={anime}/>
+        </Modal>
+      )}
+    </>
+  );
+}
 
-// export default AddAnimeModal;
+export default AddAnimeModal;

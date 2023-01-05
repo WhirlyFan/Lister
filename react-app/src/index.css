@@ -13,6 +13,7 @@ li {
 body {
   display: block;
   margin: 0 300px;
+  font-family: "Montserrat", sans-serif;
 }
 
 @media (max-width: 1800px) {

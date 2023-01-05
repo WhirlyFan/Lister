@@ -33,9 +33,6 @@ class List(db.Model):
     updated_at = db.Column(
         db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    # animes = db.relationship(
-    #     "Anime", secondary=anime_list, cascade="delete-orphan", back_populates="lists"
-    # )
     animes = db.relationship(
         "Anime", secondary=anime_list, back_populates="lists"
     )
@@ -49,16 +46,6 @@ class List(db.Model):
     @_name.setter
     def _name(self, name):
         self.name = name
-
-    def to_dict_base(self):
-        return {
-            'id': self.id,
-            'owner_id': self.owner_id,
-            'name': self.name,
-            'private': self.private,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
-        }
 
     def to_dict(self):
         return {

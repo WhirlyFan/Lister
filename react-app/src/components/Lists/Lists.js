@@ -25,7 +25,7 @@ export default function Lists() {
       dispatch(getListsThunk(userId)).then(() => {
         setIsLoaded(true);
       });
-      dispatch(getAnimesByUserThunk(userId))
+      dispatch(getAnimesByUserThunk(userId));
       dispatch(getUserThunk(userId));
     }
   }, [dispatch, user, userId, animes, hasClicked]);
@@ -92,11 +92,13 @@ export default function Lists() {
         })}
       </div>
       <div className={styles.animes}>
-        <div className={styles.list_edit}>
-          {!animes.name && <h2>All Anime</h2>}
-          {animes.name && <h2>{animes.name}</h2>}
+        <div>
+          <div className={styles.anime_header}>
+            {!animes.name && <h2 className={styles.h2}>All Anime</h2>}
+            {animes.name && <h2>{animes.name}</h2>}
+          </div>
           {animes.name && user.id === Number(userId) && (
-            <ListModal
+            <ListModal className={styles.list_edit}
               list={animes}
               setAnimes={setAnimes}
               setHasClicked={setHasClicked}

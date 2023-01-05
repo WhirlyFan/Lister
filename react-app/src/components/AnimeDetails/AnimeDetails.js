@@ -40,7 +40,6 @@ export default function AnimeDetails() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(anime);
     if (anime.status) {
       dispatch(
         addAnimeThunk({

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getHomeThunk } from "../../store/jikan";
 import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
@@ -8,6 +8,7 @@ import AnimeCard from "./AnimeCard";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [topAiringAnime, setTopAiringAnime] = useState(false);
   const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);
@@ -47,35 +48,75 @@ export default function Home() {
       <h3>Sign up or log in to get started!</h3>
       <div>
         <h2>Top Airing Anime</h2>
-        {topAiringAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
-        <h2>Top Upcoming Anime</h2>
-        {topUpcomingAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              {user && (<th>Add to List</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {topAiringAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+        </table>
         <h2>Most Popular Anime</h2>
-        {mostPopularAnime.slice(0, 10).map((anime, index) => {
-          return (
-            <AnimeCard
-              key={`anime-${anime.mal_id}`}
-              anime={anime}
-              index={index}
-            />
-          );
-        })}
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              {user && (<th>Add to List</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {mostPopularAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+        <h2>Top Upcoming Anime</h2>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Score</th>
+              {user && (<th>Add to List</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {topUpcomingAnime.slice(0, 10).map((anime, index) => {
+              return (
+                <AnimeCard
+                  key={`anime-${anime.mal_id}`}
+                  anime={anime}
+                  index={index}
+                />
+              );
+            })}
+          </tbody>
+          {/* <tfoot></tfoot> */}
+        </table>
       </div>
     </div>
   );
