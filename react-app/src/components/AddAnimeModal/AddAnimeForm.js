@@ -5,20 +5,24 @@ import {
   addAnimeThunk,
   addAnimeToListThunk,
   getMalAnimeThunk,
+  removeAnimeFromListThunk,
 } from "../../store/anime";
 
-export default function AddAnimeModal({ setShowModal, anime }) {
+export default function AddAnimeModal({ setShowModal, anime, listMode }) {
   const dispatch = useDispatch();
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getListsThunk(user.id));
+    dispatch(getListsThunk(user.id)).then(() => {
+      setIsLoaded(true);
+    });
   }, [dispatch, user]);
 
-  if (!Object.keys(listsArr).length) {
+  if (!Object.keys(listsArr).length || !isLoaded) {
     return null;
   }
   // need to add default value to select
@@ -53,6 +57,17 @@ export default function AddAnimeModal({ setShowModal, anime }) {
     });
   };
 
+  const handleDelete = () => {
+    console.log(anime, listId)
+    // dispatch(removeAnimeFromListThunk(anime.id, listId)).then((data) => {
+    //   if (data.errors) {
+    //     setErrors(data.errors);
+    //   } else {
+    //     setShowModal(false);
+    //   }
+    // });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -63,8 +78,10 @@ export default function AddAnimeModal({ setShowModal, anime }) {
         ))}
       </ul>
       <label>Add to List</label>
-      {console.log(listsArr)}
       <select value={listId} onChange={(e) => setListId(e.target.value)}>
+        <option value="" disabled hidden>
+          --- Select a List ---
+        </option>
         {listsArr.map((list) => {
           return (
             <option key={`option-${list.id}`} value={list.id}>
@@ -74,6 +91,16 @@ export default function AddAnimeModal({ setShowModal, anime }) {
         })}
       </select>
       <button type="submit">Submit</button>
+      {/* {listMode && (
+        <button
+          type="button"
+          onClick={() => {
+            handleDelete();
+          }}
+        >
+          Delete
+        </button>
+      )} */}
     </form>
   );
 }
