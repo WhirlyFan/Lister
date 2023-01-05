@@ -127,6 +127,17 @@ export const addAnimeToListThunk = (animeId, listId) => async () => {
   return data;
 };
 
+export const removeAnimeFromListThunk = (animeId, listId) => async () => {
+  const res = await fetch(`/api/animes/${animeId}/lists/${listId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return data;
+}
+
 //reducer
 const initialState = {
   allAnimes: {},

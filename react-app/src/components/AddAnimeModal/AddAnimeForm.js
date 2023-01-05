@@ -5,6 +5,7 @@ import {
   addAnimeThunk,
   addAnimeToListThunk,
   getMalAnimeThunk,
+  removeAnimeFromListThunk,
 } from "../../store/anime";
 
 export default function AddAnimeModal({ setShowModal, anime, listMode }) {
@@ -57,7 +58,14 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
   };
 
   const handleDelete = () => {
-    console.log("test");
+    console.log(anime, listId)
+    // dispatch(removeAnimeFromListThunk(anime.id, listId)).then((data) => {
+    //   if (data.errors) {
+    //     setErrors(data.errors);
+    //   } else {
+    //     setShowModal(false);
+    //   }
+    // });
   };
 
   return (
@@ -83,7 +91,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
         })}
       </select>
       <button type="submit">Submit</button>
-      {listMode && (
+      {/* {listMode && (
         <button
           type="button"
           onClick={() => {
@@ -92,7 +100,7 @@ export default function AddAnimeModal({ setShowModal, anime, listMode }) {
         >
           Delete
         </button>
-      )}
+      )} */}
     </form>
   );
 }
