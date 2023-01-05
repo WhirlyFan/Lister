@@ -7,7 +7,7 @@ import {
   getMalAnimeThunk,
 } from "../../store/anime";
 
-export default function AddAnimeModal({ setShowModal, anime }) {
+export default function AddAnimeModal({ setShowModal, anime, listMode }) {
   const dispatch = useDispatch();
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
@@ -56,6 +56,10 @@ export default function AddAnimeModal({ setShowModal, anime }) {
     });
   };
 
+  const handleDelete = () => {
+    console.log("test");
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -66,7 +70,6 @@ export default function AddAnimeModal({ setShowModal, anime }) {
         ))}
       </ul>
       <label>Add to List</label>
-      {console.log(listsArr)}
       <select value={listId} onChange={(e) => setListId(e.target.value)}>
         <option value="" disabled hidden>
           --- Select a List ---
@@ -80,6 +83,16 @@ export default function AddAnimeModal({ setShowModal, anime }) {
         })}
       </select>
       <button type="submit">Submit</button>
+      {listMode && (
+        <button
+          type="button"
+          onClick={() => {
+            handleDelete();
+          }}
+        >
+          Delete
+        </button>
+      )}
     </form>
   );
 }

@@ -69,7 +69,9 @@ export default function ListForm({
         onChange={(e) => setPriv(e.target.checked)}
       />
       <button type="submit">Edit</button>
-      <button onClick={() => handleDelete(list.id)}>Delete</button>
+      <button type="button" onClick={() => handleDelete(list.id)}>
+        Delete
+      </button>
     </form>
   );
 }
