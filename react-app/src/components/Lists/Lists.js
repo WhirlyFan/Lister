@@ -79,13 +79,14 @@ export default function Lists() {
         </div>
         {listsArr.map((list) => {
           return (
-            <div key={`list-${list.id}`} className={styles.list_name}>
-              <div
-                onClick={() => {
-                  showAnime(list);
-                }}
-                className={styles.listName}
-              >
+            <div
+              key={`list-${list.id}`}
+              className={styles.list_name}
+              onClick={() => {
+                showAnime(list);
+              }}
+            >
+              <div className={styles.listName}>
                 {list.name}
                 {list.private && <i className="fas fa-lock"></i>}
               </div>
