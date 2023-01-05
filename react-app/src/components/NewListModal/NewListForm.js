@@ -10,6 +10,7 @@ export default function NewListForm({
   const dispatch = useDispatch();
   const [listName, setListName] = useState("");
   const [priv, setPriv] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,14 +18,25 @@ export default function NewListForm({
       name: listName,
       private: priv,
     };
-    dispatch(createListThunk(payload)).then(() => {
-      setShowModal(false);
-      setHasClicked(!hasClicked);
+    dispatch(createListThunk(payload)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setShowModal(false);
+        setHasClicked(!hasClicked);
+      }
     });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <ul>
+        {errors.map((error, idx) => (
+          <li key={idx} className="error">
+            {error}
+          </li>
+        ))}
+      </ul>
       <div>
         <label>List Name</label>
         <input
