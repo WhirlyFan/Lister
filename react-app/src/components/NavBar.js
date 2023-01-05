@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 import styles from "./NavBar.module.css";
+import lister from "../images/lister-title.png";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -11,7 +12,7 @@ const NavBar = () => {
     <nav className={styles.nav}>
       <div className={styles.nav_top}>
         <NavLink to="/" exact={true} activeClassName="active">
-          Lister
+          <img src={lister} alt={"logo"} className="logo"></img>
         </NavLink>
         {!user && (
           <div className={styles.nav_right}>
