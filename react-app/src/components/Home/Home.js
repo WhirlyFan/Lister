@@ -60,6 +60,7 @@ export default function Home() {
           </thead>
           <tbody>
             {topAiringAnime.slice(0, 10).map((anime, index) => {
+              // setCounter(counter + 1);
               return (
                 <AnimeCard
                   key={`anime-${anime.mal_id}`}

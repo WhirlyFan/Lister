@@ -47,3 +47,14 @@
   margin: 0;
   padding: 0;
 }
+
+.anime {
+  box-sizing: border-box;
+  display: flex;
+
+}
+
+.anime_image {
+  /* width: auto;
+  height: 10vw; */
+}
