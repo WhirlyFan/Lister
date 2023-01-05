@@ -13,12 +13,15 @@ export default function AddAnimeModal({ setShowModal, anime }) {
   const listsArr = useSelector((state) => state.lists.lists);
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(getListsThunk(user.id));
+    dispatch(getListsThunk(user.id)).then(() => {
+      setIsLoaded(true);
+    });
   }, [dispatch, user]);
 
-  if (!Object.keys(listsArr).length) {
+  if (!Object.keys(listsArr).length || !isLoaded) {
     return null;
   }
   // need to add default value to select
@@ -65,6 +68,9 @@ export default function AddAnimeModal({ setShowModal, anime }) {
       <label>Add to List</label>
       {console.log(listsArr)}
       <select value={listId} onChange={(e) => setListId(e.target.value)}>
+        <option value="" disabled hidden>
+          --- Select a List ---
+        </option>
         {listsArr.map((list) => {
           return (
             <option key={`option-${list.id}`} value={list.id}>

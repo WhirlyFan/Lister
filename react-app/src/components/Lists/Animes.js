@@ -29,12 +29,17 @@ export default function Animes({ animes, animeDetails }) {
           return (
             <div
               key={`anime-${anime.id}`}
-              className={styles.anime}
               onClick={() => animeDetails(anime.mal_id)}
+              className={styles.anime}
             >
-              <div>{anime.title}</div>
               <div>
-                <img src={anime.image} alt={anime.title} />
+                <img
+                  src={anime.image}
+                  alt={anime.title}
+                  className={styles.anime_image}
+                />
+
+                <div>{anime.title}</div>
               </div>
             </div>
           );
