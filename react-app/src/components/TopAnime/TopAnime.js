@@ -12,6 +12,7 @@ export default function Lists() {
   const [topAnime, setTopAnime] = useState(false);
   const [page, setPage] = useState(1);
   const [delay, setDelay] = useState(false);
+  const top = true;
 
   useEffect(() => {
     dispatch(getTopAnimeThunk(page))
@@ -43,14 +44,29 @@ export default function Lists() {
 
   return (
     <div>
-      {topAnime.map((anime, index) => (
-        <AnimeCard
-          key={`anime-${anime.mal_id}`}
-          anime={anime}
-          index={index}
-          onClick={() => animeDetails(anime.mal_id)}
-        />
-      ))}
+      <h2>Top Anime</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Score</th>
+            <th>Add to List</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topAnime.map((anime, index) => (
+            <AnimeCard
+              key={`anime-${anime.mal_id}`}
+              anime={anime}
+              index={index}
+              top={top}
+              onClick={() => animeDetails(anime.mal_id)}
+            />
+          ))}
+        </tbody>
+      </table>
       <div>Page: {page}</div>
       <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>
         Previous

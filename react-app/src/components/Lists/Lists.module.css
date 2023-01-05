@@ -26,11 +26,7 @@
 }
 
 .list_edit {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 20%;
+  align-items: left;
 }
 
 .list_header {
@@ -39,4 +35,26 @@
   align-items: center;
   width: 100%;
   height: 20%;
+}
+
+.anime_header > * {
+  background-color: #4065ba;
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+.anime {
+  box-sizing: border-box;
+  display: flex;
+
+}
+
+.anime_image {
+  /* width: auto;
+  height: 10vw; */
 }

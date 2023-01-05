@@ -18,7 +18,6 @@ def lists():
 
 
 @list_routes.route("/<int:id>", methods=["GET"])
-@login_required
 def list(id):
     """
     Query for a list by id and returns that list in a dictionary
@@ -32,7 +31,6 @@ def list(id):
 
 
 @list_routes.route("/users/<int:id>", methods=["GET"])
-@login_required
 def user_lists(id):
     """
     Query for all lists owned by a user and returns them in a list of list dictionaries
