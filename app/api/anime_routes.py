@@ -152,7 +152,8 @@ def add_anime(anime_id, list_id):
         return {"errors": ["Anime already in list"]}, 401
     list.animes.append(anime)
     db.session.commit()
-    return anime.to_dict()
+    return {"anime": anime.to_dict(), "list": list.to_dict()}
+
 
 @anime_routes.route("/<int:anime_id>/lists/<int:list_id>", methods=["DELETE"])
 @login_required
@@ -172,4 +173,4 @@ def remove_anime(anime_id, list_id):
         return {"errors": ["Anime not in list"]}, 401
     list.animes.remove(anime)
     db.session.commit()
-    return anime.to_dict()
+    return {"anime": anime.to_dict(), "list": list.to_dict()}
