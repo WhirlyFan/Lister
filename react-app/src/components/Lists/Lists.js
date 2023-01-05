@@ -79,13 +79,14 @@ export default function Lists() {
         </div>
         {listsArr.map((list) => {
           return (
-            <div key={`list-${list.id}`} className={styles.list_name}>
-              <div
-                onClick={() => {
-                  showAnime(list);
-                }}
-                className={styles.listName}
-              >
+            <div
+              key={`list-${list.id}`}
+              className={styles.list_name}
+              onClick={() => {
+                showAnime(list);
+              }}
+            >
+              <div className={styles.listName}>
                 {list.name}
                 {list.private && <i className="fas fa-lock"></i>}
               </div>
@@ -103,7 +104,7 @@ export default function Lists() {
             <ListModal
               className={styles.list_edit}
               list={list}
-              setAnimes={setList} //fix this later
+              setList={setList}
               setHasClicked={setHasClicked}
               hasClicked={hasClicked}
             />

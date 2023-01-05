@@ -34,6 +34,9 @@ export default function AddAnimeModal({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (listId === "") {
+      setErrors(["Please select a list."]);
+    }
     dispatch(getMalAnimeThunk(anime.mal_id)).then((data) => {
       if (data.status) {
         dispatch(
@@ -85,7 +88,13 @@ export default function AddAnimeModal({
         ))}
       </ul>
       <label>Add to List</label>
-      <select value={listId} onChange={(e) => setListId(e.target.value)}>
+      <select
+        value={listId}
+        onChange={(e) => {
+          setErrors([]);
+          setListId(e.target.value);
+        }}
+      >
         <option value="" disabled hidden>
           --- Select a List ---
         </option>

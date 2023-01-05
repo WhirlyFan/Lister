@@ -9,7 +9,8 @@ export default function NewListForm({
 }) {
   const dispatch = useDispatch();
   const [listName, setListName] = useState("");
-  const [priv, setPriv] = useState("");
+  const [priv, setPriv] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,16 +18,27 @@ export default function NewListForm({
       name: listName,
       private: priv,
     };
-    dispatch(createListThunk(payload)).then(() => {
-      setShowModal(false);
-      setHasClicked(!hasClicked);
+    dispatch(createListThunk(payload)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        setShowModal(false);
+        setHasClicked(!hasClicked);
+      }
     });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <ul>
+        {errors.map((error, idx) => (
+          <li key={idx} className="error">
+            {error}
+          </li>
+        ))}
+      </ul>
       <div>
-        <label htmlFor="listName">List Name</label>
+        <label>List Name</label>
         <input
           type="text"
           name="listName"
@@ -35,12 +47,12 @@ export default function NewListForm({
         />
       </div>
       <div>
-        <label htmlFor="listPrivate">Private</label>
+        <label>Private</label>
         <input
           type="checkbox"
           name="private"
           checked={priv}
-          onChange={(e) => setPriv(e.target.value)}
+          onChange={(e) => setPriv(e.target.checked)}
         />
       </div>
       <button type="submit">Create List</button>
