@@ -9,7 +9,6 @@ import {
 
 export default function AddAnimeModal({ setShowModal, anime }) {
   const dispatch = useDispatch();
-  const [listName, setListName] = useState("");
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
   const user = useSelector((state) => state.session.user);
