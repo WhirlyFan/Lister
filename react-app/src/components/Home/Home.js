@@ -9,6 +9,7 @@ import AnimeCard from "./AnimeCard";
 export default function Home() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
+  const listArr = useSelector((state) => state.lists.lists);
   const [isLoaded, setIsLoaded] = useState(false);
   const [topAiringAnime, setTopAiringAnime] = useState(false);
   const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);

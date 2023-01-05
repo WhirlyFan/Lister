@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import AddAnimeForm from "./AddAnimeForm";
-function AddAnimeModal() {
+function AddAnimeModal({anime}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -9,7 +9,7 @@ function AddAnimeModal() {
       <button onClick={() => setShowModal(true)}>Add to List</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <AddAnimeForm />
+          <AddAnimeForm setShowModal={setShowModal} anime={anime}/>
         </Modal>
       )}
     </>

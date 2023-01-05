@@ -100,19 +100,30 @@ export const getMalAnimeThunk = (mal_id) => async (dispatch) => {
   }
 };
 
-export const addAnimeThunk = (animeId, listId) => async (dispatch) => {
-  const res = await fetch(`/api/animes/${animeId}/lists/${listId}`, {
+export const addAnimeThunk = (anime) => async (dispatch) => {
+  const res = await fetch(`/api/animes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    // body: JSON.stringify(anime),
+    body: JSON.stringify(anime),
   });
   if (!res.ok) {
     throw res;
   }
   const data = await res.json();
   dispatch(getAnime(data));
+  return data;
+}
+
+export const addAnimeToListThunk = (animeId, listId) => async () => {
+  const res = await fetch(`/api/animes/${animeId}/lists/${listId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
   return data;
 };
 

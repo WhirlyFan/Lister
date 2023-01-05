@@ -36,7 +36,7 @@ export default function AnimeCard({ anime, index, top }) {
       {anime.score && <td>{anime.score}</td>}
       {user && (
         <td>
-          <AddAnimeModal />
+          <AddAnimeModal anime={anime}/>
         </td>
       )}
     </tr>
