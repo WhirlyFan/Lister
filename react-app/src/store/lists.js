@@ -64,9 +64,6 @@ export const createListThunk = (list) => async (dispatch) => {
     },
     body: JSON.stringify(list),
   });
-  if (!res.ok) {
-    throw res;
-  }
   const data = await res.json();
   // dispatch(getAllListsThunk(data));
   // dispatch(getListsThunk(data.id))
@@ -84,9 +81,6 @@ export const editListThunk = (list) => async (dispatch) => {
       name: list.name,
     }),
   });
-  if (!res.ok) {
-    throw res;
-  }
   const data = await res.json();
   // dispatch(getListsThunk(data.owner_id));
   return data;

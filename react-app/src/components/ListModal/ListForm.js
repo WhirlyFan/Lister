@@ -26,15 +26,15 @@ export default function ListForm({
       name,
       private: priv,
     };
-    dispatch(editListThunk(payload))
-      .then((animes) => {
+    dispatch(editListThunk(payload)).then((data) => {
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
         setShowModal(false);
         setHasClicked(!hasClicked);
-        setList(animes);
-      })
-      .catch((res) => {
-        if (res.data && res.data.errors) setErrors(res.data.errors);
-      });
+        setList(data);
+      }
+    });
   };
 
   const handleDelete = (id) => {
