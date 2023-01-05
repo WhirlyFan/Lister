@@ -33,9 +33,6 @@ class List(db.Model):
     updated_at = db.Column(
         db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    # animes = db.relationship(
-    #     "Anime", secondary=anime_list, cascade="delete-orphan", back_populates="lists"
-    # )
     animes = db.relationship(
         "Anime", secondary=anime_list, back_populates="lists"
     )

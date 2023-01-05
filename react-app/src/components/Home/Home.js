@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getHomeThunk } from "../../store/jikan";
 import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
@@ -8,6 +8,7 @@ import AnimeCard from "./AnimeCard";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [topAiringAnime, setTopAiringAnime] = useState(false);
   const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);
@@ -54,7 +55,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              <th>Add to List</th>
+              {user && (<th>Add to List</th>)}
             </tr>
           </thead>
           <tbody>
@@ -77,7 +78,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              <th>Add to List</th>
+              {user && (<th>Add to List</th>)}
             </tr>
           </thead>
           <tbody>
@@ -100,7 +101,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              <th>Add to List</th>
+              {user && (<th>Add to List</th>)}
             </tr>
           </thead>
           <tbody>

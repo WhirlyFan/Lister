@@ -1,9 +1,11 @@
 import styles from "./Home.module.css";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import AddAnimeModal from "../AddAnimeModal";
 
 export default function AnimeCard({ anime, index, top }) {
   const history = useHistory();
+  const user = useSelector((state) => state.session.user);
 
   const animeDetails = (id) => {
     history.push(`/anime/${id}`);
@@ -32,9 +34,11 @@ export default function AnimeCard({ anime, index, top }) {
       {/* fix this */}
       {!anime.score && <td>n/a</td>}
       {anime.score && <td>{anime.score}</td>}
-      <td>
-        <AddAnimeModal />
-      </td>
+      {user && (
+        <td>
+          <AddAnimeModal />
+        </td>
+      )}
     </tr>
   );
 }
