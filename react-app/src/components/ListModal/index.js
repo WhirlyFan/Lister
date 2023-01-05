@@ -6,7 +6,7 @@ export default function ListModal({
   list,
   setHasClicked,
   hasClicked,
-  setAnimes,
+  setList,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -20,7 +20,7 @@ export default function ListModal({
             setShowModal={setShowModal}
             setHasClicked={setHasClicked}
             hasClicked={hasClicked}
-            setAnimes={setAnimes}
+            setList={setList}
           />
         </Modal>
       )}
