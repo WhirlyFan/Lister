@@ -74,6 +74,7 @@ export default function ReviewForm({
       />
       <button type="submit">Edit</button>
       <button
+        type="button"
         onClick={() => {
           handleDelete(review.id);
         }}

@@ -23,11 +23,12 @@ export default function Lists() {
 
   useEffect(() => {
     if (user) {
-      dispatch(getListsThunk(userId)).then(() => {
+      (async () => {
+        await dispatch(getListsThunk(userId));
+        await dispatch(getAnimesByUserThunk(userId));
+        await dispatch(getUserThunk(userId));
         setIsLoaded(true);
-      });
-      dispatch(getAnimesByUserThunk(userId));
-      dispatch(getUserThunk(userId));
+      })()
     }
   }, [dispatch, user, userId, animes, hasClicked]);
 

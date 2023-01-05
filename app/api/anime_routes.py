@@ -153,3 +153,23 @@ def add_anime(anime_id, list_id):
     list.animes.append(anime)
     db.session.commit()
     return anime.to_dict()
+
+@anime_routes.route("/<int:anime_id>/lists/<int:list_id>", methods=["DELETE"])
+@login_required
+def remove_anime(anime_id, list_id):
+    """
+    Remove a anime from a list
+    """
+    anime = Anime.query.get(anime_id)
+    if not anime:
+        return {"errors": ["Anime not found"]}, 404
+    list = List.query.get(list_id)
+    if not list:
+        return {"errors": ["List not found"]}, 404
+    if not authorized(list.owner_id):
+        return {"errors": ["Unauthorized"]}, 401
+    if anime not in list.animes:
+        return {"errors": ["Anime not in list"]}, 401
+    list.animes.remove(anime)
+    db.session.commit()
+    return anime.to_dict()
