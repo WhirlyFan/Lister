@@ -56,6 +56,7 @@ export default function AddAnimeModal({
           if (data.errors) {
             setErrors(data.errors);
           } else {
+            if (listMode) setList(data.list);
             setShowModal(false);
           }
         });
@@ -68,7 +69,7 @@ export default function AddAnimeModal({
       if (data.errors) {
         setErrors(data.errors);
       } else {
-        setList(data.list)
+        setList(data.list);
         setShowModal(false);
       }
     });
