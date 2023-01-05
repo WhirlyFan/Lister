@@ -7,6 +7,7 @@ import { getUserThunk } from "../../store/session";
 import ListModal from "../ListModal";
 import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
+import Animes from "./Animes";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -98,7 +99,8 @@ export default function Lists() {
             {animes.name && <h2>{animes.name}</h2>}
           </div>
           {animes.name && user.id === Number(userId) && (
-            <ListModal className={styles.list_edit}
+            <ListModal
+              className={styles.list_edit}
               list={animes}
               setAnimes={setAnimes}
               setHasClicked={setHasClicked}
@@ -106,32 +108,7 @@ export default function Lists() {
             />
           )}
         </div>
-        <div>
-          {animes &&
-            !animes.name &&
-            animes.map((anime) => {
-              return (
-                <div
-                  key={`anime-${anime.id}`}
-                  onClick={() => animeDetails(anime.mal_id)}
-                >
-                  {anime.title}
-                </div>
-              );
-            })}
-          {animes?.anime &&
-            animes?.anime.map((anime) => {
-              return (
-                <div
-                  key={`anime-${anime.id}`}
-                  className={styles.anime}
-                  onClick={() => animeDetails(anime.mal_id)}
-                >
-                  <div>{anime.title}</div>
-                </div>
-              );
-            })}
-        </div>
+        <Animes animes={animes} animeDetails={animeDetails} />
       </div>
     </div>
   );

@@ -59,6 +59,7 @@ const SignUpForm = () => {
           Join Lister to catalog your anime and manga, compare with your
           friends, create your own profile, and plenty more. It's Free.
         </p>
+        <hr></hr>
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
