@@ -103,7 +103,7 @@ export default function Lists() {
             <ListModal
               className={styles.list_edit}
               list={list}
-              setAnimes={setList} //fix this later
+              setList={setList}
               setHasClicked={setHasClicked}
               hasClicked={hasClicked}
             />

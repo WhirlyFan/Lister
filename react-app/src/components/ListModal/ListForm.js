@@ -9,7 +9,7 @@ export default function ListForm({
   setShowModal,
   setHasClicked,
   hasClicked,
-  setAnimes,
+  setList,
 }) {
   const [name, setName] = useState(list.name);
   const [priv, setPriv] = useState(list.private);
@@ -30,7 +30,7 @@ export default function ListForm({
       .then((animes) => {
         setShowModal(false);
         setHasClicked(!hasClicked);
-        setAnimes(animes);
+        setList(animes);
       })
       .catch((res) => {
         if (res.data && res.data.errors) setErrors(res.data.errors);
@@ -40,7 +40,7 @@ export default function ListForm({
   const handleDelete = (id) => {
     dispatch(deleteListThunk(id)).then(() => {
       dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
-        setAnimes(res.animes);
+        setList(res.animes);
       });
     });
     setShowModal(false);
