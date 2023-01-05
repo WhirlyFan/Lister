@@ -1,14 +1,13 @@
 import styles from "./Lists.module.css";
 import AddAnimeModal from "../AddAnimeModal";
 
-export default function Animes({ animes, animeDetails }) {
+export default function list({ list, animeDetails }) {
   const listMode = true;
-
   return (
     <div className={styles.anime}>
-      {animes &&
-        !animes.name &&
-        animes.map((anime) => {
+      {list &&
+        !list.name &&
+        list.map((anime) => {
           return (
             <div key={`anime-${anime.id}`} className={styles.anime}>
               <div>
@@ -26,8 +25,8 @@ export default function Animes({ animes, animeDetails }) {
             </div>
           );
         })}
-      {animes?.anime &&
-        animes?.anime.map((anime) => {
+      {list?.anime &&
+        list?.anime.map((anime) => {
           return (
             <div key={`anime-${anime.id}`} className={styles.anime}>
               <div>
@@ -38,7 +37,7 @@ export default function Animes({ animes, animeDetails }) {
                   onClick={() => animeDetails(anime.mal_id)}
                 />
                 <div>{anime.title}</div>
-                <AddAnimeModal listMode={listMode} />
+                <AddAnimeModal listMode={listMode} anime={anime} list={list}/>
               </div>
             </div>
           );

@@ -17,7 +17,7 @@ export default function Lists() {
   const listsArr = useSelector((state) => state.lists.lists);
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
   const getUser = useSelector((state) => state.session?.get_user);
-  const [animes, setAnimes] = useState(false);
+  const [list, setList] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -30,7 +30,7 @@ export default function Lists() {
         setIsLoaded(true);
       })()
     }
-  }, [dispatch, user, userId, animes, hasClicked]);
+  }, [dispatch, user, userId, list, hasClicked]);
 
   if (!isLoaded) {
     return null;
@@ -52,15 +52,15 @@ export default function Lists() {
     );
   }
 
-  if (!animes) setAnimes(animeArr);
+  if (!list) setList(animeArr);
 
   if (!getUser) {
     return null;
   }
 
   const showAnime = (list) => {
-    if (list) setAnimes(list);
-    else setAnimes(animeArr);
+    if (list) setList(list);
+    else setList(animeArr);
   };
 
   const animeDetails = (mal_id) => {
@@ -96,20 +96,20 @@ export default function Lists() {
       <div className={styles.animes}>
         <div>
           <div className={styles.anime_header}>
-            {!animes.name && <h2 className={styles.h2}>All Anime</h2>}
-            {animes.name && <h2>{animes.name}</h2>}
+            {!list.name && <h2 className={styles.h2}>All Anime</h2>}
+            {list.name && <h2>{list.name}</h2>}
           </div>
-          {animes.name && user.id === Number(userId) && (
+          {list.name && user.id === Number(userId) && (
             <ListModal
               className={styles.list_edit}
-              list={animes}
-              setAnimes={setAnimes}
+              list={list}
+              setAnimes={setList}
               setHasClicked={setHasClicked}
               hasClicked={hasClicked}
             />
           )}
         </div>
-        <Animes animes={animes} animeDetails={animeDetails} />
+        <Animes list={list} animeDetails={animeDetails} />
       </div>
     </div>
   );
