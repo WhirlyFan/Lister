@@ -8,7 +8,13 @@ import {
   removeAnimeFromListThunk,
 } from "../../store/anime";
 
-export default function AddAnimeModal({ setShowModal, anime, list, listMode }) {
+export default function AddAnimeModal({
+  setShowModal,
+  anime,
+  list,
+  setList,
+  listMode,
+}) {
   const dispatch = useDispatch();
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
@@ -25,7 +31,7 @@ export default function AddAnimeModal({ setShowModal, anime, list, listMode }) {
   if (!Object.keys(listsArr).length || !isLoaded) {
     return null;
   }
-  // need to add default value to select
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getMalAnimeThunk(anime.mal_id)).then((data) => {
@@ -58,11 +64,11 @@ export default function AddAnimeModal({ setShowModal, anime, list, listMode }) {
   };
 
   const handleDelete = () => {
-    // console.log(anime, list, listMode);
     dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
       if (data.errors) {
         setErrors(data.errors);
       } else {
+        setList(data.list)
         setShowModal(false);
       }
     });

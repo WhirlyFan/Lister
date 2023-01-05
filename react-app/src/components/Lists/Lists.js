@@ -28,7 +28,7 @@ export default function Lists() {
         await dispatch(getAnimesByUserThunk(userId));
         await dispatch(getUserThunk(userId));
         setIsLoaded(true);
-      })()
+      })();
     }
   }, [dispatch, user, userId, list, hasClicked]);
 
@@ -103,13 +103,13 @@ export default function Lists() {
             <ListModal
               className={styles.list_edit}
               list={list}
-              setAnimes={setList}
+              setAnimes={setList} //fix this later
               setHasClicked={setHasClicked}
               hasClicked={hasClicked}
             />
           )}
         </div>
-        <Animes list={list} animeDetails={animeDetails} />
+        <Animes list={list} setList={setList} animeDetails={animeDetails} />
       </div>
     </div>
   );
