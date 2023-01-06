@@ -13,7 +13,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 0 1rem; */
   background-color: #2e51a2;
 }
 
@@ -23,7 +22,7 @@
   font-size: 13px;
   font-weight: 700;
   height: 24px;
-  width: 100%;
+  width: fit-content;
   padding: 10px 5px 0;
   text-align: left;
   text-decoration: none;

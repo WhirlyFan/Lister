@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTopAnimeThunk } from "../../store/jikan";
-// import styles from "./TopAnime.module.css";
+import styles from "./TopAnime.module.css";
 import AnimeCard from "../Home/AnimeCard";
 
 export default function Lists() {
@@ -43,7 +43,7 @@ export default function Lists() {
   };
 
   return (
-    <div>
+    <div className={styles.top_anime}>
       <h2>Top Anime</h2>
       <table>
         <thead>
@@ -67,11 +67,15 @@ export default function Lists() {
           ))}
         </tbody>
       </table>
-      <div>Page: {page}</div>
-      <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>
-        Previous
-      </button>
-      <button onClick={() => setPage(page >= 50 ? 10 : page + 1)}>Next</button>
+      <div className={styles.pagination}>
+        <div>Page: {page}</div>
+        <button onClick={() => setPage(page <= 1 ? 1 : page - 1)}>
+          Previous
+        </button>
+        <button onClick={() => setPage(page >= 50 ? 10 : page + 1)}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }
