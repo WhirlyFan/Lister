@@ -55,7 +55,6 @@ def list_animes(id):
 
 
 @anime_routes.route("/users/<int:id>", methods=["GET"])
-@login_required
 def user_animes(id):
     """
     Query for all unique animes in all of a user's lists and returns them in a list of anime dictionaries
@@ -65,7 +64,8 @@ def user_animes(id):
         return {"errors": ["No lists found"]}, 404
     animes = []
     for list in Lists:
-        if not list.private or id == current_user.id:
+        # short circuiting so that only private lists and logged in users will hit the id == current_user check.
+        if not list.private or current_user.is_anonymous or id == current_user.id:
             animes.extend(list.to_dict()['anime'])
     unique_anime = set([tuple(anime.items())
                         for anime in animes])  # remove duplicates

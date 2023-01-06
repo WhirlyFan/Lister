@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 import styles from "./NavBar.module.css";
+import lister from "../images/lister-title.png";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -11,18 +12,18 @@ const NavBar = () => {
     <nav className={styles.nav}>
       <div className={styles.nav_top}>
         <NavLink to="/" exact={true} activeClassName="active">
-          Lister
+          <img src={lister} alt={"logo"} className="logo"></img>
         </NavLink>
         {!user && (
           <div className={styles.nav_right}>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
-                Login
+                <button>Login</button>
               </NavLink>
             </div>
             <div>
               <NavLink to="/sign-up" exact={true} activeClassName="active">
-                Sign Up
+                <button>Sign Up</button>
               </NavLink>
             </div>
           </div>
@@ -35,12 +36,12 @@ const NavBar = () => {
                 exact={true}
                 activeClassName="active"
               >
-                Lists
+                <button>Lists</button>
               </NavLink>
             </div>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
-                {user.username}
+                <button>{user.username}</button>
               </NavLink>
             </div>
           </div>
@@ -63,7 +64,27 @@ const NavBar = () => {
           </li>
         )}
       </ul>
-      {/* <h1 className={styles.panel}>My Panel</h1> */}
+      <div className={styles.about_me}>
+        <div>About Me:</div>
+        <div>
+          <a
+            href="https://github.com/WhirlyFan"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i class="fa-brands fa-github fa-xl"></i>
+          </a>
+        </div>
+        <div>
+          <a
+            href="https://www.linkedin.com/in/michael3l/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i class="fa-brands fa-linkedin fa-xl"></i>
+          </a>
+        </div>
+      </div>
     </nav>
   );
 };

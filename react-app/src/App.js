@@ -47,10 +47,9 @@ function App() {
         <Route path="/" exact={true}>
           <Home />
         </Route>
-        {/* change this to a regular route */}
-        <ProtectedRoute path="/lists/:userId">
+        <Route path="/lists/:userId">
           <Lists />
-        </ProtectedRoute>
+        </Route>
         <Route path="/topanime">
           <TopAnime />
         </Route>
