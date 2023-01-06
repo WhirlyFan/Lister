@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getTopAnimeThunk } from "../../store/jikan";
 import styles from "./TopAnime.module.css";
 import AnimeCard from "../Home/AnimeCard";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -34,9 +35,7 @@ export default function Lists() {
 
   if (!isLoaded || !topAnime) {
     return (
-      <div>
-        <h1>LOADING...</h1>
-      </div>
+      <LoadingBar/>
     );
   }
 

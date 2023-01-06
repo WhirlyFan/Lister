@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getHomeThunk } from "../../store/jikan";
 import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 //try refactoring Home to pull data from the store instead of the API
 
@@ -34,16 +35,11 @@ export default function Home() {
   }, [dispatch, delay]);
 
   if (!isLoaded || !topAiringAnime || !topUpcomingAnime || !mostPopularAnime) {
-    return (
-      <div>
-        <h1>LOADING...</h1>
-      </div>
-    );
+    return <LoadingBar />;
   }
 
   return (
     <div className={styles.home}>
-      
       <div>
         <h2>Top Airing Anime</h2>
         <table className={styles.table}>
@@ -53,7 +49,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              {user && (<th>Add to List</th>)}
+              {user && <th>Add to List</th>}
             </tr>
           </thead>
           <tbody>
@@ -77,7 +73,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              {user && (<th>Add to List</th>)}
+              {user && <th>Add to List</th>}
             </tr>
           </thead>
           <tbody>
@@ -100,7 +96,7 @@ export default function Home() {
               <th>Image</th>
               <th>Title</th>
               <th>Score</th>
-              {user && (<th>Add to List</th>)}
+              {user && <th>Add to List</th>}
             </tr>
           </thead>
           <tbody>
