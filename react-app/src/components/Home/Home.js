@@ -43,9 +43,7 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <h1>Welcome to Lister!</h1>
-      <h2>Where you can create lists of your favorite anime!</h2>
-      <h3>Sign up or log in to get started!</h3>
+      
       <div>
         <h2>Top Airing Anime</h2>
         <table className={styles.table}>
