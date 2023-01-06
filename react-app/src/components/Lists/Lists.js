@@ -98,9 +98,9 @@ export default function Lists() {
       <div className={styles.animes}>
         <div>
           <div className={styles.anime_header}>
-            {!list.name && <h2 className={styles.h2}>All Anime</h2>}
-            {list.name && <h2>{list.name}</h2>}
-          </div>
+          <div className={styles.ghost_div}></div>
+            {!list.name && <h3>All Anime</h3>}
+            {list.name && <h3>{list.name}</h3>}
           {user && user.id === getUser.id && (
             <ListModal
               className={styles.list_edit}
@@ -110,6 +110,7 @@ export default function Lists() {
               hasClicked={hasClicked}
             />
           )}
+          </div>
         </div>
         <Animes
           list={list}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import ListForm from "./ListForm";
+import styles from "../Lists/Lists.module.css";
 
 export default function ListModal({
   list,
@@ -12,7 +13,9 @@ export default function ListModal({
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Edit List</button>
+      <div className={styles.icon}>
+        <i className="fas fa-edit fa-lg" onClick={() => setShowModal(true)}></i>
+      </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <ListForm
