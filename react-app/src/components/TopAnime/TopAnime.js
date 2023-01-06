@@ -34,13 +34,18 @@ export default function Lists() {
   }, [dispatch, page, pagination, delay]);
 
   if (!isLoaded || !topAnime) {
-    return (
-      <LoadingBar/>
-    );
+    return <LoadingBar />;
   }
 
   const animeDetails = (id) => {
     history.push(`/anime/${id}`);
+  };
+
+  const scroll = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -135,7 +140,10 @@ export default function Lists() {
           ) : null}
           {pagination.map((page) => {
             return (
-              <div key={`page-${page}`} onClick={() => setPage(page)}>
+              <div key={`page-${page}`} onClick={() => {
+                setPage(page)
+                scroll()
+              }}>
                 {page}
               </div>
             );
