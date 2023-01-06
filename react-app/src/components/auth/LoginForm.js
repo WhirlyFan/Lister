@@ -31,9 +31,7 @@ const LoginForm = () => {
   }
 
   const demoButton = () => {
-    setEmail("demo@aa.io");
-    setPassword("password");
-    dispatch(login(email, password)).then((data) => {
+    dispatch(login("demo@aa.io", "password")).then((data) => {
       if (data) {
         setErrors(data);
       }
