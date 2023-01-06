@@ -70,7 +70,9 @@ export default function Lists() {
     <div>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
-        <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
+        {user && user.id === getUser.id && (
+          <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
+        )}
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name} onClick={() => showAnime()}>
@@ -99,7 +101,7 @@ export default function Lists() {
             {!list.name && <h2 className={styles.h2}>All Anime</h2>}
             {list.name && <h2>{list.name}</h2>}
           </div>
-          {list.name && user.id === Number(userId) && (
+          {user && user.id === getUser.id && (
             <ListModal
               className={styles.list_edit}
               list={list}
@@ -109,7 +111,13 @@ export default function Lists() {
             />
           )}
         </div>
-        <Animes list={list} setList={setList} animeDetails={animeDetails} />
+        <Animes
+          list={list}
+          setList={setList}
+          animeDetails={animeDetails}
+          user={user}
+          getUser={getUser}
+        />
       </div>
     </div>
   );

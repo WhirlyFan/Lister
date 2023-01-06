@@ -1,7 +1,7 @@
 import styles from "./Lists.module.css";
 import AddAnimeModal from "../AddAnimeModal";
 
-export default function list({ list, animeDetails, setList }) {
+export default function list({ list, animeDetails, setList, user, getUser }) {
   const listMode = true;
   return (
     <div className={styles.anime}>
@@ -37,7 +37,14 @@ export default function list({ list, animeDetails, setList }) {
                   onClick={() => animeDetails(anime.mal_id)}
                 />
                 <div>{anime.title}</div>
-                <AddAnimeModal listMode={listMode} anime={anime} list={list} setList={setList}/>
+                {user && user.id === getUser.id && (
+                  <AddAnimeModal
+                    listMode={listMode}
+                    anime={anime}
+                    list={list}
+                    setList={setList}
+                  />
+                )}
               </div>
             </div>
           );
