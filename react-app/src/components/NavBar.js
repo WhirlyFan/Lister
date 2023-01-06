@@ -71,8 +71,10 @@ const NavBar = () => {
             href="https://github.com/WhirlyFan"
             target="_blank"
             rel="noreferrer"
+            className={styles.anchor}
           >
             <i class="fa-brands fa-github fa-xl"></i>
+            <div>WhirlyFan</div>
           </a>
         </div>
         <div>
@@ -80,8 +82,10 @@ const NavBar = () => {
             href="https://www.linkedin.com/in/michael3l/"
             target="_blank"
             rel="noreferrer"
+            className={styles.anchor}
           >
             <i class="fa-brands fa-linkedin fa-xl"></i>
+            <div>Michael Lee</div>
           </a>
         </div>
       </div>
