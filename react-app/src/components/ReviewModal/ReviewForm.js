@@ -67,7 +67,7 @@ export default function ReviewForm({
         type="number"
         name="rating"
         min="1"
-        max="5"
+        max="10"
         value={rating}
         onChange={(e) => setRating(e.target.value)}
         required

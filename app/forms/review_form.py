@@ -5,8 +5,8 @@ from app.models import Review
 
 
 def rating_validator(form, field):
-    if not (1 <= int(field.data) <= 5):
-        raise ValidationError('Rating must be between 1 and 5')
+    if not (1 <= int(field.data) <= 10):
+        raise ValidationError('Rating must be between 1 and 10')
 
 
 class CreateReview(FlaskForm):
