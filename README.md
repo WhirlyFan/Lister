@@ -1,8 +1,30 @@
-# Flask React Project with Lister (Similar to MyAnimeList)
+# Lister
 
-This is the starter for the Flask React project.
+<a href='https://lister.whirlyfan.com' alt=''>Lister</a> is a website inspired by <a href='https://myanimelist.net/' alt=''>MyAnimeList</a>. Lister can be used to create watchlists of animes that can be shared with friends! It allows for public and private lists allowing users to only share what they want. It's ideal for anybody who wants a quick and minimalist way to track their anime that isn't MyAnimeList.
 
-## Getting started
+## ✅ Wiki Links
+
+- [Database Schema](https://github.com/WhirlyFan/Lister/wiki/Database-Schema)
+- [Feature List](https://github.com/WhirlyFan/Lister/wiki/Feature-List)
+- [User Stories](https://github.com/WhirlyFan/Listery/wiki/User-Stories)
+- [Redux State Shape](https://github.com/WhirlyFan/Lister/wiki/Wireframe)
+
+## 👩‍💻 Tech Stack
+
+**Frameworks, Platforms and Libraries:**
+
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-%23404d59.svg?style=for-the-badge&logo=flask&logoColor=%2361DAFB) ![Python](https://img.shields.io/badge/python-yellow?style=for-the-badge&logo=python&logoColor=blue) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+
+**Database:**
+
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+**Hosting:**
+
+![Render](https://img.shields.io/badge/Render-informational?style=for-the-badge&logo=render&logoColor=%5bdec3)
+
+## 💻 Getting started
+
 1. Clone this repository (only this branch)
 
 2. Install dependencies
@@ -16,7 +38,7 @@ This is the starter for the Flask React project.
 
 4. Make sure the SQLite3 database connection URL is in the **.env** file
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
+5. This project organizes all tables inside the `flask_schema` schema, defined
    by the `SCHEMA` environment variable.  Replace the value for
    `SCHEMA` with a unique name, **making sure you use the snake_case
    convention**.
