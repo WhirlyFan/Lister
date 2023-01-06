@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { createListThunk } from "../../store/lists";
 import { signUp } from "../../store/session";
 import styles from "./auth.module.css";
@@ -14,7 +14,6 @@ const SignUpForm = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
-  //! need to add default lists to the user
   const onSignUp = async (e) => {
     e.preventDefault();
     const data = await dispatch(
@@ -52,21 +51,21 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp} className={styles.signup}>
-      <div className={styles.body}>
-        <h2>Start Using Lister</h2>
-        <p>
-          Join Lister to catalog your anime and manga, compare with your
-          friends, create your own profile, and plenty more. It's Free.
-        </p>
-        <hr></hr>
-        <div>
-          {errors.map((error, ind) => (
-            <div key={ind} className="error">
-              {error}
-            </div>
-          ))}
-        </div>
+    <div className={styles.body}>
+      <h2>Start Using Lister</h2>
+      <p>
+        Join Lister to catalog your anime, compare with your friends, create
+        your own profile, and plenty more. It's Free.
+      </p>
+      <hr></hr>
+      <form onSubmit={onSignUp} className={styles.signup}>
+      <div>
+        {errors.map((error, ind) => (
+          <div key={ind} className="error">
+            {error}
+          </div>
+        ))}
+      </div>
         <div>
           <label>Username</label>
           <input
@@ -107,9 +106,19 @@ const SignUpForm = () => {
             required
           ></input>
         </div>
-        <button type="submit">Sign Up</button>
-      </div>
-    </form>
+        <button type="submit">Create Account</button>
+      </form>
+      <p>
+        By clicking Create Account, you agree to our Terms and Privacy Policy
+      </p>
+      <p>
+        Already have an account?{" "}
+        <NavLink to="/login" exact={true} activeClassName="active">
+          Login
+        </NavLink>
+      </p>
+      <p>© 2023 Lister Co.,Ltd. All Rights Reserved.</p>
+    </div>
   );
 };
 
