@@ -11,8 +11,8 @@
 }
 
 .pagination {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
     margin: 1rem 0;
 }
 
@@ -29,4 +29,22 @@
     font-size: 16px;
     font-weight: 700;
     text-decoration: none;
+}
+
+.page_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 .5rem;
+    padding: .5rem;
+    text-decoration: none;
+}
+
+.page_list > * {
+    margin: 0 .5rem;
+}
+
+.current_page {
+    display: flex;
+    justify-content: center;
 }

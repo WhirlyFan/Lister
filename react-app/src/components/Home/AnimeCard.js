@@ -31,7 +31,7 @@ export default function AnimeCard({ anime, index, top }) {
       >
         {anime.title}
       </td>
-      {/* fix this */}
+      {/* fix this spacing */}
       {!anime.score && <td>n/a</td>}
       {anime.score && <td>{anime.score}</td>}
       {user && (
