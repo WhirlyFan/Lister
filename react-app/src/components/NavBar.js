@@ -36,12 +36,12 @@ const NavBar = () => {
                 exact={true}
                 activeClassName="active"
               >
-                Lists
+                <button>Lists</button>
               </NavLink>
             </div>
             <div>
               <NavLink to="/login" exact={true} activeClassName="active">
-                {user.username}
+                <button>{user.username}</button>
               </NavLink>
             </div>
           </div>
@@ -64,7 +64,27 @@ const NavBar = () => {
           </li>
         )}
       </ul>
-      {/* <h1 className={styles.panel}>My Panel</h1> */}
+      <div className={styles.about_me}>
+        <div>About Me:</div>
+        <div>
+          <a
+            href="https://github.com/WhirlyFan"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i class="fa-brands fa-github fa-xl"></i>
+          </a>
+        </div>
+        <div>
+          <a
+            href="https://www.linkedin.com/in/michael3l/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i class="fa-brands fa-linkedin fa-xl"></i>
+          </a>
+        </div>
+      </div>
     </nav>
   );
 };

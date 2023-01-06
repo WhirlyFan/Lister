@@ -47,7 +47,6 @@ function App() {
         <Route path="/" exact={true}>
           <Home />
         </Route>
-        {/* change this to a regular route */}
         <Route path="/lists/:userId">
           <Lists />
         </Route>
