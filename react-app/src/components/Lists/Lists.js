@@ -8,6 +8,7 @@ import ListModal from "../ListModal";
 import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function Lists() {
   }, [dispatch, user, userId, list, hasClicked]);
 
   if (!isLoaded) {
-    return null;
+    return <LoadingBar />;
   }
 
   if (!listsArr) {
