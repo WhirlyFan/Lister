@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
+import styles from "./auth.module.css";
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -39,44 +40,58 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={onLogin}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind} className="error">
-            {error}
+    <div className={styles.body}>
+      <div className={styles.content}>
+        <form onSubmit={onLogin}>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind} className="error">
+                {error}
+              </div>
+            ))}
           </div>
-        ))}
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={updateEmail}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={updatePassword}
+            />
+          </div>
+          <p>
+            Beware of phishing sites pretending to be Lister. Always check the
+            domain is myanimelist.net before entering your password.
+          </p>
+          <button type="submit">Login</button>
+          <button
+            type="button"
+            onClick={() => {
+              demoButton();
+            }}
+          >
+            Log in with Demo User
+          </button>
+          <p>
+            Don't have an account?{" "}
+            <NavLink to="/sign-up" exact={true} activeClassName="active">
+              Sign Up
+            </NavLink>
+          </p>
+        </form>
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button type="submit">Login</button>
-      </div>
-      <button
-        type="button"
-        onClick={() => {
-          demoButton();
-        }}
-      >
-        Log in with Demo User
-      </button>
-    </form>
+    </div>
   );
 };
 
