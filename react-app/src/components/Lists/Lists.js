@@ -9,7 +9,6 @@ import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
 import LoadingBar from "../LoadingBar/LoadingBar";
-import NewListForm from "../NewListModal/NewListForm";
 
 export default function Lists() {
   const dispatch = useDispatch();
