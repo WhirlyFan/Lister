@@ -9,6 +9,7 @@ import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
 import LoadingBar from "../LoadingBar/LoadingBar";
+import NewListForm from "../NewListModal/NewListForm";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -35,18 +36,18 @@ export default function Lists() {
     return <LoadingBar />;
   }
 
-  if (!listsArr) {
-    return (
-      <div>
-        <h1>There are no lists here!</h1>
-      </div>
-    );
-  }
+ if (!listsArr) {
+  return <div>ahigwhigh</div>
+ }
 
   if (!animeArr) {
     return (
       <div>
-        <h1>There are no anime here!</h1>
+        <h1>There are no lists or anime here!</h1>
+        <div>
+          Go ahead and add some lists so you can add some anime to them!
+        </div>
+        <NewListForm hasClicked={hasClicked} setHasClicked={setHasClicked} form={true}/>
       </div>
     );
   }
@@ -98,18 +99,19 @@ export default function Lists() {
       <div className={styles.animes}>
         <div>
           <div className={styles.anime_header}>
-          <div className={styles.ghost_div}></div>
+            <div className={styles.ghost_div}></div>
             {!list.name && <h3>All Anime</h3>}
             {list.name && <h3>{list.name}</h3>}
-          {user && user.id === getUser.id && (
-            <ListModal
-              className={styles.list_edit}
-              list={list}
-              setList={setList}
-              setHasClicked={setHasClicked}
-              hasClicked={hasClicked}
-            />
-          )}
+            {user && list.name && user.id === getUser.id && (
+              <ListModal
+                className={styles.list_edit}
+                list={list}
+                setList={setList}
+                setHasClicked={setHasClicked}
+                hasClicked={hasClicked}
+              />
+            )}
+            {(!user || !list.name) && <div className={styles.ghost_div}></div>}
           </div>
         </div>
         <Animes
