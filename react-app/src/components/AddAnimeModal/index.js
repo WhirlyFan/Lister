@@ -18,7 +18,7 @@ function AddAnimeModal({ anime, list, listMode, setList }) {
           });
         }}
       >
-        {listMode ? "Edit" : "Add to List"}
+        {listMode ? "Edit" : "Add"}
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
