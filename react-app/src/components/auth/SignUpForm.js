@@ -51,73 +51,75 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className={styles.body}>
-      <h2>Start Using Lister</h2>
-      <p>
-        Join Lister to catalog your anime, compare with your friends, create
-        your own profile, and plenty more. It's Free.
-      </p>
-      <hr></hr>
-      <form onSubmit={onSignUp} className={styles.signup}>
-      <div>
-        {errors.map((error, ind) => (
-          <div key={ind} className="error">
-            {error}
+    <div className={styles.signup_body}>
+      <div className={styles.signup_content}>
+        <h2>Start Using Lister</h2>
+        <p>
+          Join Lister to catalog your anime, compare with your friends, create
+          your own profile, and plenty more. It's Free.
+        </p>
+        <hr></hr>
+        <form onSubmit={onSignUp} className={styles.signup}>
+          <div>
+            {errors.map((error, ind) => (
+              <div key={ind} className="error">
+                {error}
+              </div>
+            ))}
           </div>
-        ))}
+          <div>
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              onChange={updateUsername}
+              value={username}
+              required
+            ></input>
+          </div>
+          <div>
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              onChange={updateEmail}
+              value={email}
+              required
+            ></input>
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              onChange={updatePassword}
+              value={password}
+              required
+            ></input>
+          </div>
+          <div>
+            <label>Repeat Password</label>
+            <input
+              type="password"
+              name="repeat_password"
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required
+            ></input>
+          </div>
+          <button type="submit">Create Account</button>
+        </form>
+        <p>
+          By clicking Create Account, you agree to our Terms and Privacy Policy
+        </p>
+        <p>
+          Already have an account?{" "}
+          <NavLink to="/login" exact={true} activeClassName="active">
+            Login
+          </NavLink>
+        </p>
+        <p>© 2023 Lister Co.,Ltd. All Rights Reserved.</p>
       </div>
-        <div>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            onChange={updateUsername}
-            value={username}
-            required
-          ></input>
-        </div>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            onChange={updateEmail}
-            value={email}
-            required
-          ></input>
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            onChange={updatePassword}
-            value={password}
-            required
-          ></input>
-        </div>
-        <div>
-          <label>Repeat Password</label>
-          <input
-            type="password"
-            name="repeat_password"
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required
-          ></input>
-        </div>
-        <button type="submit">Create Account</button>
-      </form>
-      <p>
-        By clicking Create Account, you agree to our Terms and Privacy Policy
-      </p>
-      <p>
-        Already have an account?{" "}
-        <NavLink to="/login" exact={true} activeClassName="active">
-          Login
-        </NavLink>
-      </p>
-      <p>© 2023 Lister Co.,Ltd. All Rights Reserved.</p>
     </div>
   );
 };
