@@ -97,9 +97,9 @@ export const deleteListThunk = (id) => async (dispatch) => {
 
 //reducer
 const initialState = {
-  allLists: {},
-  list: {},
-  lists: {},
+  allLists: null,
+  list: null,
+  lists: null,
 };
 
 export const normalize = (lists) => {
