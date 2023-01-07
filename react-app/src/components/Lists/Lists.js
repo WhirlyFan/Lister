@@ -36,23 +36,11 @@ export default function Lists() {
     return <LoadingBar />;
   }
 
-  //  if (!listsArr) {
-  //   return <div>ahigwhigh</div>
-  //  }
-
-  //   if (!animeArr) {
-  //     return (
-  //       <div>
-  //         <h1>There are no lists or anime here!</h1>
-  //         <div>
-  //           Go ahead and add some lists so you can add some anime to them!
-  //         </div>
-  //         <NewListForm hasClicked={hasClicked} setHasClicked={setHasClicked} form={true}/>
-  //       </div>
-  //     );
-  //   }
-
-  if (!list && list === null) setList(animeArr);
+  if (!list) {
+    if (animeArr) {
+      setList(animeArr);
+    }
+  }
 
   if (!getUser) {
     return null;
