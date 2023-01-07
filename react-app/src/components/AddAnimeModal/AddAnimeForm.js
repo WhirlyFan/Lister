@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getListsThunk } from "../../store/lists";
 import {
   addAnimeThunk,
   addAnimeToListThunk,
@@ -18,17 +17,9 @@ export default function AddAnimeModal({
   const dispatch = useDispatch();
   const [listId, setListId] = useState("");
   const listsArr = useSelector((state) => state.lists.lists);
-  const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
-    dispatch(getListsThunk(user.id)).then(() => {
-      setIsLoaded(true);
-    });
-  }, [dispatch, user]);
-
-  if (!Object.keys(listsArr).length || !isLoaded) {
+  if (!Object.keys(listsArr).length) {
     return null;
   }
 

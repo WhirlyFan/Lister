@@ -48,9 +48,6 @@ export const getAllListsThunk = () => async (dispatch) => {
 
 export const getListsThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/lists/users/${id}`);
-  if (!res.ok) {
-    throw res;
-  }
   const data = await res.json();
   dispatch(getLists(data));
   return data;

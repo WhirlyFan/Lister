@@ -74,9 +74,6 @@ export const getAnimesByListThunk = (id) => async (dispatch) => {
 
 export const getAnimesByUserThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/animes/users/${id}`);
-  if (!res.ok) {
-    throw res;
-  }
   const data = await res.json();
   dispatch(getAnimesByUser(data));
   return data;

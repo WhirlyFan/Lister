@@ -12,9 +12,13 @@ import Lists from "./components/Lists/Lists";
 import TopAnime from "./components/TopAnime/TopAnime";
 import Home from "./components/Home/Home";
 import AnimeDetails from "./components/AnimeDetails/AnimeDetails";
+import LoadingBar from "./components/LoadingBar/LoadingBar";
+
+export const PageContext = React.createContext();
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  // const [page, setPage] = useState("home");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,36 +34,41 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route path="/login" exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path="/users" exact={true}>
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
-        </ProtectedRoute>
-        <Route path="/" exact={true}>
-          <Home />
-        </Route>
-        <Route path="/lists/:userId">
-          <Lists />
-        </Route>
-        <Route path="/topanime">
-          <TopAnime />
-        </Route>
-        <Route path="/anime/:malAnimeId">
-          <AnimeDetails />
-        </Route>
-        <Route>
-          <h1>Page Not Found</h1>
-        </Route>
-      </Switch>
+      {/* <PageContext.Provider value={{ page, setPage }}> */}
+        <NavBar />
+        <Switch>
+          <Route path="/login" exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path="/sign-up" exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path="/users" exact={true}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:userId" exact={true}>
+            <User />
+          </ProtectedRoute>
+          <Route path="/" exact={true}>
+            <Home />
+          </Route>
+          <Route path="/lists/:userId">
+            <Lists />
+          </Route>
+          <Route path="/topanime">
+            <TopAnime />
+          </Route>
+          <Route path="/anime/:malAnimeId">
+            <AnimeDetails />
+          </Route>
+          <Route path="/loading">
+            <LoadingBar/>
+          </Route>
+          <Route>
+            <h1>Page Not Found</h1>
+          </Route>
+        </Switch>
+      {/* </PageContext.Provider> */}
     </BrowserRouter>
   );
 }

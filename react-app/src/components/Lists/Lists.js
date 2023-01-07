@@ -8,6 +8,7 @@ import ListModal from "../ListModal";
 import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function Lists() {
   }, [dispatch, user, userId, list, hasClicked]);
 
   if (!isLoaded) {
-    return null;
+    return <LoadingBar />;
   }
 
   if (!listsArr) {
@@ -69,7 +70,9 @@ export default function Lists() {
     <div>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
-        <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
+        {user && user.id === getUser.id && (
+          <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
+        )}
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name} onClick={() => showAnime()}>
@@ -95,10 +98,10 @@ export default function Lists() {
       <div className={styles.animes}>
         <div>
           <div className={styles.anime_header}>
-            {!list.name && <h2 className={styles.h2}>All Anime</h2>}
-            {list.name && <h2>{list.name}</h2>}
-          </div>
-          {list.name && user.id === Number(userId) && (
+          <div className={styles.ghost_div}></div>
+            {!list.name && <h3>All Anime</h3>}
+            {list.name && <h3>{list.name}</h3>}
+          {user && user.id === getUser.id && (
             <ListModal
               className={styles.list_edit}
               list={list}
@@ -107,8 +110,15 @@ export default function Lists() {
               hasClicked={hasClicked}
             />
           )}
+          </div>
         </div>
-        <Animes list={list} setList={setList} animeDetails={animeDetails} />
+        <Animes
+          list={list}
+          setList={setList}
+          animeDetails={animeDetails}
+          user={user}
+          getUser={getUser}
+        />
       </div>
     </div>
   );

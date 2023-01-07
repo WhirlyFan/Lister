@@ -17,13 +17,23 @@ const NavBar = () => {
         {!user && (
           <div className={styles.nav_right}>
             <div>
-              <NavLink to="/login" exact={true} activeClassName="active">
-                <button>Login</button>
+              <NavLink
+                to="/login"
+                exact={true}
+                activeClassName="active"
+                className={styles.navlink}
+              >
+                <div className={styles.left}>Login</div>
               </NavLink>
             </div>
             <div>
-              <NavLink to="/sign-up" exact={true} activeClassName="active">
-                <button>Sign Up</button>
+              <NavLink
+                to="/sign-up"
+                exact={true}
+                activeClassName="active"
+                className={styles.navlink}
+              >
+                <div className={styles.right}>Sign Up</div>
               </NavLink>
             </div>
           </div>
@@ -35,13 +45,19 @@ const NavBar = () => {
                 to={`/lists/${user.id}`}
                 exact={true}
                 activeClassName="active"
+                className={styles.navlink}
               >
-                <button>Lists</button>
+                <div className={styles.left}>Lists</div>
               </NavLink>
             </div>
             <div>
-              <NavLink to="/login" exact={true} activeClassName="active">
-                <button>{user.username}</button>
+              <NavLink
+                to="/login"
+                exact={true}
+                activeClassName="active"
+                className={styles.navlink}
+              >
+                <div className={styles.right}>{user.username}</div>
               </NavLink>
             </div>
           </div>
@@ -64,25 +80,32 @@ const NavBar = () => {
           </li>
         )}
       </ul>
-      <div className={styles.about_me}>
-        <div>About Me:</div>
-        <div>
-          <a
-            href="https://github.com/WhirlyFan"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <i class="fa-brands fa-github fa-xl"></i>
-          </a>
-        </div>
-        <div>
-          <a
-            href="https://www.linkedin.com/in/michael3l/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <i class="fa-brands fa-linkedin fa-xl"></i>
-          </a>
+      <div className={styles.panel}>
+        <h1 className={styles.title}>Welcome to Lister.WhirlyFan.com!</h1>
+        <div className={styles.about_me}>
+          <div>About Me:</div>
+          <div>
+            <a
+              href="https://github.com/WhirlyFan"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.anchor}
+            >
+              <i className="fa-brands fa-github fa-xl"></i>
+              <div>WhirlyFan</div>
+            </a>
+          </div>
+          <div>
+            <a
+              href="https://www.linkedin.com/in/michael3l/"
+              target="_blank"
+              rel="noreferrer"
+              className={styles.anchor}
+            >
+              <i className="fa-brands fa-linkedin fa-xl"></i>
+              <div>Michael Lee</div>
+            </a>
+          </div>
         </div>
       </div>
     </nav>
