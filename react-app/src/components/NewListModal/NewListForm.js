@@ -6,6 +6,7 @@ export default function NewListForm({
   setShowModal,
   hasClicked,
   setHasClicked,
+  form,
 }) {
   const dispatch = useDispatch();
   const [listName, setListName] = useState("");
@@ -22,7 +23,13 @@ export default function NewListForm({
       if (data.errors) {
         setErrors(data.errors);
       } else {
-        setShowModal(false);
+        if (form) {
+          setListName("");
+          setPriv(false);
+          setErrors([]);
+        } else {
+          setShowModal(false);
+        }
         setHasClicked(!hasClicked);
       }
     });

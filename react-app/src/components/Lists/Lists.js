@@ -9,6 +9,7 @@ import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
 import LoadingBar from "../LoadingBar/LoadingBar";
+import NewListForm from "../NewListModal/NewListForm";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -35,23 +36,11 @@ export default function Lists() {
     return <LoadingBar />;
   }
 
-  if (!listsArr) {
-    return (
-      <div>
-        <h1>There are no lists here!</h1>
-      </div>
-    );
+  if (!list) {
+    if (animeArr) {
+      setList(animeArr);
+    }
   }
-
-  if (!animeArr) {
-    return (
-      <div>
-        <h1>There are no anime here!</h1>
-      </div>
-    );
-  }
-
-  if (!list) setList(animeArr);
 
   if (!getUser) {
     return null;
@@ -78,48 +67,54 @@ export default function Lists() {
         <div className={styles.list_name} onClick={() => showAnime()}>
           All Anime
         </div>
-        {listsArr.map((list) => {
-          return (
-            <div
-              key={`list-${list.id}`}
-              className={styles.list_name}
-              onClick={() => {
-                showAnime(list);
-              }}
-            >
-              <div className={styles.listName}>
-                {list.name}
-                {list.private && <i className="fas fa-lock"></i>}
+        {list &&
+          listsArr.map((list) => {
+            return (
+              <div
+                key={`list-${list.id}`}
+                className={styles.list_name}
+                onClick={() => {
+                  showAnime(list);
+                }}
+              >
+                <div className={styles.listName}>
+                  {list.name}
+                  {list.private && <i className="fas fa-lock"></i>}
+                </div>
               </div>
+            );
+          })}
+      </div>
+      {list && (
+        <div className={styles.animes}>
+          <div>
+            <div className={styles.anime_header}>
+              <div className={styles.ghost_div}></div>
+              {!list.name && <h3>All Anime</h3>}
+              {list.name && <h3>{list.name}</h3>}
+              {user && list.name && user.id === getUser.id && (
+                <ListModal
+                  className={styles.list_edit}
+                  list={list}
+                  setList={setList}
+                  setHasClicked={setHasClicked}
+                  hasClicked={hasClicked}
+                />
+              )}
+              {(!user || !list.name) && (
+                <div className={styles.ghost_div}></div>
+              )}
             </div>
-          );
-        })}
-      </div>
-      <div className={styles.animes}>
-        <div>
-          <div className={styles.anime_header}>
-          <div className={styles.ghost_div}></div>
-            {!list.name && <h3>All Anime</h3>}
-            {list.name && <h3>{list.name}</h3>}
-          {user && user.id === getUser.id && (
-            <ListModal
-              className={styles.list_edit}
-              list={list}
-              setList={setList}
-              setHasClicked={setHasClicked}
-              hasClicked={hasClicked}
-            />
-          )}
           </div>
+          <Animes
+            list={list}
+            setList={setList}
+            animeDetails={animeDetails}
+            user={user}
+            getUser={getUser}
+          />
         </div>
-        <Animes
-          list={list}
-          setList={setList}
-          animeDetails={animeDetails}
-          user={user}
-          getUser={getUser}
-        />
-      </div>
+      )}
     </div>
   );
 }
