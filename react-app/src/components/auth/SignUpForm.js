@@ -51,8 +51,8 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className={styles.body}>
-      <div className={styles.content}>
+    <div className={styles.signup_body}>
+      <div className={styles.signup_content}>
         <h2>Start Using Lister</h2>
         <p>
           Join Lister to catalog your anime, compare with your friends, create

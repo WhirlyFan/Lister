@@ -40,8 +40,8 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={styles.body}>
-      <div className={styles.content}>
+    <div className={styles.login_body}>
+      <div className={styles.login_content}>
         <form onSubmit={onLogin}>
           <div>
             {errors.map((error, ind) => (
@@ -50,7 +50,7 @@ const LoginForm = () => {
               </div>
             ))}
           </div>
-          <div>
+          <div className={styles.login_input}>
             <label htmlFor="email">Email</label>
             <input
               name="email"
@@ -70,16 +70,19 @@ const LoginForm = () => {
               onChange={updatePassword}
             />
           </div>
-          <p>
+          <p className={styles.login_warning}>
             Beware of phishing sites pretending to be Lister. Always check the
             domain is myanimelist.net before entering your password.
           </p>
-          <button type="submit">Login</button>
+          <button type="submit" className={styles.login_button}>
+            Login
+          </button>
           <button
             type="button"
             onClick={() => {
               demoButton();
             }}
+            className={styles.demo_button}
           >
             Demo User
           </button>
