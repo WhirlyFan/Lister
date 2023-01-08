@@ -39,10 +39,12 @@ export default function ReviewForm({
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteReviewThunk(id)).then(() => {
-      setHasClicked(!hasClicked);
-      setShowModal(false);
-    });
+    if (window.confirm("Are you sure you want to delete this review?")) {
+      dispatch(deleteReviewThunk(id)).then(() => {
+        setHasClicked(!hasClicked);
+        setShowModal(false);
+      });
+    }
   };
 
   return (
