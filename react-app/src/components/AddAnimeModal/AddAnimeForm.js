@@ -99,13 +99,14 @@ export default function AddAnimeModal({
           );
         })}
       </select>
-      <button type="submit">Submit</button>
+      <button type="submit" className="blue_button">Submit</button>
       {listMode && (
         <button
           type="button"
           onClick={() => {
             handleDelete();
           }}
+          className="grey_button"
         >
           Delete
         </button>

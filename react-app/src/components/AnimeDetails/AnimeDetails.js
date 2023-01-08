@@ -6,6 +6,7 @@ import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
 import ReviewModal from "../ReviewModal";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function AnimeDetails() {
   }, [dispatch, malAnimeId, hasClicked]);
 
   if (!malAnime || !isLoaded) {
-    return null;
+    return <LoadingBar />;
   }
 
   const handleSubmit = (e) => {
