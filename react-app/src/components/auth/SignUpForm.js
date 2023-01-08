@@ -51,15 +51,15 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className={styles.signup_body}>
-      <div className={styles.signup_content}>
-        <h2>Start Using Lister</h2>
-        <p>
+    <div className={styles.body}>
+      <div className={styles.content}>
+        <h2 className={styles.signup_header}>Sign Up</h2>
+        <p className={styles.signup_desc}>
           Join Lister to catalog your anime, compare with your friends, create
           your own profile, and plenty more. It's Free.
         </p>
-        <hr></hr>
-        <form onSubmit={onSignUp} className={styles.signup}>
+        <hr className={styles.signup_line}></hr>
+        <form onSubmit={onSignUp} className={styles.form}>
           <div>
             {errors.map((error, ind) => (
               <div key={ind} className="error">
@@ -67,7 +67,7 @@ const SignUpForm = () => {
               </div>
             ))}
           </div>
-          <div>
+          <div className={styles.input}>
             <label>Username</label>
             <input
               type="text"
@@ -77,7 +77,7 @@ const SignUpForm = () => {
               required
             ></input>
           </div>
-          <div>
+          <div className={styles.input}>
             <label>Email</label>
             <input
               type="email"
@@ -87,7 +87,7 @@ const SignUpForm = () => {
               required
             ></input>
           </div>
-          <div>
+          <div className={styles.input}>
             <label>Password</label>
             <input
               type="password"
@@ -97,7 +97,7 @@ const SignUpForm = () => {
               required
             ></input>
           </div>
-          <div>
+          <div className={styles.input}>
             <label>Repeat Password</label>
             <input
               type="password"
@@ -107,18 +107,22 @@ const SignUpForm = () => {
               required
             ></input>
           </div>
-          <button type="submit">Create Account</button>
+          <button type="submit" className={styles.blue_button}>
+            Sign Up
+          </button>
         </form>
-        <p>
-          By clicking Create Account, you agree to our Terms and Privacy Policy
+        <p className={styles.signup_desc}>
+          By clicking Sign Up, you agree to our Terms and Privacy Policy
         </p>
-        <p>
+        <p className={styles.signup_desc}>
           Already have an account?{" "}
           <NavLink to="/login" exact={true} activeClassName="active">
             Login
           </NavLink>
         </p>
-        <p>© 2023 Lister Co.,Ltd. All Rights Reserved.</p>
+        <p className={styles.signup_desc}>
+          © 2023 Lister Co.,Ltd. All Rights Reserved.
+        </p>
       </div>
     </div>
   );

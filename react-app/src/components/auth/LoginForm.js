@@ -40,9 +40,10 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={styles.login_body}>
-      <div className={styles.login_content}>
-        <form onSubmit={onLogin}>
+    <div className={styles.body}>
+      <div className={styles.content}>
+        <h2 className={styles.login_header}>Log In</h2>
+        <form onSubmit={onLogin} className={styles.form}>
           <div>
             {errors.map((error, ind) => (
               <div key={ind} className="error">
@@ -50,7 +51,7 @@ const LoginForm = () => {
               </div>
             ))}
           </div>
-          <div className={styles.login_input}>
+          <div className={styles.input}>
             <label htmlFor="email">Email</label>
             <input
               name="email"
@@ -60,7 +61,7 @@ const LoginForm = () => {
               onChange={updateEmail}
             />
           </div>
-          <div>
+          <div className={styles.input}>
             <label htmlFor="password">Password</label>
             <input
               name="password"
@@ -70,11 +71,14 @@ const LoginForm = () => {
               onChange={updatePassword}
             />
           </div>
-          <p className={styles.login_warning}>
-            Beware of phishing sites pretending to be Lister. Always check the
-            domain is myanimelist.net before entering your password.
-          </p>
-          <button type="submit" className={styles.login_button}>
+          <div className={styles.login_warning}>
+            <i className="fa-solid fa-circle-exclamation user-password-note-icon"></i>
+            <p>
+              Beware of phishing sites pretending to be Lister. Always check the
+              domain is lister.whirlyfan.com before entering your password.
+            </p>
+          </div>
+          <button type="submit" className={styles.blue_button}>
             Login
           </button>
           <button
@@ -82,11 +86,11 @@ const LoginForm = () => {
             onClick={() => {
               demoButton();
             }}
-            className={styles.demo_button}
+            className={styles.grey_button}
           >
             Demo User
           </button>
-          <p>
+          <p className={styles.signup_desc}>
             Don't have an account?{" "}
             <NavLink to="/sign-up" exact={true} activeClassName="active">
               Sign Up

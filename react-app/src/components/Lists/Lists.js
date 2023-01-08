@@ -57,7 +57,7 @@ export default function Lists() {
   return (
     <div>
       <div className={styles.list_header}>
-        <h1>{getUser.username}'s Lists</h1>
+        <h1>{getUser.username}'s lists</h1>
         {user && user.id === getUser.id && (
           <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
         )}
