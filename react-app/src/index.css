@@ -37,3 +37,7 @@ body {
     margin: 0 100px;
   }
 }
+
+td {
+  text-align: center;
+}

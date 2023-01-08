@@ -64,8 +64,7 @@ def user_animes(id):
         return {"errors": ["No lists found"]}, 404
     animes = []
     for list in Lists:
-        # short circuiting so that only private lists and logged in users will hit the id == current_user check.
-        if not list.private or current_user.is_anonymous or id == current_user.id:
+        if not list.private or (list.private and current_user.is_authenticated and list.owner_id == current_user.id):
             animes.extend(list.to_dict()['anime'])
     unique_anime = set([tuple(anime.items())
                         for anime in animes])  # remove duplicates

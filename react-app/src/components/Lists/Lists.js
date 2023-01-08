@@ -9,7 +9,6 @@ import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
 import LoadingBar from "../LoadingBar/LoadingBar";
-import NewListForm from "../NewListModal/NewListForm";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -51,14 +50,14 @@ export default function Lists() {
     else setList(animeArr);
   };
 
-  const animeDetails = (mal_id) => {
-    history.push(`/anime/${mal_id}`);
+  const animeDetails = (anime) => {
+    history.push(`/anime/${anime.mal_id}/${anime.title.replaceAll(" ", "_")}`);
   };
 
   return (
     <div>
       <div className={styles.list_header}>
-        <h1>{getUser.username}'s Lists</h1>
+        <h1>{getUser.username}'s lists</h1>
         {user && user.id === getUser.id && (
           <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
         )}
@@ -77,8 +76,8 @@ export default function Lists() {
                   showAnime(list);
                 }}
               >
-                <div className={styles.listName}>
-                  {list.name}
+                <div className={styles.list_name_content}>
+                  <div>{list.name}</div>
                   {list.private && <i className="fas fa-lock"></i>}
                 </div>
               </div>
@@ -101,7 +100,7 @@ export default function Lists() {
                   hasClicked={hasClicked}
                 />
               )}
-              {(!user || !list.name) && (
+              {!(user && list.name && user.id === getUser.id) && (
                 <div className={styles.ghost_div}></div>
               )}
             </div>

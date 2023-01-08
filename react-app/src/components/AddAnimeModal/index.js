@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../../context/Modal";
 import AddAnimeForm from "./AddAnimeForm";
 import { getListsThunk } from "../../store/lists";
+import styles from "./AddAnimeModal.module.css";
 
 function AddAnimeModal({ anime, list, listMode, setList }) {
   const dispatch = useDispatch();
@@ -17,8 +18,9 @@ function AddAnimeModal({ anime, list, listMode, setList }) {
             setShowModal(true);
           });
         }}
+        className={styles.blue_button}
       >
-        {listMode ? "Edit" : "Add to List"}
+        {listMode ? "Edit" : "Add"}
       </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

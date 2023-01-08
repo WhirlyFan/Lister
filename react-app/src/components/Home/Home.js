@@ -40,79 +40,76 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <div>
-        <h2>Top Airing Anime</h2>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Score</th>
-              {user && <th>Add to List</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {topAiringAnime.slice(0, 10).map((anime, index) => {
-              // setCounter(counter + 1);
-              return (
-                <AnimeCard
-                  key={`anime-${anime.mal_id}`}
-                  anime={anime}
-                  index={index}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-        <h2>Most Popular Anime</h2>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Score</th>
-              {user && <th>Add to List</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {mostPopularAnime.slice(0, 10).map((anime, index) => {
-              return (
-                <AnimeCard
-                  key={`anime-${anime.mal_id}`}
-                  anime={anime}
-                  index={index}
-                />
-              );
-            })}
-          </tbody>
-        </table>
-        <h2>Top Upcoming Anime</h2>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Score</th>
-              {user && <th>Add to List</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {topUpcomingAnime.slice(0, 10).map((anime, index) => {
-              return (
-                <AnimeCard
-                  key={`anime-${anime.mal_id}`}
-                  anime={anime}
-                  index={index}
-                />
-              );
-            })}
-          </tbody>
-          {/* <tfoot></tfoot> */}
-        </table>
-      </div>
+      <h2>Top Airing Anime</h2>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Score</th>
+            {user && <th>Add to List</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {topAiringAnime.slice(0, 10).map((anime, index) => {
+            // setCounter(counter + 1);
+            return (
+              <AnimeCard
+                key={`anime-${anime.mal_id}`}
+                anime={anime}
+                index={index}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+      <h2>Most Popular Anime</h2>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Score</th>
+            {user && <th>Add to List</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {mostPopularAnime.slice(0, 10).map((anime, index) => {
+            return (
+              <AnimeCard
+                key={`anime-${anime.mal_id}`}
+                anime={anime}
+                index={index}
+              />
+            );
+          })}
+        </tbody>
+      </table>
+      <h2>Top Upcoming Anime</h2>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Score</th>
+            {user && <th>Add to List</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {topUpcomingAnime.slice(0, 10).map((anime, index) => {
+            return (
+              <AnimeCard
+                key={`anime-${anime.mal_id}`}
+                anime={anime}
+                index={index}
+              />
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
