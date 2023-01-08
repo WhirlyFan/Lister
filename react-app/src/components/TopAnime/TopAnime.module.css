@@ -11,8 +11,6 @@
 }
 
 .pagination {
-    /* display: flex;
-    align-items: center; */
     margin: 1rem 0;
 }
 
@@ -47,4 +45,8 @@
 .current_page {
     display: flex;
     justify-content: center;
+}
+
+.table {
+    width: 100%;
 }

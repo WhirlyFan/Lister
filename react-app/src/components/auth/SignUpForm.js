@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
 import { createListThunk } from "../../store/lists";
 import { signUp } from "../../store/session";
 import styles from "./auth.module.css";
 
 const SignUpForm = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const user = useSelector((state) => state.session.user);
-  const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -27,6 +27,7 @@ const SignUpForm = () => {
       dispatch(createListThunk({ name: "On Hold", private: false }));
       dispatch(createListThunk({ name: "Favorites", private: false }));
       dispatch(createListThunk({ name: "Plan to Watch", private: false }));
+      history.push("/");
     }
   };
 
@@ -45,10 +46,6 @@ const SignUpForm = () => {
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
   };
-
-  if (user) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className={styles.body}>

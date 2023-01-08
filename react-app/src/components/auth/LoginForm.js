@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import styles from "./auth.module.css";
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = useSelector((state) => state.session.user);
-  const dispatch = useDispatch();
 
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
       setErrors(data);
+    } else {
+      history.goBack();
     }
   };
 
@@ -27,14 +29,12 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
-
   const demoButton = () => {
     dispatch(login("demo@aa.io", "password")).then((data) => {
       if (data) {
         setErrors(data);
+      } else {
+        history.goBack();
       }
     });
   };

@@ -15,7 +15,7 @@ export default function list({ list, animeDetails, setList, user, getUser }) {
                   src={anime.image}
                   alt={anime.title}
                   className={styles.anime_image}
-                  onClick={() => animeDetails(anime.mal_id)}
+                  onClick={() => animeDetails(anime)}
                 />
 
                 <div>
@@ -34,7 +34,7 @@ export default function list({ list, animeDetails, setList, user, getUser }) {
                   src={anime.image}
                   alt={anime.title}
                   className={styles.anime_image}
-                  onClick={() => animeDetails(anime.mal_id)}
+                  onClick={() => animeDetails(anime)}
                 />
                 <div>{anime.title}</div>
                 {user && user.id === getUser.id && (

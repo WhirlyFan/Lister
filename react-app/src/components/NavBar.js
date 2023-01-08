@@ -42,7 +42,7 @@ const NavBar = () => {
           <div className={styles.nav_right}>
             <div>
               <NavLink
-                to={`/lists/${user.id}`}
+                to={`/lists/${user.id}/${user.username}`}
                 exact={true}
                 activeClassName="active"
                 className={styles.navlink}
@@ -52,7 +52,7 @@ const NavBar = () => {
             </div>
             <div>
               <NavLink
-                to="/login"
+                to={`/profile/${user.id}/${user.username}`}
                 exact={true}
                 activeClassName="active"
                 className={styles.navlink}
@@ -69,11 +69,6 @@ const NavBar = () => {
             Top Anime
           </NavLink>
         </li>
-        {/* <li>
-          <NavLink to="/users" exact={true} activeClassName="active">
-            Users
-          </NavLink>
-        </li> */}
         {user && (
           <li>
             <LogoutButton />

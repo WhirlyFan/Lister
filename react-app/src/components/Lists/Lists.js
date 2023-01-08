@@ -50,8 +50,8 @@ export default function Lists() {
     else setList(animeArr);
   };
 
-  const animeDetails = (mal_id) => {
-    history.push(`/anime/${mal_id}`);
+  const animeDetails = (anime) => {
+    history.push(`/anime/${anime.mal_id}/${anime.title.replaceAll(" ", "_")}`);
   };
 
   return (
@@ -100,7 +100,7 @@ export default function Lists() {
                   hasClicked={hasClicked}
                 />
               )}
-              {(!user || !list.name) && (
+              {((user && !list.name) || !user) && (
                 <div className={styles.ghost_div}></div>
               )}
             </div>

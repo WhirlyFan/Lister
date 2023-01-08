@@ -52,14 +52,17 @@ function App() {
           <Route path="/" exact={true}>
             <Home />
           </Route>
-          <Route path="/lists/:userId">
+          <Route path="/lists/:userId/:username">
             <Lists />
           </Route>
           <Route path="/topanime">
             <TopAnime />
           </Route>
-          <Route path="/anime/:malAnimeId">
+          <Route path="/anime/:malAnimeId/:animeName">
             <AnimeDetails />
+          </Route>
+          <Route path="/profile/:userId/:username">
+            <User />
           </Route>
           <Route path="/loading">
             <LoadingBar/>

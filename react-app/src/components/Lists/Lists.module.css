@@ -55,7 +55,6 @@
 .anime {
   box-sizing: border-box;
   display: flex;
-  /* background-color: red; */
   flex-wrap: wrap;
 }
 

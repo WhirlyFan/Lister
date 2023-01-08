@@ -100,7 +100,7 @@ export default function Lists() {
           Next
         </button> */}
       </div>
-      <table>
+      <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>

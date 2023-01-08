@@ -7,8 +7,8 @@ export default function AnimeCard({ anime, index, top }) {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
 
-  const animeDetails = (id) => {
-    history.push(`/anime/${id}`);
+  const animeDetails = (anime) => {
+    history.push(`/anime/${anime.mal_id}/${anime.title.replaceAll(" ", "_")}`);
   };
 
   return (
@@ -18,7 +18,7 @@ export default function AnimeCard({ anime, index, top }) {
       <td
         className={styles.image}
         onClick={() => {
-          animeDetails(anime.mal_id);
+          animeDetails(anime);
         }}
       >
         <img src={anime.images.jpg.image_url} alt={anime.title} />
@@ -26,7 +26,7 @@ export default function AnimeCard({ anime, index, top }) {
       <td
         className={styles.title}
         onClick={() => {
-          animeDetails(anime.mal_id);
+          animeDetails(anime);
         }}
       >
         {anime.title}
