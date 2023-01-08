@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { createListThunk } from "../../store/lists";
 import { signUp } from "../../store/session";
@@ -13,6 +13,7 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  const user = useSelector((state) => state.session.user);
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -27,7 +28,6 @@ const SignUpForm = () => {
       dispatch(createListThunk({ name: "On Hold", private: false }));
       dispatch(createListThunk({ name: "Favorites", private: false }));
       dispatch(createListThunk({ name: "Plan to Watch", private: false }));
-      history.push("/");
     }
   };
 
@@ -46,6 +46,10 @@ const SignUpForm = () => {
   const updateRepeatPassword = (e) => {
     setRepeatPassword(e.target.value);
   };
+
+  if (user) {
+    history.push("/");
+  }
 
   return (
     <div className={styles.body}>

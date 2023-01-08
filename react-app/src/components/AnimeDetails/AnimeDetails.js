@@ -113,7 +113,7 @@ export default function AnimeDetails() {
               );
             })}
         </ul>
-        <div>
+        {user && (
           <form onSubmit={handleSubmit}>
             <ul>
               {errors.map((error, idx) => (
@@ -142,7 +142,8 @@ export default function AnimeDetails() {
             />
             <button type="submit">Submit</button>
           </form>
-        </div>
+        )}
+        {!user && <div>Login to add a review!</div>}
       </div>
     </div>
   );
