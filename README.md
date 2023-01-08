@@ -7,7 +7,7 @@
 - [Database Schema](https://github.com/WhirlyFan/Lister/wiki/Database-Schema)
 - [Feature List](https://github.com/WhirlyFan/Lister/wiki/Feature-List)
 - [User Stories](https://github.com/WhirlyFan/Listery/wiki/User-Stories)
-- [Redux State Shape](https://github.com/WhirlyFan/Lister/wiki/Wireframe)
+- [Wireframe](https://github.com/WhirlyFan/Lister/wiki/Wireframe)
 
 ## 👩‍💻 Tech Stack
 
