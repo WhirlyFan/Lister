@@ -59,14 +59,16 @@ export default function AddAnimeModal({
   };
 
   const handleDelete = () => {
-    dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
-      if (data.errors) {
-        setErrors(data.errors);
-      } else {
-        setList(data.list);
-        setShowModal(false);
-      }
-    });
+    if (window.confirm(`Are you sure you want to remove "${anime.title}" from "${list.name}?"`)) {
+      dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setList(data.list);
+          setShowModal(false);
+        }
+      });
+    }
   };
 
   return (

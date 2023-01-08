@@ -38,7 +38,20 @@ export default function ListForm({
   };
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this list?")) {
+    if (list.anime.length) {
+      if (
+        window.confirm(
+          `Are you sure you want to delete "${list.name}" from your lists?`
+        )
+      ) {
+        dispatch(deleteListThunk(id)).then(() => {
+          dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+            setList(res.animes);
+          });
+        });
+        setShowModal(false);
+      }
+    } else {
       dispatch(deleteListThunk(id)).then(() => {
         dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
           setList(res.animes);
