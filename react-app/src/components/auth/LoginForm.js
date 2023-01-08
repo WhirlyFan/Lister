@@ -81,7 +81,7 @@ const LoginForm = () => {
               demoButton();
             }}
           >
-            Log in with Demo User
+            Demo User
           </button>
           <p>
             Don't have an account?{" "}
