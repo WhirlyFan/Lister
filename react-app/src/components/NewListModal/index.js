@@ -7,7 +7,9 @@ export default function ListModal({ hasClicked, setHasClicked }) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>New List</button>
+      <button onClick={() => setShowModal(true)} className="blue_button">
+        New List
+      </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <NewListForm

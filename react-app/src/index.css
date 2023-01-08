@@ -41,3 +41,21 @@ body {
 td {
   text-align: center;
 }
+
+.blue_button {
+  background-color: #3b5998;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  height: 40px;
+  margin: 10px 0;
+  width: 8vw;
+}
+
+.blue_button:active {
+  background-color: #496fbe;
+  text-decoration: none;
+}
