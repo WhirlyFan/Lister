@@ -100,7 +100,7 @@ export default function Lists() {
                   hasClicked={hasClicked}
                 />
               )}
-              {((user && !list.name) || !user) && (
+              {!(user && list.name && user.id === getUser.id) && (
                 <div className={styles.ghost_div}></div>
               )}
             </div>
