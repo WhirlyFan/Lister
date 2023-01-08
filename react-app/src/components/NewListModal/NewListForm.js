@@ -62,7 +62,9 @@ export default function NewListForm({
           onChange={(e) => setPriv(e.target.checked)}
         />
       </div>
-      <button type="submit">Create List</button>
+      <button className="blue_button" type="submit">
+        Create List
+      </button>
     </form>
   );
 }

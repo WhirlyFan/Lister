@@ -38,12 +38,14 @@ export default function ListForm({
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteListThunk(id)).then(() => {
-      dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
-        setList(res.animes);
+    if (window.confirm("Are you sure you want to delete this list?")) {
+      dispatch(deleteListThunk(id)).then(() => {
+        dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+          setList(res.animes);
+        });
       });
-    });
-    setShowModal(false);
+      setShowModal(false);
+    }
   };
 
   return (
@@ -68,8 +70,14 @@ export default function ListForm({
         checked={priv}
         onChange={(e) => setPriv(e.target.checked)}
       />
-      <button type="submit">Edit</button>
-      <button type="button" onClick={() => handleDelete(list.id)}>
+      <button className="blue_button" type="submit">
+        Edit
+      </button>
+      <button
+        className="grey_button"
+        type="button"
+        onClick={() => handleDelete(list.id)}
+      >
         Delete
       </button>
     </form>
