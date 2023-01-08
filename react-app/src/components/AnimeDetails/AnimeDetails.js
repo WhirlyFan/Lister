@@ -141,7 +141,9 @@ export default function AnimeDetails() {
               onChange={(e) => setRating(e.target.value)}
               required
             />
-            <button type="submit">Submit</button>
+            <button type="submit" className="blue_button">
+              Submit
+            </button>
           </form>
         )}
         {!user && <div>Login to add a review!</div>}

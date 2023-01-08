@@ -11,7 +11,8 @@
     width: 5vw;
   }
 
-  .new_listblue_button:active {
+  .new_list_blue_button:active {
     background-color: #496fbe;
+    transform: scale(.9);
     text-decoration: none;
   }
