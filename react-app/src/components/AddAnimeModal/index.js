@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../../context/Modal";
 import AddAnimeForm from "./AddAnimeForm";
 import { getListsThunk } from "../../store/lists";
-import styles from "./AddAnimeModal.module.css";
 import list_styles from "../Lists/Lists.module.css";
 
 function AddAnimeModal({ anime, listMode, setList }) {
@@ -20,7 +19,7 @@ function AddAnimeModal({ anime, listMode, setList }) {
               setShowModal(true);
             });
           }}
-          className={styles.blue_button}
+          className="blue_button"
         >
           Add
         </button>
