@@ -8,15 +8,19 @@ export default function list({
   user,
   getUser,
   handleDelete,
+  animeArr,
 }) {
   return (
     <div className={styles.anime}>
-      {list &&
+      {list && //this can be changed. Just not touching it because of presentation tmrw. (only really checking for animeArr)
         !list.name &&
-        list.map((anime) => {
+        animeArr.map((anime) => {
           return (
             <div className={styles.anime}>
-              <div key={`anime-${anime.id}`} className={styles.anime_content}>
+              <div
+                key={`all-anime-${anime.id}`}
+                className={styles.anime_content}
+              >
                 <img
                   src={anime.image}
                   alt={anime.title}

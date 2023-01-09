@@ -39,6 +39,10 @@ def user_lists(id):
     if current_user.is_anonymous or id != current_user.id:
         lists = [list for list in lists if not list.private]
     if not lists:
+        # this weird piece of code is for when a user logs out and all their lists are private. It sets the output lists to an empty list to fix bugs
+        return {'lists': []}
+    if not lists:
+        # this is the old piece of code
         return {"errors": ["No lists found"]}, 404
     return {'lists': [list.to_dict() for list in lists]}
 
