@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteListThunk, editListThunk } from "../../store/lists";
 import { getAnimesByUserThunk } from "../../store/anime";
-// import styles from "./ListForm.module.css";
+import styles from "./ListForm.module.css";
 
 export default function ListForm({
   list,
@@ -62,7 +62,7 @@ export default function ListForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
@@ -70,19 +70,21 @@ export default function ListForm({
           </li>
         ))}
       </ul>
-      <label>List Name</label>
+      <label>List Name: </label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
-      <label>Private</label>
-      <input
-        type="checkbox"
-        checked={priv}
-        onChange={(e) => setPriv(e.target.checked)}
-      />
+      <div className={styles.private}>
+        <label>Private:</label>
+        <input
+          type="checkbox"
+          checked={priv}
+          onChange={(e) => setPriv(e.target.checked)}
+        />
+      </div>
       <button className="blue_button" type="submit">
         Edit
       </button>
