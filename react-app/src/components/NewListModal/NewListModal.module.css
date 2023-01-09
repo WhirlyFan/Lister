@@ -22,3 +22,23 @@
 .new_list_blue_button:hover {
   cursor: pointer;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.form > * {
+  margin: .2rem;
+}
+
+.private {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
