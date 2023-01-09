@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getAnimeThunk } from "../../store/jikan";
 import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
@@ -10,6 +10,7 @@ import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { malAnimeId } = useParams();
   const [anime, setAnime] = useState(null);
   const malAnime = useSelector((state) => state.jikan.anime.data);
@@ -76,8 +77,12 @@ export default function AnimeDetails() {
     }
   };
 
+  const userLists = (review_user) => {
+    history.push(`/lists/${review_user.id}/${review_user.username}`);
+  };
+
   return (
-    <div>
+    <div className={styles.anime_details}>
       <h1>{malAnime.title}</h1>
       <div>
         <img src={malAnime.images.jpg.image_url} alt="anime poster" />
@@ -97,7 +102,13 @@ export default function AnimeDetails() {
               return (
                 <li key={`review-${review.id}`} className={styles.review}>
                   <div className={styles.review_info}>
-                    <div>{review.user.username}</div>
+                    <strong
+                      onClick={() => {
+                        userLists(review.user);
+                      }}
+                    >
+                      {review.user.username}
+                    </strong>
                     <div>★{review.rating}</div>
                   </div>
                   <div className={styles.review_content}>{review.review}</div>
@@ -115,13 +126,13 @@ export default function AnimeDetails() {
         {user && (
           <>
             <form onSubmit={handleSubmit} className={styles.add_review}>
-            <ul>
-              {errors.map((error, idx) => (
-                <li key={idx} className="error">
-                  {error}
-                </li>
-              ))}
-            </ul>
+              <ul>
+                {errors.map((error, idx) => (
+                  <li key={idx} className="error">
+                    {error}
+                  </li>
+                ))}
+              </ul>
               <label>Add Review:</label>
               <textarea
                 type="text"
