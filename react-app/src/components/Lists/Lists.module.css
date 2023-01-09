@@ -75,10 +75,6 @@
   z-index: 1;
 }
 
-.anime > *:active {
-  z-index: -2;
-}
-
 .anime_header {
   background-color: #4065ba;
   display: flex;
