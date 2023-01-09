@@ -4,7 +4,6 @@ import {
   addAnimeThunk,
   addAnimeToListThunk,
   getMalAnimeThunk,
-  removeAnimeFromListThunk,
 } from "../../store/anime";
 
 export default function AddAnimeModal({
@@ -58,19 +57,6 @@ export default function AddAnimeModal({
     });
   };
 
-  // const handleDelete = () => {
-  //   if (window.confirm(`Are you sure you want to remove "${anime.title}" from "${list.name}?"`)) {
-  //     dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
-  //       if (data.errors) {
-  //         setErrors(data.errors);
-  //       } else {
-  //         setList(data.list);
-  //         setShowModal(false);
-  //       }
-  //     });
-  //   }
-  // };
-
   return (
     <form onSubmit={handleSubmit}>
       <ul>
@@ -99,18 +85,9 @@ export default function AddAnimeModal({
           );
         })}
       </select>
-      <button type="submit" className="blue_button">Submit</button>
-      {/* {listMode && (
-        <button
-          type="button"
-          onClick={() => {
-            handleDelete();
-          }}
-          className="grey_button"
-        >
-          Delete
-        </button>
-      )} */}
+      <button type="submit" className="blue_button">
+        Submit
+      </button>
     </form>
   );
 }

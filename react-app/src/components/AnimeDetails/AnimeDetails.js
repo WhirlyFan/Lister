@@ -115,7 +115,7 @@ export default function AnimeDetails() {
             })}
         </ul>
         {user && (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={styles.add_review}>
             <ul>
               {errors.map((error, idx) => (
                 <li key={idx} className="error">
@@ -123,7 +123,7 @@ export default function AnimeDetails() {
                 </li>
               ))}
             </ul>
-            <label>Add Review</label>
+            <label>Add Review:</label>
             <input
               type="textarea"
               name="add review"
@@ -131,7 +131,7 @@ export default function AnimeDetails() {
               onChange={(e) => setRev(e.target.value)}
               required
             />
-            <label>Rating</label>
+            <label>Rating:</label>
             <input
               type="number"
               name="rating"
