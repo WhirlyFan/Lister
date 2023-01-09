@@ -42,7 +42,7 @@ export default function list({ list, animeDetails, setList, user, getUser, handl
                   setList={setList}
                 />
               )}
-              {user.id === getUser.id && <div
+              {user && user.id === getUser.id && <div
                 className={styles.delete_icon}
                 onClick={() => {
                   handleDelete(anime);
