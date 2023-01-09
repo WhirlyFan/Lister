@@ -73,6 +73,7 @@ export default function AddAnimeModal({
           setErrors([]);
           setListId(e.target.value);
         }}
+        className={styles.select}
       >
         <option value="" disabled hidden>
           --- Select a List ---
