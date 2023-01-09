@@ -4,6 +4,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f5f5f5;
+  position: relative;
 }
 
 .review_info {
@@ -27,4 +28,29 @@
 
 .add_review > * {
   margin: 0 0.3rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 20%;
+  right: 0;
+}
+
+.icon > i {
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+.icon > i:active {
+  transform: scale(0.9);
+}
+
+.ghost_div {
+  margin: 5rem;
+}
+
+.review_content {
+  width: 98%;
 }

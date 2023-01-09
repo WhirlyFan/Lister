@@ -100,15 +100,13 @@ export default function AnimeDetails() {
                     <div>{review.user.username}</div>
                     <div>★{review.rating}</div>
                   </div>
-                  <div>{review.review}</div>
+                  <div className={styles.review_content}>{review.review}</div>
                   {user && user.id === review.user_id && (
-                    <div>
-                      <ReviewModal
-                        review={review}
-                        hasClicked={hasClicked}
-                        setHasClicked={setHasClicked}
-                      />
-                    </div>
+                    <ReviewModal
+                      review={review}
+                      hasClicked={hasClicked}
+                      setHasClicked={setHasClicked}
+                    />
                   )}
                 </li>
               );
@@ -148,6 +146,7 @@ export default function AnimeDetails() {
         )}
         {!user && <div>Login to add a review!</div>}
       </div>
+      <div className={styles.ghost_div}></div>
     </div>
   );
 }

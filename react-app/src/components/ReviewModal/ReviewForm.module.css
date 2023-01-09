@@ -9,20 +9,3 @@
 .form > *:not(ul) {
   margin: 0.2rem;
 }
-
-.icon {
-  display: flex;
-  align-items: center;
-}
-
-.icon > i {
-  margin: 0 0.5rem;
-}
-
-.icon > i:hover {
-  cursor: pointer;
-}
-
-.icon > i:active {
-  transform: scale(0.9);
-}
