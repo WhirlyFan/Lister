@@ -76,10 +76,8 @@ export default function Lists() {
                   showAnime(list);
                 }}
               >
-                <div className={styles.list_name_content}>
                   <div>{list.name}</div>
                   {list.private && <i className="fas fa-lock"></i>}
-                </div>
               </div>
             );
           })}
