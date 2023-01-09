@@ -138,9 +138,8 @@ export default function AnimeDetails() {
                         userLists(review.user);
                       }}
                     >
-                      {review.user.username}
+                      {review.user.username} <span>★{review.rating}</span>
                     </strong>
-                    <div>★{review.rating}</div>
                   </div>
                   <div className={styles.review_content}>{review.review}</div>
                   {user && user.id === review.user_id && (
