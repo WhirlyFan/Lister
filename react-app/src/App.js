@@ -34,7 +34,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <PageContext.Provider value={{ page, setPage }}> */}
         <NavBar />
         <Switch>
           <Route path="/login" exact={true}>
@@ -68,7 +67,6 @@ function App() {
             <h1>Page Not Found</h1>
           </Route>
         </Switch>
-      {/* </PageContext.Provider> */}
     </BrowserRouter>
   );
 }

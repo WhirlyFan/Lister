@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editReviewThunk, deleteReviewThunk } from "../../store/reviews";
+import styles from "./ReviewForm.module.css";
 
 export default function ReviewForm({
   review,
@@ -40,7 +41,7 @@ export default function ReviewForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">

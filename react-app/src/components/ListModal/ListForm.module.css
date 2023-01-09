@@ -6,6 +6,6 @@
   width: 100%;
 }
 
-.form > * {
+.form > *:not(ul) {
   margin: 0.2rem;
 }
