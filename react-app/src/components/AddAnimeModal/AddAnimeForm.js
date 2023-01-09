@@ -5,6 +5,7 @@ import {
   addAnimeToListThunk,
   getMalAnimeThunk,
 } from "../../store/anime";
+import styles from "./AddAnimeForm.module.css";
 
 export default function AddAnimeModal({
   setShowModal,
@@ -57,7 +58,7 @@ export default function AddAnimeModal({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
