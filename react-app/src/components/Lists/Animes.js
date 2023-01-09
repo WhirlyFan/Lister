@@ -42,14 +42,14 @@ export default function list({ list, animeDetails, setList, user, getUser, handl
                   setList={setList}
                 />
               )}
-              <div
+              {user.id === getUser.id && <div
                 className={styles.delete_icon}
                 onClick={() => {
                   handleDelete(anime);
                 }}
               >
                 <i className={"fas fa-trash-can fa-lg"}></i>
-              </div>
+              </div>}
               <div
                 className={styles.anime_title}
                 onClick={() => animeDetails(anime)}
