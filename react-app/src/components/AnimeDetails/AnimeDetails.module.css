@@ -20,6 +20,7 @@
 
 .add_review {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -27,7 +28,7 @@
 }
 
 .add_review > * {
-  margin: 0 0.3rem;
+  margin: 0.3rem 0;
 }
 
 .icon {
@@ -53,4 +54,13 @@
 
 .review_content {
   width: 98%;
+}
+
+.review_textarea {
+  width: 30rem;
+  height: 5rem;
+  resize: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
 }

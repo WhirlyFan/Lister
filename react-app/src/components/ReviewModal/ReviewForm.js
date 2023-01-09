@@ -50,12 +50,13 @@ export default function ReviewForm({
         ))}
       </ul>
       <label>Review</label>
-      <input
-        type="textarea"
+      <textarea
+        type="text"
         name="review"
         value={rev}
         onChange={(e) => setRev(e.target.value)}
         required
+        className={styles.review_textarea}
       />
       <label>Rating</label>
       <input

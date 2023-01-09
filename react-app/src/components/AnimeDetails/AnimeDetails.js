@@ -113,7 +113,8 @@ export default function AnimeDetails() {
             })}
         </ul>
         {user && (
-          <form onSubmit={handleSubmit} className={styles.add_review}>
+          <>
+            <form onSubmit={handleSubmit} className={styles.add_review}>
             <ul>
               {errors.map((error, idx) => (
                 <li key={idx} className="error">
@@ -121,28 +122,30 @@ export default function AnimeDetails() {
                 </li>
               ))}
             </ul>
-            <label>Add Review:</label>
-            <input
-              type="textarea"
-              name="add review"
-              value={rev}
-              onChange={(e) => setRev(e.target.value)}
-              required
-            />
-            <label>Rating:</label>
-            <input
-              type="number"
-              name="rating"
-              min="1"
-              max="10"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              required
-            />
-            <button type="submit" className="blue_button">
-              Submit
-            </button>
-          </form>
+              <label>Add Review:</label>
+              <textarea
+                type="text"
+                name="add review"
+                value={rev}
+                onChange={(e) => setRev(e.target.value)}
+                required
+                className={styles.review_textarea}
+              />
+              <label>Rating:</label>
+              <input
+                type="number"
+                name="rating"
+                min="1"
+                max="10"
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                required
+              />
+              <button type="submit" className="blue_button">
+                Submit
+              </button>
+            </form>
+          </>
         )}
         {!user && <div>Login to add a review!</div>}
       </div>
