@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editReviewThunk, deleteReviewThunk } from "../../store/reviews";
+import styles from "./ReviewForm.module.css";
 
 export default function ReviewForm({
   review,
@@ -40,7 +41,7 @@ export default function ReviewForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
@@ -49,12 +50,13 @@ export default function ReviewForm({
         ))}
       </ul>
       <label>Review</label>
-      <input
-        type="textarea"
+      <textarea
+        type="text"
         name="review"
         value={rev}
         onChange={(e) => setRev(e.target.value)}
         required
+        className={styles.review_textarea}
       />
       <label>Rating</label>
       <input

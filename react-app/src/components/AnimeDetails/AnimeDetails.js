@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getAnimeThunk } from "../../store/jikan";
 import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
@@ -10,6 +10,7 @@ import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { malAnimeId } = useParams();
   const [anime, setAnime] = useState(null);
   const malAnime = useSelector((state) => state.jikan.anime.data);
@@ -76,15 +77,50 @@ export default function AnimeDetails() {
     }
   };
 
+  const userLists = (review_user) => {
+    history.push(`/lists/${review_user.id}/${review_user.username}`);
+  };
+
   return (
-    <div>
-      <h1>{malAnime.title}</h1>
+    <div className={styles.anime_details}>
       <div>
-        <img src={malAnime.images.jpg.image_url} alt="anime poster" />
-      </div>
-      <div>
-        <h2>Synopsis</h2>
-        <p>{malAnime.synopsis}</p>
+        <h1 className={styles.title}>
+          {malAnime.title_english ? malAnime.title_english : malAnime.title} (
+          {malAnime.title_japanese})
+        </h1>
+        <div className={styles.anime_content}>
+          <div className={styles.anime_image_info}>
+            <div>
+              <img src={malAnime.images.jpg.image_url} alt="anime-poster" />
+            </div>
+            <div className={styles.info}>
+              <h2 className={styles.information}>Information</h2>
+              <div>Top Rank: #{malAnime.rank ? malAnime.rank : "n/a"}</div>
+              <div>Score: ★{malAnime.score ? malAnime.score : "n/a"}</div>
+              <div>Rating: {malAnime.rating ? malAnime.rating : "n/a"}</div>
+              <div>Status: {malAnime.status ? malAnime.status : "n/a"}</div>
+              <div>
+                Aired: {malAnime.aired.string ? malAnime.aired.string : "n/a"}
+              </div>
+              <h2 className={styles.synopsis}>Synopsis</h2>
+              <p className={styles.synopsis_info}>
+                {malAnime.synopsis
+                  ? malAnime.synopsis
+                  : "Sorry! No synopsis provided!"}
+              </p>
+            </div>
+          </div>
+        </div>
+        {malAnime.trailer.embed_url && (
+          <div className={styles.trailer}>
+            <h2>Trailer</h2>
+            <iframe
+              src={malAnime.trailer.embed_url?.slice(0, -1) + "0"}
+              title={malAnime.title}
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
       </div>
       <div>
         <div className={styles.review_header}>
@@ -97,57 +133,65 @@ export default function AnimeDetails() {
               return (
                 <li key={`review-${review.id}`} className={styles.review}>
                   <div className={styles.review_info}>
-                    <div>{review.user.username}</div>
+                    <strong
+                      onClick={() => {
+                        userLists(review.user);
+                      }}
+                    >
+                      {review.user.username}
+                    </strong>
                     <div>★{review.rating}</div>
                   </div>
-                  <div>{review.review}</div>
+                  <div className={styles.review_content}>{review.review}</div>
                   {user && user.id === review.user_id && (
-                    <div>
-                      <ReviewModal
-                        review={review}
-                        hasClicked={hasClicked}
-                        setHasClicked={setHasClicked}
-                      />
-                    </div>
+                    <ReviewModal
+                      review={review}
+                      hasClicked={hasClicked}
+                      setHasClicked={setHasClicked}
+                    />
                   )}
                 </li>
               );
             })}
         </ul>
         {user && (
-          <form onSubmit={handleSubmit} className={styles.add_review}>
-            <ul>
-              {errors.map((error, idx) => (
-                <li key={idx} className="error">
-                  {error}
-                </li>
-              ))}
-            </ul>
-            <label>Add Review:</label>
-            <input
-              type="textarea"
-              name="add review"
-              value={rev}
-              onChange={(e) => setRev(e.target.value)}
-              required
-            />
-            <label>Rating:</label>
-            <input
-              type="number"
-              name="rating"
-              min="1"
-              max="10"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              required
-            />
-            <button type="submit" className="blue_button">
-              Submit
-            </button>
-          </form>
+          <>
+            <form onSubmit={handleSubmit} className={styles.add_review}>
+              <ul>
+                {errors.map((error, idx) => (
+                  <li key={idx} className="error">
+                    {error}
+                  </li>
+                ))}
+              </ul>
+              <label>Add Review:</label>
+              <textarea
+                type="text"
+                name="add review"
+                value={rev}
+                onChange={(e) => setRev(e.target.value)}
+                required
+                className={styles.review_textarea}
+              />
+              <label>Rating:</label>
+              <input
+                type="number"
+                name="rating"
+                min="1"
+                max="10"
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                required
+              />
+              <button type="submit" className="blue_button">
+                Submit
+              </button>
+            </form>
+          </>
         )}
         {!user && <div>Login to add a review!</div>}
       </div>
+      <div className={styles.ghost_div}></div>
     </div>
   );
 }

@@ -72,7 +72,7 @@ export default function Lists() {
   };
 
   return (
-    <div>
+    <div className={styles.background}>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
         {user && user.id === getUser.id && (
@@ -93,8 +93,10 @@ export default function Lists() {
                   showAnime(list);
                 }}
               >
-                <div>{list.name}</div>
-                {list.private && <i className="fas fa-lock"></i>}
+                <div className={styles.list_name_text}>{list.name}</div>
+                <div className={styles.lock_icon}>
+                  {list.private && <i className="fas fa-lock"></i>}
+                </div>
               </div>
             );
           })}
@@ -130,6 +132,7 @@ export default function Lists() {
           />
         </div>
       )}
+      <div className="ghost_div"></div>
     </div>
   );
 }

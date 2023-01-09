@@ -5,7 +5,7 @@ import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
+// import UsersList from "./components/UsersList";
 import Profile from "./components/Profile/Profile";
 import { authenticate } from "./store/session";
 import Lists from "./components/Lists/Lists";
@@ -34,7 +34,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <PageContext.Provider value={{ page, setPage }}> */}
         <NavBar />
         <Switch>
           <Route path="/login" exact={true}>
@@ -43,9 +42,9 @@ function App() {
           <Route path="/sign-up" exact={true}>
             <SignUpForm />
           </Route>
-          <ProtectedRoute path="/users" exact={true}>
+          {/* <ProtectedRoute path="/users" exact={true}>
             <UsersList />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
           <ProtectedRoute path="/profile/:userId/:username" exact={true}>
             <Profile />
           </ProtectedRoute>
@@ -68,7 +67,6 @@ function App() {
             <h1>Page Not Found</h1>
           </Route>
         </Switch>
-      {/* </PageContext.Provider> */}
     </BrowserRouter>
   );
 }

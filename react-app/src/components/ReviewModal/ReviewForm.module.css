@@ -9,3 +9,12 @@
 .form > *:not(ul) {
   margin: 0.2rem;
 }
+
+.review_textarea {
+  width: 30rem;
+  height: 6rem;
+  resize: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}

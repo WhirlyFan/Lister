@@ -15,6 +15,7 @@ body {
   margin: 0 300px;
   font-family: "Montserrat", sans-serif;
   scroll-behavior: smooth;
+  cursor: default;
 }
 
 .error {
@@ -88,4 +89,9 @@ td {
   background-color: #ced8ef;
   transform: scale(0.9);
   text-decoration: none;
+}
+
+.ghost_div {
+  box-sizing: border-box;
+  margin: 5rem;
 }

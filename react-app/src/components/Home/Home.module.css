@@ -21,6 +21,7 @@
 
 .title {
   word-wrap: break-word;
+  cursor: pointer;
 }
 
 .animeCard-test {

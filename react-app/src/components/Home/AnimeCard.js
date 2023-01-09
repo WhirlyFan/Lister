@@ -13,8 +13,8 @@ export default function AnimeCard({ anime, index, top }) {
 
   return (
     <tr className={styles.anime}>
-      {top && <td>{anime.rank}</td>}
-      {!top && <td>{index + 1}</td>}
+      {top && <td>#{anime.rank}</td>}
+      {!top && <td>#{index + 1}</td>}
       <td
         className={styles.image}
         onClick={() => {
@@ -29,11 +29,10 @@ export default function AnimeCard({ anime, index, top }) {
           animeDetails(anime);
         }}
       >
-        {anime.title}
+        {anime.title_english ? anime.title_english : anime.title}
       </td>
-      {/* fix this spacing */}
       {!anime.score && <td>n/a</td>}
-      {anime.score && <td>{anime.score}</td>}
+      {anime.score && <td>★{anime.score}</td>}
       {user && (
         <td>
           <AddAnimeModal anime={anime} />
