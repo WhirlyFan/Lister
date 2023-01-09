@@ -65,6 +65,7 @@
 
 .review_content {
   width: 98%;
+  overflow-wrap: break-word;
 }
 
 .review_textarea {
