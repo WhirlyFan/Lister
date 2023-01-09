@@ -6,7 +6,7 @@ import { getListsThunk } from "../../store/lists";
 import styles from "./AddAnimeModal.module.css";
 import list_styles from "../Lists/Lists.module.css";
 
-function AddAnimeModal({ anime, list, listMode, setList }) {
+function AddAnimeModal({ anime, listMode, setList }) {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const user = useSelector((state) => state.session.user);
@@ -40,7 +40,6 @@ function AddAnimeModal({ anime, list, listMode, setList }) {
             setShowModal={setShowModal}
             anime={anime}
             listMode={listMode}
-            list={list}
             setList={setList}
           />
         </Modal>

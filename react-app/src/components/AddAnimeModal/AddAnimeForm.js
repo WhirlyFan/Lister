@@ -9,7 +9,6 @@ import {
 export default function AddAnimeModal({
   setShowModal,
   anime,
-  list,
   setList,
   listMode,
 }) {

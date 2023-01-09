@@ -38,7 +38,6 @@ export default function list({ list, animeDetails, setList, user, getUser, handl
                 <AddAnimeModal
                   listMode={true}
                   anime={anime}
-                  list={list}
                   setList={setList}
                 />
               )}
