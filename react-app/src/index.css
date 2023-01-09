@@ -50,7 +50,7 @@ td {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  height: 4vh;
+  padding: 0.5rem;
   min-width: fit-content;
   min-height: fit-content;
   width: 5vw;
@@ -74,7 +74,7 @@ td {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  height: 4vh;
+  padding: 0.5rem;
   min-width: fit-content;
   min-height: fit-content;
   width: 5vw;
