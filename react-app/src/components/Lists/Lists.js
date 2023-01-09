@@ -43,7 +43,7 @@ export default function Lists() {
   }
 
   if (!getUser) {
-    return null;
+    return <LoadingBar />;
   }
 
   const showAnime = (list) => {
@@ -83,7 +83,7 @@ export default function Lists() {
         <div className={styles.list_name} onClick={() => showAnime()}>
           All Anime
         </div>
-        {list &&
+        {listsArr &&
           listsArr.map((list) => {
             return (
               <div
@@ -122,6 +122,7 @@ export default function Lists() {
               )}
             </div>
           </div>
+          {/* have to use context to setList to all animes on logout */}
           <Animes
             list={list}
             setList={setList}
@@ -129,6 +130,7 @@ export default function Lists() {
             user={user}
             getUser={getUser}
             handleDelete={handleDelete}
+            animeArr={animeArr}
           />
         </div>
       )}

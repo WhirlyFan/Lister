@@ -14,7 +14,7 @@ import Home from "./components/Home/Home";
 import AnimeDetails from "./components/AnimeDetails/AnimeDetails";
 import LoadingBar from "./components/LoadingBar/LoadingBar";
 
-export const PageContext = React.createContext();
+// export const PageContext = React.createContext();
 
 function App() {
   const [loaded, setLoaded] = useState(false);
