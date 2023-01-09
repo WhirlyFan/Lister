@@ -66,6 +66,10 @@
   z-index: 1;
 }
 
+.anime > *:active {
+  z-index: -2;
+}
+
 .anime_header {
   background-color: #4065ba;
   display: flex;
@@ -81,7 +85,7 @@
   margin: 0.3rem 0;
 }
 
-.anime > img {
+.anime_content > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -95,7 +99,6 @@
   background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   cursor: pointer;
-  z-index: 1;
 }
 
 .edit_icon {
@@ -107,7 +110,6 @@
   margin: 0.3rem;
   top: 0;
   left: 0;
-  z-index: 1;
 }
 
 .edit_icon:hover {
@@ -127,7 +129,6 @@
   margin: 0.3rem;
   top: 0;
   right: 0;
-  z-index: 1;
 }
 
 .delete_icon:hover {

@@ -90,3 +90,8 @@ td {
   transform: scale(0.9);
   text-decoration: none;
 }
+
+.ghost_div {
+  box-sizing: border-box;
+  margin: 5rem;
+}

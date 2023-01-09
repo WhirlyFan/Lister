@@ -28,14 +28,18 @@ export default function AddAnimeModal({
       setErrors(["Please select a list."]);
     }
     dispatch(getMalAnimeThunk(anime.mal_id)).then((data) => {
+      const animeTitle = anime.title_english
+        ? anime.title_english
+        : anime.title;
       if (data.status) {
         dispatch(
           addAnimeThunk({
             mal_id: anime.mal_id,
             image: anime.images.jpg.image_url,
-            title: anime.title,
+            title: animeTitle,
           })
         ).then((data) => {
+          console.log(data)
           dispatch(addAnimeToListThunk(data.id, listId)).then((data) => {
             if (data.errors) {
               setErrors(data.errors);

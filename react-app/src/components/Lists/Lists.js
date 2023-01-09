@@ -94,7 +94,9 @@ export default function Lists() {
                 }}
               >
                 <div className={styles.list_name_text}>{list.name}</div>
-                <div className={styles.lock_icon}>{list.private && <i className="fas fa-lock"></i>}</div>
+                <div className={styles.lock_icon}>
+                  {list.private && <i className="fas fa-lock"></i>}
+                </div>
               </div>
             );
           })}
@@ -130,6 +132,7 @@ export default function Lists() {
           />
         </div>
       )}
+      <div className="ghost_div"></div>
     </div>
   );
 }
