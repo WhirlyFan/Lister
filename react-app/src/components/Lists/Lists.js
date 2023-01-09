@@ -72,7 +72,7 @@ export default function Lists() {
   };
 
   return (
-    <div>
+    <div className={styles.background}>
       <div className={styles.list_header}>
         <h1>{getUser.username}'s Lists</h1>
         {user && user.id === getUser.id && (
