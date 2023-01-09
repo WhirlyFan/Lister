@@ -4,6 +4,7 @@ import { Modal } from "../../context/Modal";
 import AddAnimeForm from "./AddAnimeForm";
 import { getListsThunk } from "../../store/lists";
 import styles from "./AddAnimeModal.module.css";
+import list_styles from "../Lists/Lists.module.css";
 
 function AddAnimeModal({ anime, list, listMode, setList }) {
   const dispatch = useDispatch();
@@ -12,16 +13,27 @@ function AddAnimeModal({ anime, list, listMode, setList }) {
 
   return (
     <>
-      <button
-        onClick={() => {
-          dispatch(getListsThunk(user.id)).then(() => {
-            setShowModal(true);
-          });
-        }}
-        className={styles.blue_button}
-      >
-        {listMode ? "Edit" : "Add"}
-      </button>
+      {!listMode && (
+        <button
+          onClick={() => {
+            dispatch(getListsThunk(user.id)).then(() => {
+              setShowModal(true);
+            });
+          }}
+          className={styles.blue_button}
+        >
+          Add
+        </button>
+      )}
+      {listMode && (
+        <div
+          onClick={() => setShowModal(true)}
+          className={list_styles.edit_icon}
+        >
+          <i className={"fas fa-edit fa-lg"}></i>
+        </div>
+      )}
+
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddAnimeForm

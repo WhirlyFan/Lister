@@ -10,17 +10,17 @@ export default function list({ list, animeDetails, setList, user, getUser }) {
         list.map((anime) => {
           return (
             <div key={`anime-${anime.id}`} className={styles.anime}>
-              <div>
-                <img
-                  src={anime.image}
-                  alt={anime.title}
-                  className={styles.anime_image}
-                  onClick={() => animeDetails(anime)}
-                />
-
-                <div>
-                  <div>{anime.title}</div>
-                </div>
+              <img
+                src={anime.image}
+                alt={anime.title}
+                className={styles.anime_image}
+                onClick={() => animeDetails(anime)}
+              />
+              <div
+                className={styles.anime_title}
+                onClick={() => animeDetails(anime)}
+              >
+                {anime.title}
               </div>
             </div>
           );
@@ -29,22 +29,25 @@ export default function list({ list, animeDetails, setList, user, getUser }) {
         list?.anime.map((anime) => {
           return (
             <div key={`anime-${anime.id}`} className={styles.anime}>
-              <div>
-                <img
-                  src={anime.image}
-                  alt={anime.title}
-                  className={styles.anime_image}
-                  onClick={() => animeDetails(anime)}
+              <img
+                src={anime.image}
+                alt={anime.title}
+                className={styles.anime_image}
+                onClick={() => animeDetails(anime)}
+              />
+              {user && user.id === getUser.id && (
+                <AddAnimeModal
+                  listMode={listMode}
+                  anime={anime}
+                  list={list}
+                  setList={setList}
                 />
-                <div>{anime.title}</div>
-                {user && user.id === getUser.id && (
-                  <AddAnimeModal
-                    listMode={listMode}
-                    anime={anime}
-                    list={list}
-                    setList={setList}
-                  />
-                )}
+              )}
+              <div
+                className={styles.anime_title}
+                onClick={() => animeDetails(anime)}
+              >
+                {anime.title}
               </div>
             </div>
           );
