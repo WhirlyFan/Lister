@@ -19,6 +19,7 @@
   box-shadow: 0 2px 3px #ccc;
   transition: all 0.3s ease-out;
   cursor: pointer;
+  position: relative;
 }
 
 .list_name > i {
@@ -28,6 +29,15 @@
 .list_name:hover {
   box-shadow: 0 2px 3px #ccc, 0 0 25px #ccc;
   transform: scale(1.02);
+}
+
+.lock_icon {
+  position: absolute;
+  top: -25%;
+}
+
+.list_name_text {
+  text-align: center;
 }
 
 .list_edit {
