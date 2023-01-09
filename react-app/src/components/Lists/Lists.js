@@ -106,8 +106,8 @@ export default function Lists() {
           <div>
             <div className={styles.anime_header}>
               <div className={styles.ghost_div}></div>
-              {!list.name && <h3>All Anime</h3>}
-              {list.name && <h3>{list.name}</h3>}
+              {(!list.name || (!user && list?.private)) && <h3>All Anime</h3>}
+              {(!user && list?.private) || (list.name && <h3>{list.name}</h3>)}
               {user && list.name && user.id === getUser.id && (
                 <ListModal
                   className={styles.list_edit}
