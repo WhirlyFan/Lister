@@ -1,52 +1,52 @@
 .top_anime {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background-color: #f5f5f5;
-    padding: 0 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f5f5f5;
+  padding: 0 1rem;
 }
 
 .pagination {
-    margin: 1rem 0;
+  margin: 1rem 0;
 }
 
 .pagination > button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 .5rem;
-    padding: .5rem;
-    border: 1px solid #2e51a2;
-    border-radius: 5px;
-    background-color: #2e51a2;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #2e51a2;
+  border-radius: 5px;
+  background-color: #2e51a2;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .page_list {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 .5rem;
-    padding: .5rem;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  text-decoration: none;
 }
 
 .page_list > * {
-    margin: 0 .5rem;
+  margin: 0 0.5rem;
 }
 
 .current_page {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .table {
-    width: 100%;
+  width: 100%;
 }

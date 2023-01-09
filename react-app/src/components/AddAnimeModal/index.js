@@ -30,7 +30,7 @@ function AddAnimeModal({ anime, list, listMode, setList }) {
           onClick={() => setShowModal(true)}
           className={list_styles.edit_icon}
         >
-          <i className={"fas fa-edit fa-lg"}></i>
+          <i className={"fas fa-plus fa-lg"}></i>
         </div>
       )}
 

@@ -9,6 +9,7 @@ import styles from "./Lists.module.css";
 import NewListModal from "../NewListModal";
 import Animes from "./Animes";
 import LoadingBar from "../LoadingBar/LoadingBar";
+import { removeAnimeFromListThunk } from "../../store/anime";
 
 export default function Lists() {
   const dispatch = useDispatch();
@@ -54,6 +55,22 @@ export default function Lists() {
     history.push(`/anime/${anime.mal_id}/${anime.title.replaceAll(" ", "_")}`);
   };
 
+  const handleDelete = (anime) => {
+    if (
+      window.confirm(
+        `Are you sure you want to remove "${anime.title}" from "${list.name}?"`
+      )
+    ) {
+      dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
+        if (data.errors) {
+          alert("Something went wrong. Please try again.");
+        } else {
+          setList(data.list)
+        }
+      });
+    }
+  };
+
   return (
     <div>
       <div className={styles.list_header}>
@@ -76,8 +93,8 @@ export default function Lists() {
                   showAnime(list);
                 }}
               >
-                  <div>{list.name}</div>
-                  {list.private && <i className="fas fa-lock"></i>}
+                <div>{list.name}</div>
+                {list.private && <i className="fas fa-lock"></i>}
               </div>
             );
           })}
@@ -109,6 +126,7 @@ export default function Lists() {
             animeDetails={animeDetails}
             user={user}
             getUser={getUser}
+            handleDelete={handleDelete}
           />
         </div>
       )}

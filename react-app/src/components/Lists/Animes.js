@@ -1,8 +1,7 @@
 import styles from "./Lists.module.css";
 import AddAnimeModal from "../AddAnimeModal";
 
-export default function list({ list, animeDetails, setList, user, getUser }) {
-  const listMode = true;
+export default function list({ list, animeDetails, setList, user, getUser, handleDelete }) {
   return (
     <div className={styles.anime}>
       {list &&
@@ -37,12 +36,20 @@ export default function list({ list, animeDetails, setList, user, getUser }) {
               />
               {user && user.id === getUser.id && (
                 <AddAnimeModal
-                  listMode={listMode}
+                  listMode={true}
                   anime={anime}
                   list={list}
                   setList={setList}
                 />
               )}
+              <div
+                className={styles.delete_icon}
+                onClick={() => {
+                  handleDelete(anime);
+                }}
+              >
+                <i className={"fas fa-trash-can fa-lg"}></i>
+              </div>
               <div
                 className={styles.anime_title}
                 onClick={() => animeDetails(anime)}

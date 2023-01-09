@@ -59,8 +59,12 @@ td {
 
 .blue_button:active {
   background-color: #496fbe;
-  transform: scale(.9);
+  transform: scale(0.9);
   text-decoration: none;
+}
+
+.blue_button:hover {
+  cursor: pointer;
 }
 
 .grey_button {
@@ -78,8 +82,12 @@ td {
   width: 5vw;
 }
 
+.grey_button:hover {
+  cursor: pointer;
+}
+
 .grey_button:active {
   background-color: #ced8ef;
-  transform: scale(.9);
+  transform: scale(0.9);
   text-decoration: none;
 }

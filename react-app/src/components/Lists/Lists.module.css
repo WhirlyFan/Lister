@@ -83,10 +83,32 @@
   left: 0;
 }
 
+.edit_icon:hover {
+  cursor: pointer;
+}
+
 .edit_icon:active {
   transform: scale(0.9);
 }
 
+.delete_icon {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  top: 0;
+  right: 0;
+}
+
+.delete_icon:hover {
+  cursor: pointer;
+}
+
+.delete_icon:active {
+  transform: scale(0.9);
+}
 
 .list_edit {
   color: #fff;

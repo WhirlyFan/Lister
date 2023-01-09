@@ -58,18 +58,18 @@ export default function AddAnimeModal({
     });
   };
 
-  const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to remove "${anime.title}" from "${list.name}?"`)) {
-      dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
-        if (data.errors) {
-          setErrors(data.errors);
-        } else {
-          setList(data.list);
-          setShowModal(false);
-        }
-      });
-    }
-  };
+  // const handleDelete = () => {
+  //   if (window.confirm(`Are you sure you want to remove "${anime.title}" from "${list.name}?"`)) {
+  //     dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
+  //       if (data.errors) {
+  //         setErrors(data.errors);
+  //       } else {
+  //         setList(data.list);
+  //         setShowModal(false);
+  //       }
+  //     });
+  //   }
+  // };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -100,7 +100,7 @@ export default function AddAnimeModal({
         })}
       </select>
       <button type="submit" className="blue_button">Submit</button>
-      {listMode && (
+      {/* {listMode && (
         <button
           type="button"
           onClick={() => {
@@ -110,7 +110,7 @@ export default function AddAnimeModal({
         >
           Delete
         </button>
-      )}
+      )} */}
     </form>
   );
 }
