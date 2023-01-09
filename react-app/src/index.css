@@ -94,5 +94,5 @@ td {
 .ghost_div {
   box-sizing: border-box;
   /* margin: 5rem; */
-  height: 5rem;
+  min-height: 30vh;
 }
