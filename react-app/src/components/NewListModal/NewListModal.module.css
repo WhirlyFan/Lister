@@ -1,0 +1,36 @@
+.new_list_blue_button {
+  background-color: #3b5998;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  height: 5vh;
+  min-width: fit-content;
+  min-height: fit-content;
+  margin: 10px 0;
+  width: 5vw;
+}
+
+.new_list_blue_button:active {
+  background-color: #496fbe;
+  transform: scale(0.9);
+  text-decoration: none;
+}
+
+.new_list_blue_button:hover {
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.form > * {
+  margin: .2rem;
+}

@@ -6,7 +6,7 @@ import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
-import User from "./components/User";
+import Profile from "./components/Profile/Profile";
 import { authenticate } from "./store/session";
 import Lists from "./components/Lists/Lists";
 import TopAnime from "./components/TopAnime/TopAnime";
@@ -46,8 +46,8 @@ function App() {
           <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute>
-          <ProtectedRoute path="/users/:userId" exact={true}>
-            <User />
+          <ProtectedRoute path="/profile/:userId/:username" exact={true}>
+            <Profile />
           </ProtectedRoute>
           <Route path="/" exact={true}>
             <Home />
@@ -60,9 +60,6 @@ function App() {
           </Route>
           <Route path="/anime/:malAnimeId/:animeName">
             <AnimeDetails />
-          </Route>
-          <Route path="/profile/:userId/:username">
-            <User />
           </Route>
           <Route path="/loading">
             <LoadingBar/>

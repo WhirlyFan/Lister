@@ -4,13 +4,12 @@ import {
   addAnimeThunk,
   addAnimeToListThunk,
   getMalAnimeThunk,
-  removeAnimeFromListThunk,
 } from "../../store/anime";
+import styles from "./AddAnimeForm.module.css";
 
 export default function AddAnimeModal({
   setShowModal,
   anime,
-  list,
   setList,
   listMode,
 }) {
@@ -58,19 +57,8 @@ export default function AddAnimeModal({
     });
   };
 
-  const handleDelete = () => {
-    dispatch(removeAnimeFromListThunk(anime.id, list.id)).then((data) => {
-      if (data.errors) {
-        setErrors(data.errors);
-      } else {
-        setList(data.list);
-        setShowModal(false);
-      }
-    });
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
@@ -97,17 +85,9 @@ export default function AddAnimeModal({
           );
         })}
       </select>
-      <button type="submit">Submit</button>
-      {listMode && (
-        <button
-          type="button"
-          onClick={() => {
-            handleDelete();
-          }}
-        >
-          Delete
-        </button>
-      )}
+      <button type="submit" className="blue_button">
+        Submit
+      </button>
     </form>
   );
 }

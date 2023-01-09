@@ -17,7 +17,9 @@ const LoginForm = () => {
     if (data) {
       setErrors(data);
     } else {
-      history.goBack();
+      //temporary fix that navigates user back a page if their history is greater than 2
+      if (history.length > 2) history.goBack();
+      else history.push("/");
     }
   };
 
@@ -34,7 +36,9 @@ const LoginForm = () => {
       if (data) {
         setErrors(data);
       } else {
-        history.goBack();
+        //temporary fix that navigates user back a page if their history is greater than 2
+        if (history.length > 2) history.goBack();
+        else history.push("/");
       }
     });
   };

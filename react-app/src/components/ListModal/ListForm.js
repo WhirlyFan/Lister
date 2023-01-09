@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteListThunk, editListThunk } from "../../store/lists";
 import { getAnimesByUserThunk } from "../../store/anime";
-// import styles from "./ListForm.module.css";
+import styles from "./ListForm.module.css";
 
 export default function ListForm({
   list,
@@ -38,16 +38,31 @@ export default function ListForm({
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteListThunk(id)).then(() => {
-      dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
-        setList(res.animes);
+    if (list.anime.length) {
+      if (
+        window.confirm(
+          `Are you sure you want to delete "${list.name}" from your lists?`
+        )
+      ) {
+        dispatch(deleteListThunk(id)).then(() => {
+          dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+            setList(res.animes);
+          });
+        });
+        setShowModal(false);
+      }
+    } else {
+      dispatch(deleteListThunk(id)).then(() => {
+        dispatch(getAnimesByUserThunk(list.owner_id)).then((res) => {
+          setList(res.animes);
+        });
       });
-    });
-    setShowModal(false);
+      setShowModal(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
@@ -55,21 +70,29 @@ export default function ListForm({
           </li>
         ))}
       </ul>
-      <label>List Name</label>
+      <label>List Name: </label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
-      <label>Private</label>
-      <input
-        type="checkbox"
-        checked={priv}
-        onChange={(e) => setPriv(e.target.checked)}
-      />
-      <button type="submit">Edit</button>
-      <button type="button" onClick={() => handleDelete(list.id)}>
+      <div className={styles.private}>
+        <label>Private:</label>
+        <input
+          type="checkbox"
+          checked={priv}
+          onChange={(e) => setPriv(e.target.checked)}
+        />
+      </div>
+      <button className="blue_button" type="submit">
+        Edit
+      </button>
+      <button
+        className="grey_button"
+        type="button"
+        onClick={() => handleDelete(list.id)}
+      >
         Delete
       </button>
     </form>

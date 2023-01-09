@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { useParams, useHistory } from "react-router-dom";
-import {
-  editReviewThunk,
-  // getReviewsThunk,
-  deleteReviewThunk,
-} from "../../store/reviews";
+import { editReviewThunk, deleteReviewThunk } from "../../store/reviews";
 
 export default function ReviewForm({
   review,
@@ -14,12 +9,9 @@ export default function ReviewForm({
   setShowModal,
 }) {
   const dispatch = useDispatch();
-  // const history = useHistory();
-  // const { malAnimeId } = useParams();
   const [rev, setRev] = useState(review.review);
   const [rating, setRating] = useState(review.rating);
   const [errors, setErrors] = useState([]);
-  // const [isLoaded, setIsLoaded] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,10 +31,12 @@ export default function ReviewForm({
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteReviewThunk(id)).then(() => {
-      setHasClicked(!hasClicked);
-      setShowModal(false);
-    });
+    if (window.confirm(`Are you sure you want to delete this review?`)) {
+      dispatch(deleteReviewThunk(id)).then(() => {
+        setHasClicked(!hasClicked);
+        setShowModal(false);
+      });
+    }
   };
 
   return (
@@ -72,9 +66,12 @@ export default function ReviewForm({
         onChange={(e) => setRating(e.target.value)}
         required
       />
-      <button type="submit">Edit</button>
+      <button type="submit" className="blue_button">
+        Edit
+      </button>
       <button
         type="button"
+        className="grey_button"
         onClick={() => {
           handleDelete(review.id);
         }}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createListThunk } from "../../store/lists";
+import styles from "./NewListModal.module.css";
 
 export default function NewListForm({
   setShowModal,
@@ -36,7 +37,7 @@ export default function NewListForm({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <ul>
         {errors.map((error, idx) => (
           <li key={idx} className="error">
@@ -44,7 +45,7 @@ export default function NewListForm({
           </li>
         ))}
       </ul>
-      <div>
+
         <label>List Name</label>
         <input
           type="text"
@@ -52,8 +53,8 @@ export default function NewListForm({
           value={listName}
           onChange={(e) => setListName(e.target.value)}
         />
-      </div>
-      <div>
+
+      <div className={styles.private}>
         <label>Private</label>
         <input
           type="checkbox"
@@ -62,7 +63,9 @@ export default function NewListForm({
           onChange={(e) => setPriv(e.target.checked)}
         />
       </div>
-      <button type="submit">Create List</button>
+      <button className="blue_button" type="submit">
+        Create List
+      </button>
     </form>
   );
 }

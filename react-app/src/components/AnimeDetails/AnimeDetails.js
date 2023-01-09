@@ -6,6 +6,7 @@ import { addAnimeThunk, getMalAnimeThunk } from "../../store/anime";
 import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
 import ReviewModal from "../ReviewModal";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export default function AnimeDetails() {
   }, [dispatch, malAnimeId, hasClicked]);
 
   if (!malAnime || !isLoaded) {
-    return null;
+    return <LoadingBar />;
   }
 
   const handleSubmit = (e) => {
@@ -113,8 +114,8 @@ export default function AnimeDetails() {
               );
             })}
         </ul>
-        <div>
-          <form onSubmit={handleSubmit}>
+        {user && (
+          <form onSubmit={handleSubmit} className={styles.add_review}>
             <ul>
               {errors.map((error, idx) => (
                 <li key={idx} className="error">
@@ -122,7 +123,7 @@ export default function AnimeDetails() {
                 </li>
               ))}
             </ul>
-            <label>Add Review</label>
+            <label>Add Review:</label>
             <input
               type="textarea"
               name="add review"
@@ -130,7 +131,7 @@ export default function AnimeDetails() {
               onChange={(e) => setRev(e.target.value)}
               required
             />
-            <label>Rating</label>
+            <label>Rating:</label>
             <input
               type="number"
               name="rating"
@@ -140,9 +141,12 @@ export default function AnimeDetails() {
               onChange={(e) => setRating(e.target.value)}
               required
             />
-            <button type="submit">Submit</button>
+            <button type="submit" className="blue_button">
+              Submit
+            </button>
           </form>
-        </div>
+        )}
+        {!user && <div>Login to add a review!</div>}
       </div>
     </div>
   );

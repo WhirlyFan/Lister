@@ -7,7 +7,6 @@
 
 .list_name {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -18,6 +17,10 @@
   margin: 10px;
   box-shadow: 0 2px 3px #ccc;
   transition: all 0.3s ease-out;
+}
+
+.list_name > i {
+  margin-left: 0.5rem;
 }
 
 .list_name:hover {
@@ -53,9 +56,58 @@
 }
 
 .anime {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+}
+
+.anime_title {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.edit_icon {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  top: 0;
+  left: 0;
+}
+
+.edit_icon:hover {
+  cursor: pointer;
+}
+
+.edit_icon:active {
+  transform: scale(0.9);
+}
+
+.delete_icon {
+  position: absolute;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  padding: 0.3rem;
+  margin: 0.3rem;
+  top: 0;
+  right: 0;
+}
+
+.delete_icon:hover {
+  cursor: pointer;
+}
+
+.delete_icon:active {
+  transform: scale(0.9);
 }
 
 .list_edit {

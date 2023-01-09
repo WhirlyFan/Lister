@@ -41,3 +41,51 @@ body {
 td {
   text-align: center;
 }
+
+.blue_button {
+  background-color: #3b5998;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0.5rem;
+  min-width: fit-content;
+  min-height: fit-content;
+  width: 5vw;
+}
+
+.blue_button:active {
+  background-color: #496fbe;
+  transform: scale(0.9);
+  text-decoration: none;
+}
+
+.blue_button:hover {
+  cursor: pointer;
+}
+
+.grey_button {
+  background-color: #e1e7f5;
+  border: none;
+  border-radius: 5px;
+  color: #3b5998;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0.5rem;
+  min-width: fit-content;
+  min-height: fit-content;
+  width: 5vw;
+}
+
+.grey_button:hover {
+  cursor: pointer;
+}
+
+.grey_button:active {
+  background-color: #ced8ef;
+  transform: scale(0.9);
+  text-decoration: none;
+}

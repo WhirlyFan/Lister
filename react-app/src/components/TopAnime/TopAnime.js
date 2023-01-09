@@ -140,10 +140,13 @@ export default function Lists() {
           ) : null}
           {pagination.map((page) => {
             return (
-              <div key={`page-${page}`} onClick={() => {
-                setPage(page)
-                scroll()
-              }}>
+              <div
+                key={`page-${page}`}
+                onClick={() => {
+                  setPage(page);
+                  scroll();
+                }}
+              >
                 {page}
               </div>
             );

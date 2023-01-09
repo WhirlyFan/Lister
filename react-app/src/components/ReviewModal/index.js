@@ -7,7 +7,12 @@ export default function ReviewModal({ review, hasClicked, setHasClicked }) {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>Edit</button>
+      <button
+        onClick={() => setShowModal(true)}
+        className="blue_button"
+      >
+        Edit
+      </button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <ReviewForm
