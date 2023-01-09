@@ -93,5 +93,6 @@ td {
 
 .ghost_div {
   box-sizing: border-box;
-  margin: 5rem;
+  /* margin: 5rem; */
+  height: 5rem;
 }
