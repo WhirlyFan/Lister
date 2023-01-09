@@ -10,8 +10,6 @@ export default function list({
   handleDelete,
   animeArr,
 }) {
-  // if (list.owner_id !== getUser.id) setList(animeArr);
-
   return (
     <div className={styles.anime}>
       {((list && //this can be changed. Just not touching it because of presentation tmrw. (only really checking for animeArr) honestly gl tho lol.
@@ -19,11 +17,8 @@ export default function list({
         (!user && list?.private)) &&
         animeArr.map((anime) => {
           return (
-            <div className={styles.anime}>
-              <div
-                key={`all-anime-${anime.id}`}
-                className={styles.anime_content}
-              >
+            <div className={styles.anime} key={`all-anime-${anime.id}`}>
+              <div className={styles.anime_content}>
                 <img
                   src={anime.image}
                   alt={anime.title}
