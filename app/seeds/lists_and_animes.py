@@ -12,7 +12,7 @@ def seed_lists_and_animes():
     on_hold = List(
         owner_id=1, name='On Hold', private=False
     )
-    dropped = List(
+    favorites = List(
         owner_id=1, name='Favorites', private=False
     )
     plan_to_watch = List(
@@ -27,15 +27,15 @@ def seed_lists_and_animes():
     on_hold2 = List(
         owner_id=2, name='On Hold', private=False
     )
-    dropped2 = List(
+    favorites2 = List(
         owner_id=2, name='Favorites', private=False
     )
     plan_to_watch2 = List(
         owner_id=2, name='Plan to Watch', private=False
     )
 
-    db.session.add_all([currently_watching, completed, on_hold, dropped, plan_to_watch,
-                       currently_watching2, completed2, on_hold2, dropped2, plan_to_watch2])
+    db.session.add_all([currently_watching, completed, on_hold, favorites, plan_to_watch,
+                       currently_watching2, completed2, on_hold2, favorites2, plan_to_watch2])
     db.session.commit()
 
     full_metal_alchemist = Anime(
@@ -52,17 +52,71 @@ def seed_lists_and_animes():
         mal_id=21, title="One Piece", image="https://cdn.myanimelist.net/images/anime/6/73245.jpg"
     )
 
-    db.session.add_all([full_metal_alchemist, demon_slayer, naruto])
+    bleach1000 = Anime(
+        mal_id=41467, title="Bleach: Sennen Kessen-hen", image="https://cdn.myanimelist.net/images/anime/1764/126627.jpg"
+    )
+
+    kaguya_sama = Anime(
+        mal_id=43608, title="Kaguya-sama wa Kokurasetai: Ultra Romantic", image="https://cdn.myanimelist.net/images/anime/1160/122627.jpg"
+    )
+
+    steins_gate = Anime(
+        mal_id=9253, title="Steins;Gate", image="https://cdn.myanimelist.net/images/anime/1935/127974.jpg"
+    )
+
+    gintama = Anime(
+        mal_id=28977, title="Gintama°", image="https://cdn.myanimelist.net/images/anime/3/72078.jpg"
+    )
+
+    hunterxhunter = Anime(
+        mal_id=11061, title="Hunter x Hunter (2011)", image="https://cdn.myanimelist.net/images/anime/1337/99013.jpg"
+    )
+
+    fruit_basket = Anime(
+        mal_id=42938, title="Fruits Basket: The Final", image="https://cdn.myanimelist.net/images/anime/1085/114792.jpg"
+    )
+
+    violet_evergarden = Anime(
+        mal_id=37987, title="Violet Evergarden Movie", image="https://cdn.myanimelist.net/images/anime/1825/110716.jpg"
+    )
+
+    kimi_no_wa = Anime(
+        mal_id=32281, title="Kimi no Na wa.", image="https://cdn.myanimelist.net/images/anime/5/87048.jpg"
+    )
+
+    shingeki_no_kyojin_final_season = Anime(
+        mal_id=40028, title="Shingeki no Kyojin: The Final Season", image="https://cdn.myanimelist.net/images/anime/1000/110531.jpg"
+    )
+
+    db.session.add_all([full_metal_alchemist, demon_slayer, naruto, one_piece, bleach1000, kaguya_sama, steins_gate,
+                       gintama, hunterxhunter, fruit_basket, violet_evergarden, kimi_no_wa, shingeki_no_kyojin_final_season])
     db.session.commit()
 
     completed.animes.append(full_metal_alchemist)
     completed.animes.append(demon_slayer)
     completed.animes.append(one_piece)
+    completed.animes.append(steins_gate)
+    completed.animes.append(gintama)
+    completed.animes.append(hunterxhunter)
     currently_watching.animes.append(naruto)
+    currently_watching.animes.append(bleach1000)
+    currently_watching.animes.append(kaguya_sama)
+    currently_watching.animes.append(fruit_basket)
+    favorites.animes.append(violet_evergarden)
+    favorites.animes.append(shingeki_no_kyojin_final_season)
+    plan_to_watch.animes.append(kimi_no_wa)
 
     completed2.animes.append(naruto)
     completed2.animes.append(demon_slayer)
+    completed2.animes.append(full_metal_alchemist)
+    completed2.animes.append(steins_gate)
+    completed2.animes.append(one_piece)
+    completed2.animes.append(hunterxhunter)
+    completed2.animes.append(gintama)
     currently_watching2.animes.append(full_metal_alchemist)
+    currently_watching2.animes.append(violet_evergarden)
+    currently_watching2.animes.append(shingeki_no_kyojin_final_season)
+    on_hold2.animes.append(kimi_no_wa)
 
     db.session.commit()
 
