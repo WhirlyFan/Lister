@@ -83,13 +83,30 @@ export default function AnimeDetails() {
 
   return (
     <div className={styles.anime_details}>
-      <h1>{malAnime.title}</h1>
       <div>
-        <img src={malAnime.images.jpg.image_url} alt="anime poster" />
-      </div>
-      <div>
-        <h2>Synopsis</h2>
-        <p>{malAnime.synopsis}</p>
+        <h1 className={styles.title}>{malAnime.title}</h1>
+        <div className={styles.anime_content}>
+          <div className={styles.anime_image_info}>
+            <div>
+              <img src={malAnime.images.jpg.image_url} alt="anime-poster" />
+            </div>
+            <div className={styles.info}>
+              <h2 className={styles.information}>Information</h2>
+              <div>Top Rank: #{malAnime.rank}</div>
+              <div>Score: ★{malAnime.score}</div>
+              <h2 className={styles.synopsis}>Synopsis</h2>
+              <p className={styles.synopsis_info}>{malAnime.synopsis}</p>
+            </div>
+          </div>
+        </div>
+        <div className={styles.trailer}>
+          <h2>Trailer</h2>
+          <iframe
+            src={malAnime.trailer.embed_url?.slice(0, -1) + "0"}
+            title={malAnime.title}
+            allowFullScreen
+          ></iframe>
+        </div>
       </div>
       <div>
         <div className={styles.review_header}>

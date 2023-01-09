@@ -4,10 +4,6 @@
   padding: 1rem;
 }
 
-.anime_details > h1 {
-  margin-top: 0;
-}
-
 .review {
   margin: 0 0 1rem 0;
   padding: 0.5rem;
@@ -78,4 +74,50 @@
   border-radius: 5px;
   padding: 0.5rem;
   font-size: 1rem;
+}
+
+/* .anime_content {
+  display: flex;
+  justify-content: space-around;
+} */
+
+.anime_image_info {
+  display: flex;
+}
+
+.information {
+  margin: 0 0 0.5rem 0;
+}
+
+.synopsis {
+  margin: 0.5rem 0;
+}
+
+.synopsis_info {
+  margin: 0;
+}
+
+.info {
+  margin: 0 0 0 1rem;
+}
+
+.trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.trailer > h2 {
+  margin: 0;
+}
+
+.title {
+  margin-top: 0;
+}
+
+iframe {
+  width: 50vw;
+  height: 50vh;
 }
