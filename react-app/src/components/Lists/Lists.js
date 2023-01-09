@@ -65,7 +65,7 @@ export default function Lists() {
         if (data.errors) {
           alert("Something went wrong. Please try again.");
         } else {
-          setList(data.list)
+          setList(data.list);
         }
       });
     }
@@ -74,7 +74,7 @@ export default function Lists() {
   return (
     <div>
       <div className={styles.list_header}>
-        <h1>{getUser.username}'s lists</h1>
+        <h1>{getUser.username}'s Lists</h1>
         {user && user.id === getUser.id && (
           <NewListModal hasClicked={hasClicked} setHasClicked={setHasClicked} />
         )}
