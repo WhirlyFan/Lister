@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, Length
 from app.models import User
 
 
@@ -30,9 +30,16 @@ def password_match(form, field):
 
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
-    password = StringField('password', validators=[
-                           DataRequired()])
+        'username', validators=[DataRequired(), username_exists, Length(
+            min=3, max=20, message='Username must be between 3 and 20 characters long.'
+        )])
+    email = StringField('email', validators=[DataRequired(), user_exists, Length(
+        min=3, max=30, message='Username must be between 3 and 30 characters long.'
+    )])
+    password = StringField('password', validators=[DataRequired(), Length(
+        min=3, max=30, message='Password must be between 3 and 30 characters long.'
+    )])
     repeat_password = StringField(
-        'repeat_password', validators=[DataRequired(), password_match])
+        'repeat_password', validators=[DataRequired(), password_match, Length(
+            min=3, max=30, message='Repeat Password must be between 3 and 30 characters long.'
+        )])
