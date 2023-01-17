@@ -30,7 +30,7 @@ export default function AnimeCard({ anime, index, top }) {
           animeDetails(anime);
         }}
       >
-        {anime.title_english ? anime.title_english : anime.title}
+        {anime.title ? anime.title : anime.title_english}
       </td>
       {!anime.score && <td>n/a</td>}
       {anime.score && <td>★{anime.score}</td>}

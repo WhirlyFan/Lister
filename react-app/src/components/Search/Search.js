@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import LoadingBar from "../LoadingBar/LoadingBar";
+// import LoadingBar from "../LoadingBar/LoadingBar";
 import AnimeCard from "../Home/AnimeCard";
 import homeStyles from "../Home/Home.module.css";
 // import styles from "./Search.module.css";
@@ -11,11 +11,11 @@ export default function Search() {
   const users = useSelector((state) => state.session?.users);
   const animes = useSelector((state) => state.jikan.search?.data);
   const user = useSelector((state) => state.session.user);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
 
-  if (!isLoaded || !animes || !users) {
-    <LoadingBar />;
-  }
+  // if (!isLoaded || !animes || !users) {
+  //   <LoadingBar />;
+  // }
 
   if (category === "animes" && !animes)
     return (
