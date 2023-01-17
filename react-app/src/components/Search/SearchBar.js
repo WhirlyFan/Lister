@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./Search.module.css";
 import { searchThunk } from "../../store/jikan";
-import { getUsersThunk } from "../../store/session";
+// import { getUsersThunk } from "../../store/session";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
