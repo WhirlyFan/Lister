@@ -4,6 +4,7 @@ const GET_TOP_AIRING_ANIME = "jikan/GET_TOP_AIRING_ANIME";
 const GET_TOP_UPCOMING_ANIME = "jikan/GET_TOP_UPCOMING_ANIME";
 const GET_MOST_POPULAR_ANIME = "jikan/GET_MOST_POPULAR_ANIME";
 const GET_ANIME = "jikan/GET_ANIME";
+const SEARCH = "jikan/SEARCH";
 
 //action creators
 export const getTopAnime = (payload) => {
@@ -37,6 +38,13 @@ export const getMostPopularAnime = (payload) => {
 export const getAnime = (payload) => {
   return {
     type: GET_ANIME,
+    payload,
+  };
+};
+
+export const search = (payload) => {
+  return {
+    type: SEARCH,
     payload,
   };
 };
@@ -119,13 +127,21 @@ export const getMostPopularAnimeThunk = () => async (dispatch) => {
 };
 
 export const getAnimeThunk = (id) => async (dispatch) => {
-  const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
-  if (!res.ok) {
-    throw res;
+  try {
+    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(getAnime(data));
+    return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
   }
-  const data = await res.json();
-  dispatch(getAnime(data));
-  return data;
 };
 
 export const getHomeThunk = () => async (dispatch) => {
@@ -142,6 +158,26 @@ export const getHomeThunk = () => async (dispatch) => {
   return { topAiringAnime, topUpcomingAnime, mostPopularAnime };
 };
 
+export const searchThunk = (query) => async (dispatch) => {
+  try {
+    const res = await fetch(
+      `https://api.jikan.moe/v4/anime?q=${query}&limit=20`
+    );
+    if (!res.ok) {
+      throw res;
+    }
+    const data = await res.json();
+    dispatch(search(data));
+    return data;
+  } catch (e) {
+    if (e.status === 429) {
+      return { error: "Too Many Requests!", status: "429", e };
+    } else {
+      return { error: "API not available!", e };
+    }
+  }
+};
+
 //reducer
 const initialState = {
   topAnime: {},
@@ -149,9 +185,10 @@ const initialState = {
   topUpcomingAnime: {},
   mostPopularAnime: {},
   anime: {},
+  search: {},
 };
 
-export default function jikanReducer (state = initialState, action) {
+export default function jikanReducer(state = initialState, action) {
   switch (action.type) {
     case GET_TOP_ANIME:
       return {
@@ -178,7 +215,12 @@ export default function jikanReducer (state = initialState, action) {
         ...state,
         anime: action.payload,
       };
+    case SEARCH:
+      return {
+        ...state,
+        search: action.payload,
+      };
     default:
       return state;
   }
-};
+}

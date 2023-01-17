@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import LogoutButton from "./auth/LogoutButton";
 import styles from "./NavBar.module.css";
 import lister from "../images/lister-title.png";
+import SearchBar from "./SearchBar/SearchBar";
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -69,11 +70,14 @@ const NavBar = () => {
             Top Anime
           </NavLink>
         </li>
-        {user && (
-          <li>
-            <LogoutButton />
-          </li>
-        )}
+        <div className={styles.nav_bottom_right}>
+          <SearchBar />
+          {user && (
+            <li>
+              <LogoutButton />
+            </li>
+          )}
+        </div>
       </ul>
       <div className={styles.panel}>
         <h1 className={styles.title}>Welcome to Lister.WhirlyFan.com!</h1>
