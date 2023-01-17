@@ -13,6 +13,7 @@ import TopAnime from "./components/TopAnime/TopAnime";
 import Home from "./components/Home/Home";
 import AnimeDetails from "./components/AnimeDetails/AnimeDetails";
 import LoadingBar from "./components/LoadingBar/LoadingBar";
+import Search from "./components/Search/Search";
 
 // export const PageContext = React.createContext();
 
@@ -34,39 +35,42 @@ function App() {
 
   return (
     <BrowserRouter>
-        <NavBar />
-        <Switch>
-          <Route path="/login" exact={true}>
-            <LoginForm />
-          </Route>
-          <Route path="/sign-up" exact={true}>
-            <SignUpForm />
-          </Route>
-          {/* <ProtectedRoute path="/users" exact={true}>
+      <NavBar />
+      <Switch>
+        <Route path="/login" exact={true}>
+          <LoginForm />
+        </Route>
+        <Route path="/sign-up" exact={true}>
+          <SignUpForm />
+        </Route>
+        {/* <ProtectedRoute path="/users" exact={true}>
             <UsersList />
           </ProtectedRoute> */}
-          <ProtectedRoute path="/profile/:userId/:username" exact={true}>
-            <Profile />
-          </ProtectedRoute>
-          <Route path="/" exact={true}>
-            <Home />
-          </Route>
-          <Route path="/lists/:userId/:username">
-            <Lists />
-          </Route>
-          <Route path="/topanime">
-            <TopAnime />
-          </Route>
-          <Route path="/anime/:malAnimeId/:animeName">
-            <AnimeDetails />
-          </Route>
-          <Route path="/loading">
-            <LoadingBar/>
-          </Route>
-          <Route>
-            <h1>Page Not Found</h1>
-          </Route>
-        </Switch>
+        <ProtectedRoute path="/profile/:userId/:username" exact={true}>
+          <Profile />
+        </ProtectedRoute>
+        <Route path="/" exact={true}>
+          <Home />
+        </Route>
+        <Route path="/lists/:userId/:username">
+          <Lists />
+        </Route>
+        <Route path="/topanime">
+          <TopAnime />
+        </Route>
+        <Route path="/anime/:malAnimeId/:animeName">
+          <AnimeDetails />
+        </Route>
+        <Route path="/search/:category">
+          <Search />
+        </Route>
+        <Route path="/loading">
+          <LoadingBar />
+        </Route>
+        <Route>
+          <h1>Page Not Found</h1>
+        </Route>
+      </Switch>
     </BrowserRouter>
   );
 }

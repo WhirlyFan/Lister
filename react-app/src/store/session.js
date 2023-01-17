@@ -23,7 +23,7 @@ const getUsers = (payload) => ({
   payload,
 });
 
-const initialState = { user: null, get_user: null, get_users: null };
+const initialState = { user: null, get_user: null, users: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -135,7 +135,7 @@ export default function reducer(state = initialState, action) {
     case GET_USER:
       return { ...state, get_user: action.payload };
     case GET_USERS:
-      return { ...state, get_users: action.payload };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
