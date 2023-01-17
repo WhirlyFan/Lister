@@ -161,7 +161,7 @@ export const getHomeThunk = () => async (dispatch) => {
 export const searchThunk = (query) => async (dispatch) => {
   try {
     const res = await fetch(
-      `https://api.jikan.moe/v4/anime?q=${query}&limit=20`
+      `https://api.jikan.moe/v4/anime?q=${query}&sfw`
     );
     if (!res.ok) {
       throw res;
