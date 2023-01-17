@@ -84,10 +84,7 @@ export default function AnimeDetails() {
   return (
     <div className={styles.anime_details}>
       <div>
-        <h1 className={styles.title}>
-          {malAnime.title_english ? malAnime.title_english : malAnime.title} (
-          {malAnime.title_japanese})
-        </h1>
+        <h1 className={styles.title}>{malAnime.title}</h1>
         <div className={styles.anime_content}>
           <div className={styles.anime_image_info}>
             <div>
@@ -95,6 +92,10 @@ export default function AnimeDetails() {
             </div>
             <div className={styles.info}>
               <h2 className={styles.information}>Information</h2>
+              <div>
+                English Title:{" "}
+                {malAnime.title_english ? malAnime.title_english : "n/a"}
+              </div>
               <div>Top Rank: #{malAnime.rank ? malAnime.rank : "n/a"}</div>
               <div>Score: ★{malAnime.score ? malAnime.score : "n/a"}</div>
               <div>Rating: {malAnime.rating ? malAnime.rating : "n/a"}</div>
