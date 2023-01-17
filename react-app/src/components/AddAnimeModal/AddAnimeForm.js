@@ -39,7 +39,6 @@ export default function AddAnimeModal({
             title: animeTitle,
           })
         ).then((data) => {
-          console.log(data)
           dispatch(addAnimeToListThunk(data.id, listId)).then((data) => {
             if (data.errors) {
               setErrors(data.errors);

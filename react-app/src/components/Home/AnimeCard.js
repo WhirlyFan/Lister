@@ -13,6 +13,7 @@ export default function AnimeCard({ anime, index, top }) {
 
   return (
     <tr className={styles.anime}>
+      {console.log(anime)}
       {top && <td>#{anime.rank}</td>}
       {!top && <td>#{index + 1}</td>}
       <td

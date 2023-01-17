@@ -13,6 +13,11 @@
   background-color: #2e51a2;
 }
 
+.nav_bottom_right {
+  display: flex;
+  align-items: center;
+}
+
 .nav_bottom li a {
   color: #fff;
   display: block;
