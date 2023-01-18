@@ -99,6 +99,16 @@ export default function AnimeDetails() {
               <div>Top Rank: #{malAnime.rank ? malAnime.rank : "n/a"}</div>
               <div>Score: ★{malAnime.score ? malAnime.score : "n/a"}</div>
               <div>Rating: {malAnime.rating ? malAnime.rating : "n/a"}</div>
+              <div>
+                Genres:{" "}
+                {malAnime.genres
+                  ? malAnime.genres.map((genre) => {
+                      return (
+                        <span key={`genre-${genre.id}`}>"{genre.name}" </span>
+                      );
+                    })
+                  : "n/a"}
+              </div>
               <div>Status: {malAnime.status ? malAnime.status : "n/a"}</div>
               <div>
                 Aired: {malAnime.aired.string ? malAnime.aired.string : "n/a"}
