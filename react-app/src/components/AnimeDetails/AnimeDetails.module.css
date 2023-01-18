@@ -4,6 +4,16 @@
   padding: 1rem;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addAnimeModal {
+  display: flex;
+  align-items: center;
+}
+
 .review {
   margin: 0 0 1rem 0;
   padding: 0.5rem;

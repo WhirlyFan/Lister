@@ -131,7 +131,7 @@ def seed_lists_and_animes():
     )
 
     spyxfamily = Anime(
-        mal_id=50265, title="Spy x Family", image="https://cdn.myanimelist.net/images/anime/5/50331.jpg"
+        mal_id=50265, title="Spy x Family", image="https://cdn.myanimelist.net/images/anime/1441/122795.jpg"
     )
 
     made_in_abyss = Anime(

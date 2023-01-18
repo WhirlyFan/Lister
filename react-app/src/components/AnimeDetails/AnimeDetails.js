@@ -7,6 +7,7 @@ import { getAnimeReviewsThunk, createReviewThunk } from "../../store/reviews";
 import styles from "./AnimeDetails.module.css";
 import ReviewModal from "../ReviewModal";
 import LoadingBar from "../LoadingBar/LoadingBar";
+import AddAnimeModal from "../AddAnimeModal";
 
 export default function AnimeDetails() {
   const dispatch = useDispatch();
@@ -84,7 +85,12 @@ export default function AnimeDetails() {
   return (
     <div className={styles.anime_details}>
       <div>
-        <h1 className={styles.title}>{malAnime.title}</h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>{malAnime.title}</h1>
+          <div className={styles.addAnimeModal}>
+            <AddAnimeModal anime={malAnime} />
+          </div>
+        </div>
         <div className={styles.anime_content}>
           <div className={styles.anime_image_info}>
             <div>
@@ -99,6 +105,18 @@ export default function AnimeDetails() {
               <div>Top Rank: #{malAnime.rank ? malAnime.rank : "n/a"}</div>
               <div>Score: ★{malAnime.score ? malAnime.score : "n/a"}</div>
               <div>Rating: {malAnime.rating ? malAnime.rating : "n/a"}</div>
+              <div>
+                Genres:{" "}
+                {malAnime.genres
+                  ? malAnime.genres.map((genre) => {
+                      return (
+                        <span key={`genre-${genre.mal_id}`}>
+                          "{genre.name}"{" "}
+                        </span>
+                      );
+                    })
+                  : "n/a"}
+              </div>
               <div>Status: {malAnime.status ? malAnime.status : "n/a"}</div>
               <div>
                 Aired: {malAnime.aired.string ? malAnime.aired.string : "n/a"}
