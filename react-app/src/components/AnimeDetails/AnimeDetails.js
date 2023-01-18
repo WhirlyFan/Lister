@@ -87,9 +87,11 @@ export default function AnimeDetails() {
       <div>
         <div className={styles.header}>
           <h1 className={styles.title}>{malAnime.title}</h1>
-          <div className={styles.addAnimeModal}>
-            <AddAnimeModal anime={malAnime} />
-          </div>
+          {user && (
+            <div className={styles.addAnimeModal}>
+              <AddAnimeModal anime={malAnime} />
+            </div>
+          )}
         </div>
         <div className={styles.anime_content}>
           <div className={styles.anime_image_info}>
