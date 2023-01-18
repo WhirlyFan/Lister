@@ -104,7 +104,7 @@ export default function AnimeDetails() {
                 {malAnime.genres
                   ? malAnime.genres.map((genre) => {
                       return (
-                        <span key={`genre-${genre.id}`}>"{genre.name}" </span>
+                        <span key={`genre-${genre.mal_id}`}>"{genre.name}" </span>
                       );
                     })
                   : "n/a"}
