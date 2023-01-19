@@ -24,11 +24,10 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  margin: .5rem;
+  margin: 0.5rem;
   box-shadow: 0 2px 3px #ccc;
   transition: all 0.3s ease-out;
   cursor: pointer;
-  position: relative;
 }
 
 .list_name > i {
@@ -41,8 +40,7 @@
 }
 
 .lock_icon {
-  position: absolute;
-  top: -25%;
+  margin-left: 0.5rem;
 }
 
 .list_name_text {
