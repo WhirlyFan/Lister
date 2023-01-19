@@ -81,7 +81,7 @@ export default function Lists() {
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name} onClick={() => showAnime()}>
-          All Anime
+          <div className={styles.list_name_text}>All Anime</div>
         </div>
         {listsArr &&
           listsArr.map((list) => {
