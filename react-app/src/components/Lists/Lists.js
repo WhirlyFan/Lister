@@ -81,7 +81,7 @@ export default function Lists() {
       </div>
       <div className={styles.lists}>
         <div className={styles.list_name} onClick={() => showAnime()}>
-          All Anime
+          <div className={styles.list_name_text}>All Anime</div>
         </div>
         {listsArr &&
           listsArr.map((list) => {
@@ -122,7 +122,6 @@ export default function Lists() {
               )}
             </div>
           </div>
-          {/* have to use context to setList to all animes on logout */}
           <Animes
             list={list}
             setList={setList}
@@ -134,7 +133,6 @@ export default function Lists() {
           />
         </div>
       )}
-      <div className="ghost_div"></div>
     </div>
   );
 }
