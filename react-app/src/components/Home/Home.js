@@ -40,20 +40,20 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <h2>Top Airing Anime</h2>
       <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Top Airing Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
         </thead>
         <tbody>
           {topAiringAnime.slice(0, 10).map((anime, index) => {
-            // setCounter(counter + 1);
             return (
               <AnimeCard
                 key={`anime-${anime.mal_id}`}
@@ -63,14 +63,13 @@ export default function Home() {
             );
           })}
         </tbody>
-      </table>
-      <h2>Most Popular Anime</h2>
-      <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Most Popular Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
@@ -86,14 +85,13 @@ export default function Home() {
             );
           })}
         </tbody>
-      </table>
-      <h2>Top Upcoming Anime</h2>
-      <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Top Upcoming Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
