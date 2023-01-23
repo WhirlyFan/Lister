@@ -23,6 +23,10 @@ class User(db.Model, UserMixin):
         "List", cascade="all, delete-orphan", back_populates="users")
     reviews = db.relationship(
         "Review", cascade="all, delete-orphan", back_populates="users")
+    followers = db.relationship(
+        "Follower",  cascade="all, delete-orphan", back_populates="users")
+    users = db.relationship(
+        "Follower",  cascade="all, delete-orphan", back_populates="followers")
 
     @property
     def password(self):
