@@ -5,7 +5,7 @@ import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
 import LoadingBar from "../LoadingBar/LoadingBar";
 
-//try refactoring Home to pull data from the store instead of the API
+//try refactoring Home to pull data from the store instead of the API once initially loaded
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,6 +15,16 @@ export default function Home() {
   const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);
   const [mostPopularAnime, setMostPopularAnime] = useState(false);
   const [delay, setDelay] = useState(false);
+
+  // const topAiringAnimeStore = useSelector(
+  //   (state) => state.jikan.topAiringAnime
+  // );
+  // const topUpcomingAnimeStore = useSelector(
+  //   (state) => state.jikan.topUpcomingAnime
+  // );
+  // const mostPopularAnimeStore = useSelector(
+  //   (state) => state.jikan.mostPopularAnime
+  // );
 
   useEffect(() => {
     dispatch(getHomeThunk())
