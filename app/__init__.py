@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.list_routes import list_routes
 from .api.review_routes import review_routes
 from .api.anime_routes import anime_routes
+from .api.follower_routes import follower_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(list_routes, url_prefix='/api/lists')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(anime_routes, url_prefix='/api/animes')
+app.register_blueprint(follower_routes, url_prefix='/api/followers')
 db.init_app(app)
 Migrate(app, db)
 
