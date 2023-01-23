@@ -5,7 +5,7 @@ import styles from "./Home.module.css";
 import AnimeCard from "./AnimeCard";
 import LoadingBar from "../LoadingBar/LoadingBar";
 
-//try refactoring Home to pull data from the store instead of the API
+//try refactoring Home to pull data from the store instead of the API once initially loaded
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,6 +15,16 @@ export default function Home() {
   const [topUpcomingAnime, setTopUpcomingAnime] = useState(false);
   const [mostPopularAnime, setMostPopularAnime] = useState(false);
   const [delay, setDelay] = useState(false);
+
+  // const topAiringAnimeStore = useSelector(
+  //   (state) => state.jikan.topAiringAnime
+  // );
+  // const topUpcomingAnimeStore = useSelector(
+  //   (state) => state.jikan.topUpcomingAnime
+  // );
+  // const mostPopularAnimeStore = useSelector(
+  //   (state) => state.jikan.mostPopularAnime
+  // );
 
   useEffect(() => {
     dispatch(getHomeThunk())
@@ -40,20 +50,20 @@ export default function Home() {
 
   return (
     <div className={styles.home}>
-      <h2>Top Airing Anime</h2>
       <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Top Airing Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
         </thead>
         <tbody>
           {topAiringAnime.slice(0, 10).map((anime, index) => {
-            // setCounter(counter + 1);
             return (
               <AnimeCard
                 key={`anime-${anime.mal_id}`}
@@ -63,14 +73,13 @@ export default function Home() {
             );
           })}
         </tbody>
-      </table>
-      <h2>Most Popular Anime</h2>
-      <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Most Popular Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
@@ -86,14 +95,13 @@ export default function Home() {
             );
           })}
         </tbody>
-      </table>
-      <h2>Top Upcoming Anime</h2>
-      <table className={styles.table}>
         <thead>
           <tr>
             <th>Rank</th>
             <th>Image</th>
-            <th>Title</th>
+            <th>
+              <h2>Top Upcoming Anime</h2>
+            </th>
             <th>Score</th>
             {user && <th>Add to List</th>}
           </tr>
