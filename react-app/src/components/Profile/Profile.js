@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { getUserThunk } from "../../store/session";
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [user, setUser] = useState({});
-  const { userId } = useParams();
+  const { userId, username } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
-    (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
-    })().then(() => {
+    dispatch(getUserThunk(userId)).then((data) => {
+      if (data.username !== username) {
+        history.push(`/profile/${data.id}/${data.username}`);
+      }
+      setUser(data);
       setIsLoaded(true);
     });
-  }, [userId]);
+  }, [dispatch, history, userId, username]);
 
   if (!user || !isLoaded) {
     return null;

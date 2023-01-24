@@ -110,19 +110,23 @@ export const signUp =
 export const getUserThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`);
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(getUser(data));
+  if (!response.ok) {
+    throw response;
   }
+  const data = await response.json();
+  dispatch(getUser(data));
+  return data;
 };
 
 export const getUsersThunk = (query) => async (dispatch) => {
   const response = await fetch(`/api/users?q=${query}&limit=20`);
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(getUsers(data));
+  if (!response.ok) {
+    throw response;
   }
+  const data = await response.json();
+  dispatch(getUsers(data));
+  return data;
 };
 
 export default function reducer(state = initialState, action) {
