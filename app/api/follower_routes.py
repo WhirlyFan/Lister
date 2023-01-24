@@ -26,7 +26,6 @@ def follow(id):
     """
     Uses the currently logged in user and follows/unfollows a user queried by id.
     """
-
     user = User.query.get(current_user.get_id())
     other_user = User.query.get(id)
     if user == other_user:

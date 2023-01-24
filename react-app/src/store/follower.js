@@ -32,15 +32,11 @@ export const getFollowerFollowingThunk = (id) => async (dispatch) => {
 export const followUnfollowThunk = (id) => async (dispatch) => {
   const res = await fetch(`/api/followers/follow/${id}`, {
     method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
   });
   if (!res.ok) {
     throw res;
   }
   const data = await res.json();
-  console.log(data);
   dispatch(getFollowerFollowing(data));
   return data;
 };
