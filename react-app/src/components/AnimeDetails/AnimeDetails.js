@@ -35,7 +35,6 @@ export default function AnimeDetails() {
         if (dataAnimeName !== animeName) {
           history.push(`/anime/${data.data.mal_id}/${dataAnimeName}`);
         }
-        dispatch(getAnimeThunk(malAnimeId));
         setIsLoaded(true);
       }
     });
