@@ -40,4 +40,7 @@ def follow(id):
         user.unfollow(other_user)
     db.session.commit()
     status = 'followed' if user.is_following(other_user) else 'unfollowed'
-    return {'message': f'{user.username} {status} {other_user.username}'}
+    return {
+        "Follows": [user.to_dict() for user in user.followed_users()],
+        "Followers": [user.to_dict() for user in user.follower_users()]
+    }
