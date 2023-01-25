@@ -10,16 +10,16 @@ export default function Followers({
 }) {
   return (
     <div>
-      <h2>Followers</h2>
+      <strong>Followers</strong>
+      <hr />
       {user.followers?.map((user) => {
         return (
-          <div key={`user-${user.id}`}>
-            <UserCard
-              user={user}
-              followUnfollow={followUnfollow}
-              setShowModal={setShowModal}
-            />
-          </div>
+          <UserCard
+            key={`follower-${user.id}`}
+            user={user}
+            followUnfollow={followUnfollow}
+            setShowModal={setShowModal}
+          />
         );
       })}
       {!user.followers.length && <div>No Followers Yet!</div>}

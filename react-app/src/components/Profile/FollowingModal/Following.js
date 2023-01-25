@@ -10,16 +10,16 @@ export default function Following({
 }) {
   return (
     <div>
-      <h2>Following</h2>
+      <strong>Following</strong>
+      <hr />
       {user.following?.map((user) => {
         return (
-          <div key={`follow-${user.id}`}>
-            <UserCard
-              user={user}
-              followUnfollow={followUnfollow}
-              setShowModal={setShowModal}
-            />
-          </div>
+          <UserCard
+            key={`following-${user.id}`}
+            user={user}
+            followUnfollow={followUnfollow}
+            setShowModal={setShowModal}
+          />
         );
       })}
       {!user.following.length && <div>Not Following Anyone Yet!</div>}
