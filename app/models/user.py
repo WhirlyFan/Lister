@@ -68,13 +68,24 @@ class User(db.Model, UserMixin):
                 followers.c.followed_id == self.id)
         return follower
 
+    def to_dict_base(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            # 'email': self.email,
+            'about_me': self.about_me,
+            # 'created_at': self.created_at,
+            # 'updated_at': self.updated_at,
+        }
+
     def to_dict(self):
         return {
             'id': self.id,
             'username': self.username,
             'email': self.email,
             'about_me': self.about_me,
-            # 'lists': [list.to_dict() for list in self.lists],
+            "following": [user.to_dict_base() for user in self.followed_users()],
+            "followers": [user.to_dict_base() for user in self.follower_users()],
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

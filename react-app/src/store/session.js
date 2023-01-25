@@ -23,7 +23,7 @@ const getUsers = (payload) => ({
   payload,
 });
 
-const initialState = { user: null, get_user: null, users: null };
+const initialState = { user: null, getUser: null, users: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/", {
@@ -129,6 +129,18 @@ export const getUsersThunk = (query) => async (dispatch) => {
   return data;
 };
 
+export const followUnfollowThunk = (id) => async (dispatch) => {
+  const res = await fetch(`/api/followers/${id}`, {
+    method: "POST",
+  });
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  dispatch(getUser(data));
+  return data;
+};
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
@@ -136,7 +148,7 @@ export default function reducer(state = initialState, action) {
     case REMOVE_USER:
       return { ...state, user: null };
     case GET_USER:
-      return { ...state, get_user: action.payload };
+      return { ...state, getUser: action.payload };
     case GET_USERS:
       return { ...state, ...action.payload };
     default:

@@ -5,7 +5,8 @@ import Followers from "./Followers";
 export default function FollowersModal({
   setHasClicked,
   hasClicked,
-  followers,
+  user,
+  followUnfollow,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -17,10 +18,11 @@ export default function FollowersModal({
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <Followers
-            followers={followers}
+            user={user}
             setShowModal={setShowModal}
             setHasClicked={setHasClicked}
             hasClicked={hasClicked}
+            followUnfollow={followUnfollow}
           />
         </Modal>
       )}
