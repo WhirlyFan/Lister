@@ -4,6 +4,7 @@ export default function UserCard({ user, followUnfollow, setShowModal }) {
   const history = useHistory();
   const getUser = useSelector((state) => state.session.getUser);
   const current_user = useSelector((state) => state.session.user);
+
   const userProfile = (user) => {
     history.push(`/profile/${user.id}/${user.username}`);
     setShowModal(false);

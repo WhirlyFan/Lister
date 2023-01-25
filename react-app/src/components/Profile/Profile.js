@@ -39,7 +39,7 @@ export default function Profile() {
 
   return (
     <div>
-      <h1>{`${getUser.username}'s Profile`}</h1>
+      <h1>{`${username}'s Profile`}</h1>
       <FollowersModal
         user={getUser}
         hasClicked={hasClicked}
@@ -55,9 +55,21 @@ export default function Profile() {
       {user && user.id !== getUser.id && (
         <div>
           {getUser.followers.find((follower) => follower.id === user.id) ? (
-            <button onClick={() => followUnfollow(userId)}>Unfollow</button>
+            <button
+              onClick={() => {
+                if (
+                  window.confirm(
+                    `Are you sure you want to unfollow ${getUser.username}?`
+                  )
+                ) {
+                  followUnfollow(getUser.id);
+                }
+              }}
+            >
+              Unfollow
+            </button>
           ) : (
-            <button onClick={() => followUnfollow(userId)}>Follow</button>
+            <button onClick={() => followUnfollow(getUser.id)}>Follow</button>
           )}
         </div>
       )}
