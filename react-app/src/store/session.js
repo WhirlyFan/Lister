@@ -36,7 +36,6 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-
     dispatch(setUser(data));
   }
 };
@@ -111,27 +110,31 @@ export const signUp =
 export const getUserThunk = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`);
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(getUser(data));
+  if (!response.ok) {
+    throw response;
   }
+  const data = await response.json();
+  dispatch(getUser(data));
+  return data;
 };
 
 export const getUsersThunk = (query) => async (dispatch) => {
   const response = await fetch(`/api/users?q=${query}&limit=20`);
 
-  if (response.ok) {
-    const data = await response.json();
-    dispatch(getUsers(data));
+  if (!response.ok) {
+    throw response;
   }
+  const data = await response.json();
+  dispatch(getUsers(data));
+  return data;
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return { user: action.payload };
+      return { ...state, user: action.payload };
     case REMOVE_USER:
-      return { user: null };
+      return { ...state, user: null };
     case GET_USER:
       return { ...state, get_user: action.payload };
     case GET_USERS:

@@ -42,7 +42,7 @@ def seed_lists_and_animes():
         mal_id=5114, title="Fullmetal Alchemist: Brotherhood", image="https://cdn.myanimelist.net/images/anime/1208/94745.jpg"
     )
     demon_slayer = Anime(
-        mal_id=38000, title="Demon Slayer: Kimetsu no Yaiba", image="https://cdn.myanimelist.net/images/anime/1286/99889.jpg"
+        mal_id=38000, title="Kimetsu no Yaiba", image="https://cdn.myanimelist.net/images/anime/1286/99889.jpg"
     )
     naruto = Anime(
         mal_id=20, title="Naruto", image="https://cdn.myanimelist.net/images/anime/13/17405.jpg"
@@ -53,11 +53,11 @@ def seed_lists_and_animes():
     )
 
     bleach1000 = Anime(
-        mal_id=41467, title="Bleach: Thousand-Year Blood War", image="https://cdn.myanimelist.net/images/anime/1764/126627.jpg"
+        mal_id=41467, title="Bleach: Sennen Kessen-hen", image="https://cdn.myanimelist.net/images/anime/1764/126627.jpg"
     )
 
     kaguya_sama = Anime(
-        mal_id=43608, title="Kaguya-sama: Love is War - Ultra Romantic", image="https://cdn.myanimelist.net/images/anime/1160/122627.jpg"
+        mal_id=43608, title="Kaguya-sama wa Kokurasetai: Ultra Romantic", image="https://cdn.myanimelist.net/images/anime/1160/122627.jpg"
     )
 
     steins_gate = Anime(
@@ -65,33 +65,33 @@ def seed_lists_and_animes():
     )
 
     gintama = Anime(
-        mal_id=28977, title="Gintama Season 4", image="https://cdn.myanimelist.net/images/anime/3/72078.jpg"
+        mal_id=28977, title="Gintama°", image="https://cdn.myanimelist.net/images/anime/3/72078.jpg"
     )
 
     hunterxhunter = Anime(
-        mal_id=11061, title="Hunter x Hunter", image="https://cdn.myanimelist.net/images/anime/1337/99013.jpg"
+        mal_id=11061, title="Hunter x Hunter (2011)", image="https://cdn.myanimelist.net/images/anime/1337/99013.jpg"
     )
 
     fruit_basket = Anime(
-        mal_id=42938, title="Fruits Basket: The Final Season", image="https://cdn.myanimelist.net/images/anime/1085/114792.jpg"
+        mal_id=42938, title="Fruits Basket: The Final", image="https://cdn.myanimelist.net/images/anime/1085/114792.jpg"
     )
 
     violet_evergarden = Anime(
-        mal_id=37987, title="Violet Evergarden the Movie", image="https://cdn.myanimelist.net/images/anime/1825/110716.jpg"
+        mal_id=37987, title="Violet Evergarden Movie", image="https://cdn.myanimelist.net/images/anime/1825/110716.jpg"
     )
 
     kimi_no_wa = Anime(
-        mal_id=32281, title="Your Name.", image="https://cdn.myanimelist.net/images/anime/5/87048.jpg"
+        mal_id=32281, title="Kimi no Na wa.", image="https://cdn.myanimelist.net/images/anime/5/87048.jpg"
     )
 
     shingeki_no_kyojin_final_season = Anime(
-        mal_id=40028, title="Attack on Titan: The Final Season", image="https://cdn.myanimelist.net/images/anime/1000/110531.jpg"
+        mal_id=40028, title="Shingeki no Kyojin: The Final Season", image="https://cdn.myanimelist.net/images/anime/1000/110531.jpg"
     )
 
 # new animes
 
     code_geass_2 = Anime(
-        mal_id=2904, title="Code Geass: Lelouch of the Rebellion R2", image="https://cdn.myanimelist.net/images/anime/4/9391.jpg"
+        mal_id=2904, title="Code Geass: Hangyaku no Lelouch R2", image="https://cdn.myanimelist.net/images/anime/4/9391.jpg"
     )
 
     mob_psycho_2 = Anime(
@@ -99,7 +99,7 @@ def seed_lists_and_animes():
     )
 
     spirited_away = Anime(
-        mal_id=199, title="Spirited Away", image="https://cdn.myanimelist.net/images/anime/6/79597.jpg"
+        mal_id=199, title="Sen to Chihiro no Kamikakushi", image="https://cdn.myanimelist.net/images/anime/6/79597.jpg"
     )
 
     cowboy_bebop = Anime(
@@ -111,7 +111,7 @@ def seed_lists_and_animes():
     )
 
     my_hero_6 = Anime(
-        mal_id=49918, title="My Hero Academia Season 6", image="https://cdn.myanimelist.net/images/anime/1483/126005.jpg"
+        mal_id=49918, title="Boku no Hero Academia 6th Season", image="https://cdn.myanimelist.net/images/anime/1483/126005.jpg"
     )
 
     detective_conan = Anime(
@@ -127,7 +127,7 @@ def seed_lists_and_animes():
     )
 
     code_geass_1 = Anime(
-        mal_id=1575, title="Code Geass: Lelouch of the Rebellion", image="https://cdn.myanimelist.net/images/anime/5/50331.jpg"
+        mal_id=1575, title="Code Geass: Hangyaku no Lelouch", image="https://cdn.myanimelist.net/images/anime/5/50331.jpg"
     )
 
     spyxfamily = Anime(
@@ -139,7 +139,7 @@ def seed_lists_and_animes():
     )
 
     princess_mononoke = Anime(
-        mal_id=164, title="Princess Mononoke", image="https://cdn.myanimelist.net/images/anime/7/75919.jpg"
+        mal_id=164, title="Mononoke Hime", image="https://cdn.myanimelist.net/images/anime/7/75919.jpg"
     )
 
     jujutsu_kaisen = Anime(
@@ -155,7 +155,7 @@ def seed_lists_and_animes():
     )
 
     fate_zero_2 = Anime(
-        mal_id=11741, title="Fate/Zero Season 2", image="https://cdn.myanimelist.net/images/anime/1522/117645.jpg"
+        mal_id=11741, title="Fate/Zero 2nd Season", image="https://cdn.myanimelist.net/images/anime/1522/117645.jpg"
     )
 
     neon_genesis_end = Anime(
@@ -163,7 +163,7 @@ def seed_lists_and_animes():
     )
 
     attack_on_titan = Anime(
-        mal_id=16498, title="Attack on Titan", image="https://cdn.myanimelist.net/images/anime/10/47347.jpg"
+        mal_id=16498, title="Shingeki no Kyojin", image="https://cdn.myanimelist.net/images/anime/10/47347.jpg"
     )
 
     steins_gate_0 = Anime(
@@ -183,7 +183,7 @@ def seed_lists_and_animes():
     )
 
     nichijou = Anime(
-        mal_id=10165, title="Nichijou - My Ordinary Life", image="https://cdn.myanimelist.net/images/anime/3/75617.jpg"
+        mal_id=10165, title="Nichijou", image="https://cdn.myanimelist.net/images/anime/3/75617.jpg"
     )
 
     db.session.add_all([

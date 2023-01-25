@@ -12,7 +12,7 @@ import AddAnimeModal from "../AddAnimeModal";
 export default function AnimeDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { malAnimeId } = useParams();
+  const { malAnimeId, animeName } = useParams();
   const [anime, setAnime] = useState(null);
   const malAnime = useSelector((state) => state.jikan.anime.data);
   const user = useSelector((state) => state.session.user);
@@ -22,10 +22,21 @@ export default function AnimeDetails() {
   const [errors, setErrors] = useState([]);
   const [rating, setRating] = useState("");
   const [rev, setRev] = useState("");
+  const [delay, setDelay] = useState(false);
 
   useEffect(() => {
-    dispatch(getAnimeThunk(malAnimeId)).then(() => {
-      setIsLoaded(true);
+    dispatch(getAnimeThunk(malAnimeId)).then((data) => {
+      if (data.status) {
+        setTimeout(() => {
+          setDelay(!delay);
+        }, 1500); //delay used because of API rate limit
+      } else {
+        const dataAnimeName = data.data.title.split(" ").join("_");
+        if (dataAnimeName !== animeName) {
+          history.push(`/anime/${data.data.mal_id}/${dataAnimeName}`);
+        }
+        setIsLoaded(true);
+      }
     });
     dispatch(getMalAnimeThunk(malAnimeId)).then((anime) => {
       setAnime(anime);
@@ -35,7 +46,7 @@ export default function AnimeDetails() {
         });
       }
     });
-  }, [dispatch, malAnimeId, hasClicked]);
+  }, [dispatch, history, animeName, delay, malAnimeId, hasClicked]);
 
   if (!malAnime || !isLoaded) {
     return <LoadingBar />;

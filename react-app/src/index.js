@@ -7,6 +7,7 @@ import configureStore from "./store";
 
 import * as listActions from "./store/lists";
 import * as reviewActions from "./store/reviews";
+import * as followerActions from "./store/follower";
 import { ModalProvider } from "./context/Modal";
 
 const store = configureStore();
@@ -15,6 +16,7 @@ if (process.env.NODE_ENV !== "production") {
   window.store = store;
   window.listActions = listActions;
   window.reviewActions = reviewActions;
+  window.followerActions = followerActions;
 }
 
 ReactDOM.render(
