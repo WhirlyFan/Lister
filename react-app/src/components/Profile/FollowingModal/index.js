@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Modal } from "../../../context/Modal";
 import Following from "./Following";
 
-export default function FollowingModal({ setHasClicked, hasClicked, following }) {
+export default function FollowingModal({
+  setHasClicked,
+  hasClicked,
+  user,
+  followUnfollow
+}) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -13,10 +18,11 @@ export default function FollowingModal({ setHasClicked, hasClicked, following })
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <Following
-            following={following}
+            user={user}
             setShowModal={setShowModal}
             setHasClicked={setHasClicked}
             hasClicked={hasClicked}
+            followUnfollow={followUnfollow}
           />
         </Modal>
       )}

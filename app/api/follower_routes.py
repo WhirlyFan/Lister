@@ -5,22 +5,7 @@ from .auth_routes import validation_errors_to_error_messages, authorized
 
 follower_routes = Blueprint("followers", __name__)
 
-
-@follower_routes.route("/<int:id>")
-def followers(id):
-    """
-    Queries for a user and return who they follow and their followers.
-    """
-    user = User.query.get(id)
-    if not user:
-        return {'error': ['User Not Found']}, 404
-    return {
-        "Follows": [user.to_dict() for user in user.followed_users()],
-        "Followers": [user.to_dict() for user in user.follower_users()]
-    }
-
-
-@follower_routes.route("/follow/<int:id>", methods=["POST"])
+@follower_routes.route("/<int:id>", methods=["POST"])
 @login_required
 def follow(id):
     """
@@ -38,8 +23,4 @@ def follow(id):
     else:
         user.unfollow(other_user)
     db.session.commit()
-    status = 'followed' if user.is_following(other_user) else 'unfollowed'
-    return {
-        "Follows": [user.to_dict() for user in user.followed_users()],
-        "Followers": [user.to_dict() for user in user.follower_users()]
-    }
+    return user.to_dict()

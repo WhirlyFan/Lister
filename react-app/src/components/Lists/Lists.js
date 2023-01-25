@@ -18,7 +18,7 @@ export default function Lists() {
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
-  const getUser = useSelector((state) => state.session?.get_user);
+  const getUser = useSelector((state) => state.session?.getUser);
   const [list, setList] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);

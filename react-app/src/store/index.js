@@ -5,7 +5,6 @@ import listReducer from "./lists";
 import jikanReducer from "./jikan";
 import animeReducer from "./anime";
 import reviewReducer from "./reviews";
-import followerReducer from "./follower";
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
   jikan: jikanReducer,
   anime: animeReducer,
   reviews: reviewReducer,
-  followers: followerReducer,
 });
 
 let enhancer;

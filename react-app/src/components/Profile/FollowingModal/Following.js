@@ -1,28 +1,28 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import UserCard from "../UserCard";
 
 export default function Following({
-  following,
+  user,
   setShowModal,
   hasClicked,
   setHasClicked,
+  followUnfollow,
 }) {
-  const history = useHistory();
-  const userProfile = (follow) => {
-    history.push(`/profile/${follow.id}/${follow.username}`);
-  };
-
   return (
     <div>
-      <h2>Following</h2>
-      {following?.map((follow) => {
+      <strong>Following</strong>
+      <hr />
+      {user.following?.map((user) => {
         return (
-          <div key={`follow-${follow.id}`} onClick={() => userProfile(follow)}>
-            {follow.username}
-          </div>
+          <UserCard
+            key={`following-${user.id}`}
+            user={user}
+            followUnfollow={followUnfollow}
+            setShowModal={setShowModal}
+          />
         );
       })}
-      {!following.length && <div>Not Following Anyone Yet!</div>}
+      {!user.following.length && <div>Not Following Anyone Yet!</div>}
     </div>
   );
 }
