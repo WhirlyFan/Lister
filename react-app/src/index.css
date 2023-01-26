@@ -54,7 +54,7 @@ td {
 
 .blue_button:active {
   background-color: #496fbe;
-  transform: scale(0.9);
+  transform: scale(0.95);
   text-decoration: none;
 }
 
@@ -82,7 +82,7 @@ td {
 
 .grey_button:active {
   background-color: #ced8ef;
-  transform: scale(0.9);
+  transform: scale(0.95);
   text-decoration: none;
 }
 

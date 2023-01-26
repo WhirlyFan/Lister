@@ -75,6 +75,7 @@
   background-color: #496fbe;
   color: #fff;
   text-decoration: none;
+  transform: scale(0.95);
 }
 
 .grey_button {
@@ -93,6 +94,7 @@
 .grey_button:active {
   background-color: #ced8ef;
   text-decoration: none;
+  transform: scale(0.95);
 }
 
 .login_warning {

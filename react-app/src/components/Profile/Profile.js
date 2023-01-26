@@ -37,9 +37,14 @@ export default function Profile() {
     });
   };
 
+  const lists = () => {
+    history.push(`/lists/${userId}/${username}`);
+  };
+
   return (
     <div>
       <h1>{`${username}'s Profile`}</h1>
+      <button onClick={() => lists()}>Anime Lists</button>
       <FollowersModal
         user={getUser}
         hasClicked={hasClicked}
