@@ -28,9 +28,9 @@ body {
   height: auto;
 }
 
-@media (max-width: 815px) {
+@media (max-width: 1000px) {
   body {
-    margin: 0 1vw;
+    margin: 0;
   }
 }
 
