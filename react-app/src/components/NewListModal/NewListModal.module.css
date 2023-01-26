@@ -15,7 +15,7 @@
 
 .new_list_blue_button:active {
   background-color: #496fbe;
-  transform: scale(0.9);
+  transform: scale(0.95);
   text-decoration: none;
 }
 
