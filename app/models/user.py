@@ -7,8 +7,10 @@ from .anime import Anime
 followers = db.Table(
     'followers',
     db.Model.metadata,
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+    db.Column('user_id', db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id'))),
+    db.Column('followed_id', db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')))
 )
 
 if environment == "production":
@@ -37,11 +39,11 @@ class User(db.Model, UserMixin):
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.user_id == id), secondaryjoin=(
         followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
-    @property
+    @ property
     def password(self):
         return self.hashed_password
 
-    @password.setter
+    @ password.setter
     def password(self, password):
         self.hashed_password = generate_password_hash(password)
 
