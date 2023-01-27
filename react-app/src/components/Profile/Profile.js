@@ -8,7 +8,7 @@ import { getAnimesByUserThunk } from "../../store/anime";
 import LoadingBar from "../LoadingBar/LoadingBar";
 import FollowersModal from "./FollowersModal";
 import FollowingModal from "./FollowingModal";
-import ReviewModal from "../ReviewModal";
+// import ReviewModal from "../ReviewModal";
 import styles from "./Profile.module.css";
 
 export default function Profile() {
