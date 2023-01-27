@@ -1,4 +1,4 @@
-from app.models import db, User, environment
+from app.models import db, User, environment, SCHEMA
 
 
 def seed_followers():
