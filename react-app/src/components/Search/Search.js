@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 // import LoadingBar from "../LoadingBar/LoadingBar";
 import AnimeCard from "../Home/AnimeCard";
 import homeStyles from "../Home/Home.module.css";
-// import styles from "./Search.module.css";
+import styles from "./Search.module.css";
 
 export default function Search() {
   const { category } = useParams();
@@ -20,7 +20,7 @@ export default function Search() {
   if (category === "animes" && !animes)
     return (
       <div>
-        <h1>Anime</h1>
+        <h1 className={styles.header}>Anime</h1>
         <h2>Couldn't find any animes!</h2>
       </div>
     );
@@ -28,7 +28,7 @@ export default function Search() {
   if (category === "users" && !users) {
     return (
       <div>
-        <h1>Users</h1>
+        <h1 className={styles.header}>Users</h1>
         <h2>Couldn't find any users!</h2>
       </div>
     );
@@ -37,7 +37,7 @@ export default function Search() {
   if (category === "users") {
     return (
       <div>
-        <h1>Users</h1>
+        <h1 className={styles.header}>Users</h1>
         {!users.length && <h2>Couldn't find any users!</h2>}
         {users.map((user) => {
           return <div key={`user-${user.id}`}>{user.username}</div>;
@@ -49,7 +49,7 @@ export default function Search() {
   if (category === "animes") {
     return (
       <div className={homeStyles.home}>
-        <h1>Anime</h1>
+        <h1 className={styles.header}>Anime</h1>
         {!animes.length && <h2>Couldn't find any animes!</h2>}
         <table className={homeStyles.table}>
           <thead>

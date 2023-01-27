@@ -1,0 +1,63 @@
+.background {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.top_header > h1 {
+  margin: 0;
+  margin-right: 1rem;
+  padding: 1rem 0;
+}
+
+.top_header {
+  display: flex;
+  align-items: center;
+}
+
+.follow {
+  display: flex;
+  justify-content: center;
+}
+
+.follow > * {
+  margin: 0 .5rem;
+}
+
+.main_info {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* .h2_header {
+  margin: 0.5rem 0;
+} */
+
+.anime_lists {
+  background-color: #4166bb;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  min-width: fit-content;
+  min-height: fit-content;
+  width: 5vw;
+  transition: all 0.3s;
+}
+
+.anime_lists:active {
+  background-color: #496fbe;
+  transform: scale(0.95);
+  text-decoration: none;
+}
+
+.anime_lists:hover {
+  cursor: pointer;
+  background-color: #6c8cd8;
+}

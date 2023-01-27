@@ -14,11 +14,11 @@ import { removeAnimeFromListThunk } from "../../store/anime";
 export default function Lists() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userId } = useParams();
+  const { userId, username } = useParams();
   const user = useSelector((state) => state.session.user);
   const listsArr = useSelector((state) => state.lists.lists);
   const animeArr = useSelector((state) => state.anime.animeByUser?.animes);
-  const getUser = useSelector((state) => state.session?.get_user);
+  const getUser = useSelector((state) => state.session?.getUser);
   const [list, setList] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,10 +27,14 @@ export default function Lists() {
     (async () => {
       await dispatch(getListsThunk(userId));
       await dispatch(getAnimesByUserThunk(userId));
-      await dispatch(getUserThunk(userId));
+      dispatch(getUserThunk(userId)).then((data) => {
+        if (data.username !== username) {
+          history.push(`/lists/${data.id}/${data.username}`);
+        }
+      });
       setIsLoaded(true);
     })();
-  }, [dispatch, user, userId, list, hasClicked]);
+  }, [dispatch, history, username, user, userId, list, hasClicked]);
 
   if (!isLoaded) {
     return <LoadingBar />;

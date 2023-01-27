@@ -7,12 +7,14 @@ import configureStore from "./store";
 
 import * as listActions from "./store/lists";
 import * as reviewActions from "./store/reviews";
+import * as sessionActions from "./store/session";
 import { ModalProvider } from "./context/Modal";
 
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
+  window.sessionActions = sessionActions;
   window.listActions = listActions;
   window.reviewActions = reviewActions;
 }
