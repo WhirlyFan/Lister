@@ -4,7 +4,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { getReviewsThunk } from "../../store/reviews";
 import { getListsThunk } from "../../store/lists";
 import { getUserThunk, followUnfollowThunk } from "../../store/session";
-import { getAllAnimesThunk } from "../../store/anime";
+import { getAnimesByUserThunk } from "../../store/anime";
 import LoadingBar from "../LoadingBar/LoadingBar";
 import FollowersModal from "./FollowersModal";
 import FollowingModal from "./FollowingModal";
@@ -16,7 +16,7 @@ export default function Profile() {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const getUser = useSelector((state) => state.session.getUser);
-  const allAnime = useSelector((state) => state.anime.allAnime?.animes);
+  const allAnime = useSelector((state) => state.anime.animeByUser?.animes);
   const lists = useSelector((state) => state.lists?.lists);
   const [hasClicked, setHasClicked] = useState(false);
   const { userId, username } = useParams();
@@ -25,7 +25,7 @@ export default function Profile() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    dispatch(getUserThunk(userId)).then((data) => {
+    dispatch(getUserThunk(userId)).then(async (data) => {
       if (data.username !== username) {
         history.push(`/profile/${data.id}/${data.username}`);
       }
@@ -35,14 +35,12 @@ export default function Profile() {
       const month = date.toLocaleString("default", { month: "short" });
       const year = date.getFullYear();
       setCreatedAt(`${month} ${day}, ${year}`);
-      (async () => {
-        await dispatch(getAllAnimesThunk());
-        await dispatch(getListsThunk(userId));
-        dispatch(getReviewsThunk(userId)).then((data) => {
-          setReviews(data.reviews);
-          setIsLoaded(true);
-        });
-      })();
+      await dispatch(getAnimesByUserThunk(userId));
+      await dispatch(getListsThunk(userId));
+      await dispatch(getReviewsThunk(userId)).then((data) => {
+        setReviews(data.reviews);
+      });
+      setIsLoaded(true);
     });
   }, [dispatch, history, userId, username, hasClicked]);
 

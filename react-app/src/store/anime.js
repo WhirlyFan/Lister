@@ -140,7 +140,7 @@ const initialState = {
   allAnimes: {},
   anime: {},
   animesByList: {},
-  animesByUser: {},
+  animeByUser: {},
   malAnime: {},
 };
 
