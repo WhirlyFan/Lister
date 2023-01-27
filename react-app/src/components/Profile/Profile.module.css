@@ -20,12 +20,12 @@
 
 .follow {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
-.follow > * {
+/* .follow > * {
   margin: 0 .5rem;
-}
+} */
 
 .main_info {
   display: flex;

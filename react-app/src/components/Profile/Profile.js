@@ -130,7 +130,7 @@ export default function Profile() {
           <div>
             <h2 className={styles.h2_header}>Stats</h2>
             <div>Joined: {createdAt}</div>
-            <div>Total Unique Anime: {allAnime.length}</div>
+            <div>Total Unique Anime: {allAnime ? allAnime.length : 0}</div>
             {lists.map((list) => {
               return (
                 <div key={`list-${list.id}`}>
