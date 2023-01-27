@@ -11,6 +11,9 @@ followers = db.Table(
     db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
 )
 
+if environment == "production":
+    followers.schema = SCHEMA
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
