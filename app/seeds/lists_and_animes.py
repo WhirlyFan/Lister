@@ -33,9 +33,25 @@ def seed_lists_and_animes():
     plan_to_watch2 = List(
         owner_id=2, name='Plan to Watch', private=False
     )
+    currently_watching3 = List(
+        owner_id=3, name='Currently Watching', private=False
+    )
+    completed3 = List(
+        owner_id=3, name='Completed', private=True
+    )
+    on_hold3 = List(
+        owner_id=3, name='On Hold', private=False
+    )
+    favorites3 = List(
+        owner_id=3, name='Favorites', private=False
+    )
+    plan_to_watch3 = List(
+        owner_id=3, name='Plan to Watch', private=False
+    )
 
     db.session.add_all([currently_watching, completed, on_hold, favorites, plan_to_watch,
-                       currently_watching2, completed2, on_hold2, favorites2, plan_to_watch2])
+                       currently_watching2, completed2, on_hold2, favorites2, plan_to_watch2,
+                       currently_watching3, completed3, on_hold3, favorites3, plan_to_watch3])
     db.session.commit()
 
     full_metal_alchemist = Anime(

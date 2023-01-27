@@ -13,7 +13,7 @@ export default function FollowersModal({
   return (
     <>
       <div>
-        <button onClick={() => setShowModal(true)}>Followers</button>
+        <button onClick={() => setShowModal(true)} className="blue_button">Followers</button>
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

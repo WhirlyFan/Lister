@@ -18,11 +18,12 @@ export default function Profile() {
   const getUser = useSelector((state) => state.session.getUser);
   const allAnime = useSelector((state) => state.anime.animeByUser?.animes);
   const lists = useSelector((state) => state.lists?.lists);
+  // const reviews = useSelector((state) => state.reviews?.reviews);
   const [hasClicked, setHasClicked] = useState(false);
   const { userId, username } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [createdAt, setCreatedAt] = useState("");
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     dispatch(getUserThunk(userId)).then(async (data) => {
@@ -68,97 +69,112 @@ export default function Profile() {
 
   return (
     <div className={styles.background}>
-      <div className={styles.header}>
-        <div className={styles.top_header}>
-          <h1>{`${username}'s Profile`}</h1>
+      <div className={styles.main_info}>
+        <div>
+          <div className={styles.header}>
+            <div className={styles.top_header}>
+              <h1>{`${username}'s Profile`}</h1>
+              <div>
+                <button
+                  onClick={() => userLists()}
+                  className={styles.anime_lists}
+                >
+                  Anime
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={styles.follow}>
+            <FollowersModal
+              user={getUser}
+              hasClicked={hasClicked}
+              setHasClicked={setHasClicked}
+              followUnfollow={followUnfollow}
+            />
+            <FollowingModal
+              user={getUser}
+              hasClicked={hasClicked}
+              setHasClicked={setHasClicked}
+              followUnfollow={followUnfollow}
+            />
+            {user && user.id !== getUser.id && (
+              <div>
+                {getUser.followers.find(
+                  (follower) => follower.id === user.id
+                ) ? (
+                  <button
+                    className={styles.anime_lists}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `Are you sure you want to unfollow ${getUser.username}?`
+                        )
+                      ) {
+                        followUnfollow(getUser.id);
+                      }
+                    }}
+                  >
+                    Unfollow
+                  </button>
+                ) : (
+                  <button
+                    className={styles.anime_lists}
+                    onClick={() => followUnfollow(getUser.id)}
+                  >
+                    Follow
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
           <div>
-            <button onClick={() => userLists()} className={styles.anime_lists}>
-              Anime
-            </button>
+            <h2 className={styles.h2_header}>Stats</h2>
+            <div>Joined: {createdAt}</div>
+            <div>Total Unique Anime: {allAnime.length}</div>
+            {lists.map((list) => {
+              return (
+                <div key={`list-${list.id}`}>
+                  {list.name}: {list.anime.length}
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div>Joined: {createdAt}</div>
-      </div>
-      <div>
-        <FollowersModal
-          user={getUser}
-          hasClicked={hasClicked}
-          setHasClicked={setHasClicked}
-          followUnfollow={followUnfollow}
-        />
-        <FollowingModal
-          user={getUser}
-          hasClicked={hasClicked}
-          setHasClicked={setHasClicked}
-          followUnfollow={followUnfollow}
-        />
-      </div>
-      {user && user.id !== getUser.id && (
-        <div>
-          {getUser.followers.find((follower) => follower.id === user.id) ? (
-            <button
-              onClick={() => {
-                if (
-                  window.confirm(
-                    `Are you sure you want to unfollow ${getUser.username}?`
-                  )
-                ) {
-                  followUnfollow(getUser.id);
-                }
-              }}
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button onClick={() => followUnfollow(getUser.id)}>Follow</button>
-          )}
-        </div>
-      )}
-      <div>
-        <h2>Stats</h2>
-        <div>Total Unique Anime: {allAnime.length}</div>
-        {lists.map((list) => {
-          return (
-            <div key={`list-${list.id}`}>
-              {list.name}: {list.anime.length}
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        <div className={styles.review_header}>
-          <h2>Reviews</h2>
-        </div>
-        <ul>
-          {!reviews && <li>No reviews yet!</li>}
-          {reviews &&
-            reviews.map((review) => {
-              return (
-                <li key={`review-${review.id}`} className={styles.review}>
-                  <div className={styles.review_info}>
-                    <strong>
-                      <span>
-                        {getUser.username} ★{review.rating}
-                      </span>
-                    </strong>
-                  </div>
-                  <div className={styles.review_content}>
-                    <div onClick={() => animeDetails(review.anime)}>
-                      Anime: {review.anime.title}
+        <div className={styles.reviews}>
+          <div className={styles.review_header}>
+            <h2 className={styles.h2_header}>Reviews</h2>
+          </div>
+          <ul>
+            {!reviews && <li>No reviews yet!</li>}
+            {reviews &&
+              reviews.map((review) => {
+                return (
+                  <li key={`review-${review.id}`} className={styles.review}>
+                    <div className={styles.review_info}>
+                      <strong>
+                        <span>
+                          {getUser.username} ★{review.rating}
+                        </span>
+                      </strong>
                     </div>
-                    <div>Review: {review.review}</div>
-                  </div>
-                  {/* {user && user.id === review.user_id && (
+                    <div className={styles.review_content}>
+                      <div onClick={() => animeDetails(review.anime)}>
+                        Anime: {review.anime.title}
+                      </div>
+                      <div>Review: {review.review}</div>
+                    </div>
+                    {/* {user && user.id === review.user_id && (
                   <ReviewModal
                     review={review}
                     hasClicked={hasClicked}
                     setHasClicked={setHasClicked}
                   />
                 )} */}
-                </li>
-              );
-            })}
-        </ul>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </div>
     </div>
   );

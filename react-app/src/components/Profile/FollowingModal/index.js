@@ -13,7 +13,7 @@ export default function FollowingModal({
   return (
     <>
       <div>
-        <button onClick={() => setShowModal(true)}>Following</button>
+        <button onClick={() => setShowModal(true)} className="grey_button">Following</button>
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
