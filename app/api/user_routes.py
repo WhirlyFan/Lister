@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, List
+from app.models import User, List, Anime
 
 user_routes = Blueprint('users', __name__)
 
@@ -32,6 +32,6 @@ def user(id):
     user = user.to_dict()
     if current_user.is_anonymous or id != current_user.id:
         user.pop('email')
-        user.pop('created_at')
-        user.pop('updated_at')
+        # user.pop('created_at')
+        # user.pop('updated_at')
     return user

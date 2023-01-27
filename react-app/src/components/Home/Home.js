@@ -44,7 +44,7 @@ export default function Home() {
       });
   }, [dispatch, delay]);
 
-  if (!isLoaded || !topAiringAnime || !topUpcomingAnime || !mostPopularAnime) {
+  if (!isLoaded) {
     return <LoadingBar />;
   }
 

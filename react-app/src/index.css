@@ -12,10 +12,11 @@ li {
 
 body {
   display: block;
-  margin: 0 300px;
+  margin: 0 10vw;
   font-family: "Montserrat", sans-serif;
   scroll-behavior: smooth;
   cursor: default;
+  transition: all 75ms;
 }
 
 .error {
@@ -27,15 +28,9 @@ body {
   height: auto;
 }
 
-@media (max-width: 1800px) {
+@media (max-width: 1000px) {
   body {
-    margin: 0 200px;
-  }
-}
-
-@media (max-width: 1300px) {
-  body {
-    margin: 0 100px;
+    margin: 0;
   }
 }
 
@@ -59,7 +54,7 @@ td {
 
 .blue_button:active {
   background-color: #496fbe;
-  transform: scale(0.9);
+  transform: scale(0.95);
   text-decoration: none;
 }
 
@@ -87,7 +82,7 @@ td {
 
 .grey_button:active {
   background-color: #ced8ef;
-  transform: scale(0.9);
+  transform: scale(0.95);
   text-decoration: none;
 }
 

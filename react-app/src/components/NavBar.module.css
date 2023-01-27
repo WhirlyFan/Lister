@@ -75,6 +75,7 @@
 
 .nav_right > * {
   margin-left: 1rem;
+  transition: all 75ms;
 }
 
 .navlink {
@@ -87,6 +88,7 @@
   font-weight: 700;
   color: #2e51a2;
   border: 2px solid #2e51a2;
+  transition: all 75ms;
 }
 
 .left:hover {
@@ -100,6 +102,7 @@
   color: white;
   background-color: #2e51a2;
   border: 2px solid #2e51a2;
+  transition: all 75ms;
 }
 
 .right:hover {
