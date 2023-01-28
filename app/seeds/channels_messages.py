@@ -8,8 +8,8 @@ def seed_channels_messages():
     db.session.add_all([channel1, channel2, channel3])
     db.session.commit()
 
-    message1 = Message(user_id = 1, channel_id = 1, message = "Hello World!")
-    message2 = Message(user_id = 2, channel_id = 1, message = "Hello World!")
+    message1 = Message(user_id = 1, channel_id = 1, message = "Hi Marnie!")
+    message2 = Message(user_id = 2, channel_id = 1, message = "Hi Demo!")
     message3 = Message(user_id = 2, channel_id = 2, message = "Hello World!")
 
     db.session.add_all([message1, message2, message3])
