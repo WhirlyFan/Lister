@@ -1,7 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
-# from .user import User
-# from .message import Message
+
 
 channel_members = db.Table(
     'channel_members',
@@ -34,7 +33,6 @@ class Channel(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
             'name': self.name,
             'messages': [messages.to_dict() for messages in self.messages],
             'created_at': self.created_at,
