@@ -1,9 +1,9 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-# from .animes import seed_animes, undo_animes
 from .reviews import seed_reviews, undo_reviews
 from .lists_and_animes import seed_lists_and_animes, undo_lists_and_animes
 from .followers import seed_followers, undo_followers
+from .channels_messages import seed_channels_messages, undo_channels_messages
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -23,12 +23,12 @@ def seed():
         undo_lists_and_animes()
         undo_reviews()
         undo_followers()
-        # undo_animes()
+        undo_channels_messages()
     seed_users()
     seed_lists_and_animes()
     seed_reviews()
     seed_followers()
-    # seed_animes()
+    seed_channels_messages()
     # Add other seed functions here
 
 
@@ -39,5 +39,5 @@ def undo():
     undo_lists_and_animes()
     undo_reviews()
     undo_followers()
-    # undo_animes()
+    undo_channels_messages()
     # Add other undo functions here
