@@ -2,12 +2,13 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, User, Message, Channel
 from .auth_routes import validation_errors_to_error_messages, authorized
-# from app.forms import CreateReview, UpdateReview
+from app.forms import CreateChannel, UpdateChannel
 
 
 channel_routes = Blueprint('channels', __name__)
 
 @channel_routes.route("/<int:id>", methods=["GET"])
+@login_required
 def channel(id):
     """
     Queries for a channel by id and returns that channel in this form "{'channel': [channel.to_dict()]}"
@@ -19,6 +20,7 @@ def channel(id):
 
 
 @channel_routes.route("/user/<int:id>", methods=["GET"])
+@login_required
 def user_channels(id):
     """
     Queries for a channel by user id and returns those channels in a list nested in a dictionary of "channels"
@@ -35,6 +37,7 @@ def user_channels(id):
 
 
 @channel_routes.route("/<int:id>/user/<int:user_id>", methods=["POST"])
+@login_required
 def user_in_channel(id, user_id):
     """
     Adds/Removes a user to/from a channel
@@ -55,7 +58,18 @@ def user_in_channel(id, user_id):
 
 
 @channel_routes.route("", methods=["POST"])
+@login_required
 def create_channel():
     """
     Creates a channel for the current user.
     """
+    form = CreateChannel()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        channel = Channel(
+            name = form.data['name']
+        )
+        db.session.add(channel)
+        db.session.commit()
+        return channel.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
