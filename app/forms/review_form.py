@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Length
-from app.models import Review
+# from app.models import Review
 
 
 def rating_validator(form, field):

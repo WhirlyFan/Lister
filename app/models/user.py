@@ -38,6 +38,8 @@ class User(db.Model, UserMixin):
         "Review", cascade="all, delete-orphan", back_populates="users")
     followed = db.relationship('User', secondary=followers, primaryjoin=(followers.c.user_id == id), secondaryjoin=(
         followers.c.followed_id == id), backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+    channels = db.relationship("Channel", secondary="channel_members", back_populates="users")
+    messages = db.relationship("Message", cascade="all, delete-orphan", back_populates="users")
 
     @ property
     def password(self):
