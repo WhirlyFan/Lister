@@ -176,3 +176,47 @@ def create_message(id):
 
         return message.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@channel_routes.route("/<int:id>/messages/<int:message_id>", methods=["PUT"])
+@login_required
+def edit_message(id, message_id):
+    """
+    Updates a message
+    """
+    message = Message.query.get(message_id)
+    if not message:
+        return {"message": ["Message not found"]}, 404
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
+    if user not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
+    if message not in channel.messages:
+        return {"errors": ["Message not in channel"]}, 401
+    form = UpdateMessage()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        message.message = form.data['message']
+        db.session.add(message)
+        db.session.commit()
+        return message.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@channel_routes.route("/messages/<int:id>", methods=["DELETE"])
+@login_required
+def delete_message(id):
+    """
+    Delete a message by id
+    """
+    user = User.query.get(current_user.id)
+    message = Message.query.get(id)
+    if not message:
+        return {"errors": ["Message not found"]}, 404
+    if user.id != message.user_id:
+        return {"errors": ["Unauthorized"]}, 401
+    db.session.delete(message)
+    db.session.commit()
+    return {"message": "Successfully deleted message"}
