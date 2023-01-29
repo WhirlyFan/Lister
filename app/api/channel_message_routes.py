@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, Message, Channel
+from app.models import db, User, Channel, Message
 from .auth_routes import validation_errors_to_error_messages, authorized
-from app.forms import CreateChannel, UpdateChannel
+from app.forms import CreateChannel, UpdateChannel, CreateMessage, UpdateMessage
 
 
 channel_routes = Blueprint('channels', __name__)
@@ -40,14 +40,17 @@ def user_channels(id):
 @login_required
 def user_in_channel(id, user_id):
     """
-    Adds/Removes a user to/from a channel
+    Adds/Removes a user to/from a channel if current_user owns channel
     """
+    current = User.query.get(current_user.id)
     user = User.query.get(user_id)
     if not user:
         return {"errors": ["User not found"]}, 404
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
+    if current != channel.users[0]:
+        return {"errors": ["Unauthorized"]}, 401
     if channel in user.channels:
         user.channels.remove(channel)
         db.session.commit()
@@ -145,3 +148,75 @@ def delete_channel(id):
 #     # channel.users = Channel.users.filter(User.id.in_([new_owner.id, *[u.id for u in channel.users]])).order_by(desc(User.id == new_owner.id))
 #     db.session.commit()
 #     return {"message": f"Owernship of Channel {channel.id} transfered to {new_owner.username}"}
+
+@channel_routes.route("/<int:id>/messages", methods=["POST"])
+@login_required
+def create_message(id):
+    """
+    Create a new message at a channel id
+    """
+    user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    if user not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
+    form = CreateMessage()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        message = Message(
+            user_id = current_user.id,
+            channel_id = id,
+            message = form.data["message"]
+        )
+        db.session.add(message)
+        db.session.commit()
+
+        return message.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@channel_routes.route("/<int:id>/messages/<int:message_id>", methods=["PUT"])
+@login_required
+def edit_message(id, message_id):
+    """
+    Updates a message
+    """
+    message = Message.query.get(message_id)
+    if not message:
+        return {"message": ["Message not found"]}, 404
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
+    if user not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
+    if message not in channel.messages:
+        return {"errors": ["Message not in channel"]}, 401
+    form = UpdateMessage()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        message.message = form.data['message']
+        db.session.add(message)
+        db.session.commit()
+        return message.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+@channel_routes.route("/messages/<int:id>", methods=["DELETE"])
+@login_required
+def delete_message(id):
+    """
+    Delete a message by id
+    """
+    user = User.query.get(current_user.id)
+    message = Message.query.get(id)
+    if not message:
+        return {"errors": ["Message not found"]}, 404
+    if user.id != message.user_id:
+        return {"errors": ["Unauthorized"]}, 401
+    db.session.delete(message)
+    db.session.commit()
+    return {"message": "Successfully deleted message"}

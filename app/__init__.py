@@ -11,7 +11,7 @@ from .api.list_routes import list_routes
 from .api.review_routes import review_routes
 from .api.anime_routes import anime_routes
 from .api.follower_routes import follower_routes
-from .api.channel_routes import channel_routes
+from .api.channel_message_routes import channel_routes
 from .seeds import seed_commands
 from .config import Config
 
