@@ -42,12 +42,15 @@ def user_in_channel(id, user_id):
     """
     Adds/Removes a user to/from a channel
     """
+    current = User.query.get(current_user.id)
     user = User.query.get(user_id)
     if not user:
         return {"errors": ["User not found"]}, 404
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
+    if current not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
     if channel in user.channels:
         user.channels.remove(channel)
         db.session.commit()
@@ -158,7 +161,8 @@ def create_message(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-
+    if user not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
     form = CreateMessage()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
