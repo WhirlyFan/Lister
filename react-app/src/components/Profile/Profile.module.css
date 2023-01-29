@@ -61,3 +61,12 @@
   cursor: pointer;
   background-color: #6c8cd8;
 }
+
+.user_card {
+  display: flex;
+  align-items: center;
+}
+
+.user_card > * {
+  margin: 1rem;
+}
