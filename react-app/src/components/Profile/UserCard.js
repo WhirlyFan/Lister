@@ -15,7 +15,7 @@ export default function UserCard({ user, followUnfollow, setShowModal }) {
     <div className={styles.user_card}>
       <div onClick={() => userProfile(user)}>{user.username}</div>
       {current_user && current_user.id !== user.id && (
-        <div>
+        <div className={styles.follow_button}>
           {getUser.following.find((follower) => follower.id === user.id) ? (
             <button
               className="grey_button"
