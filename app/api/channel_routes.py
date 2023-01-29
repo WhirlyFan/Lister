@@ -40,7 +40,7 @@ def user_channels(id):
 @login_required
 def user_in_channel(id, user_id):
     """
-    Adds/Removes a user to/from a channel
+    Adds/Removes a user to/from a channel if current_user owns channel
     """
     current = User.query.get(current_user.id)
     user = User.query.get(user_id)
@@ -49,7 +49,7 @@ def user_in_channel(id, user_id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    if current not in channel.users:
+    if current != channel.users[0]:
         return {"errors": ["Unauthorized"]}, 401
     if channel in user.channels:
         user.channels.remove(channel)
