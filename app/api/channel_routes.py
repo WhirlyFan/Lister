@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import db, User, Message, Channel
+from app.models import db, User, Channel, Message
 from .auth_routes import validation_errors_to_error_messages, authorized
-from app.forms import CreateChannel, UpdateChannel
+from app.forms import CreateChannel, UpdateChannel, CreateMessage, UpdateMessage
 
 
 channel_routes = Blueprint('channels', __name__)
@@ -145,3 +145,30 @@ def delete_channel(id):
 #     # channel.users = Channel.users.filter(User.id.in_([new_owner.id, *[u.id for u in channel.users]])).order_by(desc(User.id == new_owner.id))
 #     db.session.commit()
 #     return {"message": f"Owernship of Channel {channel.id} transfered to {new_owner.username}"}
+
+@channel_routes.route("/<int:id>/messages", methods=["POST"])
+@login_required
+def create_message(id):
+    """
+    Create a new message at a channel id
+    """
+    user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+
+    form = CreateMessage()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        message = Message(
+            user_id = current_user.id,
+            channel_id = id,
+            message = form.data["message"]
+        )
+        db.session.add(message)
+        db.session.commit()
+
+        return message.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
