@@ -63,12 +63,40 @@ def create_channel():
     """
     Creates a channel for the current user.
     """
+    user = User.query.get(current_user.id)
     form = CreateChannel()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         channel = Channel(
             name = form.data['name']
         )
+        db.session.add(channel)
+        db.session.commit()
+        user.channels.append(channel)
+        db.session.commit()
+
+        return channel.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@channel_routes.route("/<int:id>", methods=["PUT"])
+@login_required
+def edit_channel(id):
+    """
+    Creates a channel for the current user.
+    """
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
+    if user not in channel.users:
+        return {"errors": ["Unauthorized"]}, 401
+    form = UpdateChannel()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        channel.name = form.data['name']
         db.session.add(channel)
         db.session.commit()
         return channel.to_dict()

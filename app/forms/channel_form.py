@@ -7,10 +7,10 @@ from wtforms.validators import DataRequired, ValidationError, Length
 class CreateChannel(FlaskForm):
     name = StringField('review', validators=[Length(
         max=20, message='Name cannnot be longer than 20 characters')])
-    submit = SubmitField('Update Review')
+    submit = SubmitField('Update Channel')
 
 
 class UpdateChannel(FlaskForm):
     name = StringField('review', validators=[Length(
         max=20, message='Name cannnot be longer than 20 characters')])
-    submit = SubmitField('Update Review')
+    submit = SubmitField('Update Channel')
