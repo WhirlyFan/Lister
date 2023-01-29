@@ -64,6 +64,8 @@ def create_channel():
     Creates a channel for the current user.
     """
     user = User.query.get(current_user.id)
+    if not user:
+        return {"errors": ["User not found"]}, 404
     form = CreateChannel()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -101,3 +103,45 @@ def edit_channel(id):
         db.session.commit()
         return channel.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@channel_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_channel(id):
+    """
+    Delete a channel by id
+    """
+    user = User.query.get(current_user.id)
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    # User at the 0th index is the owner as they got assigned to the channel first upon creation of channel
+    if user != channel.users[0]:
+        return {"errors": ["Unauthorized"]}, 401
+    db.session.delete(channel)
+    db.session.commit()
+    return {"message": "Successfully deleted channel"}
+
+# @channel_routes.route("/<int:id>/owner/<int:user_id>", methods=["PUT"])
+# @login_required
+# def transfer_ownership(id, user_id):
+#     """
+#     Transfers channel ownership to user_id passed into function
+#     """
+#     user = User.query.get(current_user.id)
+#     new_owner = User.query.get(user_id)
+#     if not new_owner:
+#         return {"errors":  ["User not found"]}, 404
+#     channel = Channel.query.get(id)
+#     if not channel:
+#         return {"errors":  ["Channel not found"]}, 404
+#     # Only the owner can transfer ownership of a channel to users in the channel
+#     if user != channel.users[0] or new_owner not in channel.users:
+#         return {"errors": ["Unauthorized"]}, 401
+#     channel.users.remove(new_owner)
+#     # doesn't work because insert is a list method. need a way to reorder table with SQLAlchemy ORM
+#     channel.users.insert(0, new_owner)
+#     # from sqlalchemy import desc
+#     # channel.users = Channel.users.filter(User.id.in_([new_owner.id, *[u.id for u in channel.users]])).order_by(desc(User.id == new_owner.id))
+#     db.session.commit()
+#     return {"message": f"Owernship of Channel {channel.id} transfered to {new_owner.username}"}
