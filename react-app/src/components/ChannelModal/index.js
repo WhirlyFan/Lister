@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import ChannelForm from "./ChannelForm";
+import styles from "./ChannelForm.module.css";
 
 export default function ChannelModel({ hasClicked, setHasClicked }) {
   const [showModal, setShowModal] = useState(false);
@@ -8,7 +9,10 @@ export default function ChannelModel({ hasClicked, setHasClicked }) {
   return (
     <>
       <div>
-        <button onClick={() => setShowModal(true)}>Messages</button>
+        <i
+          className={`${styles.envelope} fas fa-envelope fa-xl`}
+          onClick={() => setShowModal(true)}
+        ></i>
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
