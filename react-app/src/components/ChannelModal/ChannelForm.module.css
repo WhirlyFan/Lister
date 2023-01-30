@@ -16,3 +16,15 @@
     cursor: pointer;
     color: #6c8cd8;
   }
+
+  .main {
+    display: flex;
+  }
+
+  .channels {
+    margin: 0 1rem;
+  }
+
+  .messages {
+    margin: 0 1rem;
+  }

@@ -3,7 +3,7 @@ import { Modal } from "../../context/Modal";
 import ChannelForm from "./ChannelForm";
 import styles from "./ChannelForm.module.css";
 
-export default function ChannelModel({ hasClicked, setHasClicked }) {
+export default function ChannelModel() {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -18,8 +18,6 @@ export default function ChannelModel({ hasClicked, setHasClicked }) {
         <Modal onClose={() => setShowModal(false)}>
           <ChannelForm
             setShowModal={setShowModal}
-            hasClicked={hasClicked}
-            setHasClicked={setHasClicked}
           />
         </Modal>
       )}
