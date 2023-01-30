@@ -5,6 +5,7 @@ import listReducer from "./lists";
 import jikanReducer from "./jikan";
 import animeReducer from "./anime";
 import reviewReducer from "./reviews";
+import channelReducer from "./channel";
 
 const rootReducer = combineReducers({
   session,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   jikan: jikanReducer,
   anime: animeReducer,
   reviews: reviewReducer,
+  channel: channelReducer,
 });
 
 let enhancer;

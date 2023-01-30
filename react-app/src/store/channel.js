@@ -39,17 +39,17 @@ export const getUserChannelsThunk = (id) => async (dispatch) => {
 };
 
 //reducer
-
 const initialState = {
   channel: null,
-  userChannels: null,
+  channels: null,
 };
+
 export default function channelReducer(state = initialState, action) {
-  switch (action.types) {
+  switch (action.type) {
     case GET_CHANNEL:
-      return { ...state, channel: { ...action.payload } };
+      return { ...state, ...action.payload };
     case GET_USER_CHANNELS:
-      return { ...state, userChannels: { ...action.payload } };
+      return { ...state, ...action.payload };
     default:
       return state;
   }
