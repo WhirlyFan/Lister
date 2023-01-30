@@ -5,6 +5,7 @@ import LogoutButton from "./auth/LogoutButton";
 import styles from "./NavBar.module.css";
 import lister from "../images/lister-title.png";
 import SearchBar from "./Search/SearchBar";
+import ChannelModal from "./ChannelModal"
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -41,6 +42,7 @@ const NavBar = () => {
         )}
         {user && (
           <div className={styles.nav_right}>
+            <ChannelModal/>
             <div>
               <NavLink
                 to={`/lists/${user.id}/${user.username}`}
