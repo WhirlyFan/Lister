@@ -18,9 +18,11 @@ def seed_channels_messages():
     demo = User.query.get(1)
     marnie = User.query.get(2)
     bobbie = User.query.get(3)
+    whirlyfan = User.query.get(4)
 
     channel1.users.extend([demo, marnie])
-    channel2.users.extend([demo, bobbie])
+    channel2.users.extend([demo, bobbie, whirlyfan])
+    channel3.users.extend([marnie, bobbie])
 
     db.session.commit()
 
