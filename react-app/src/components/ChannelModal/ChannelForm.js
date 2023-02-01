@@ -11,6 +11,7 @@ export default function ChannelForm({ setShowModal }) {
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [chatInput, setChatInput] = useState("");
 
   useEffect(() => {
     dispatch(getUserChannelsThunk(user.id)).then(() => {
@@ -23,6 +24,22 @@ export default function ChannelForm({ setShowModal }) {
     return null;
   }
 
+  const updateChatInput = (e) => {
+    setChatInput(e.target.value);
+  };
+
+  const sendChat = (e) => {
+    e.preventDefault();
+    // socket.emit("chat", {
+    //   id: user.id,
+    //   user: user.username,
+    //   msg: chatInput,
+    //   channelId: channelId,
+    //   room: serverId + "-" + channelId,
+    // });
+    setChatInput("");
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
@@ -32,6 +49,16 @@ export default function ChannelForm({ setShowModal }) {
       <div className={styles.messages}>
         <div>Messages</div>
         <Messages messages={messages} />
+        {messages.length !== 0 && (
+          <form className={styles.form} onSubmit={sendChat}>
+            <input
+              className={styles.chatBox}
+              value={chatInput}
+              onChange={updateChatInput}
+              placeholder={"Message"}
+            />
+          </form>
+        )}
       </div>
     </div>
   );
