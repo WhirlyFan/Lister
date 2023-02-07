@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function Channels({ setMessages }) {
+export default function Channels({ setChannel }) {
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => state.channel.channels);
 
@@ -24,7 +24,7 @@ export default function Channels({ setMessages }) {
           <div
             key={`channel-${channel.id}`}
             onClick={() => {
-              setMessages(channel.messages);
+              setChannel(channel);
             }}
           >
             {channel.name ? channel.name : "general"}

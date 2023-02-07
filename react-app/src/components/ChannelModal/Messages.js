@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ChannelForm.module.css";
 
-export default function Messages({ messages }) {
+export default function Messages({ channel }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   //   const getUser = useSelector((state) => state.user.users))
@@ -39,7 +39,7 @@ export default function Messages({ messages }) {
   useEffect(() => {});
   return (
     <>
-      {messages.map((message) => {
+      {channel.messages.map((message) => {
         return (
           <div key={`message-${message.id}`}>
             {console.log(message)}

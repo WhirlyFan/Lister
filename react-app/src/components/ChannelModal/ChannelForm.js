@@ -5,12 +5,14 @@ import { getUserChannelsThunk } from "../../store/channel";
 // import LoadingBar from "../LoadingBar/LoadingBar";
 import Channels from "./Channels";
 import Messages from "./Messages";
+import { io } from "socket.io-client";
+let socket;
 
 export default function ChannelForm({ setShowModal }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [channel, setChannel] = useState([]);
   const [chatInput, setChatInput] = useState("");
 
   useEffect(() => {
@@ -19,6 +21,31 @@ export default function ChannelForm({ setShowModal }) {
       setIsLoaded(true);
     });
   }, [dispatch, user]);
+
+  useEffect(() => {
+    // open socket connection
+    // create websocket
+    socket = io();
+    // socket.on("chat", () => {
+    //   dispatch(getUserChannelsThunk(user.id)).then((messages) => {
+    //     setMessages(messages.Messages);
+    //   });
+    // });
+    // socket.on("delete", () => {
+    //   dispatch(getUserChannelsThunk(user.id)).then((messages) => {
+    //     setMessages(messages.Messages);
+    //   });
+    // });
+    //join room
+    socket.emit("join", {
+      user: user.username,
+      room: channel.id,
+    });
+    // when component unmounts, disconnect
+    return () => {
+      socket.disconnect();
+    };
+  }, [channelId, serverId, user.username, dispatch]);
 
   if (!isLoaded) {
     return null;
@@ -30,13 +57,13 @@ export default function ChannelForm({ setShowModal }) {
 
   const sendChat = (e) => {
     e.preventDefault();
-    // socket.emit("chat", {
-    //   id: user.id,
-    //   user: user.username,
-    //   msg: chatInput,
-    //   channelId: channelId,
-    //   room: serverId + "-" + channelId,
-    // });
+    socket.emit("chat", {
+      id: user.id,
+      user: user.username,
+      message: chatInput,
+      channelId: channel.id,
+      room: channel.id,
+    });
     setChatInput("");
   };
 
@@ -44,12 +71,12 @@ export default function ChannelForm({ setShowModal }) {
     <div className={styles.main}>
       <div className={styles.channels}>
         <div>{user.username}'s Channels</div>
-        <Channels setMessages={setMessages} />
+        <Channels setChannel={setChannel} />
       </div>
       <div className={styles.messages}>
         <div>Messages</div>
-        <Messages messages={messages} />
-        {messages.length !== 0 && (
+        <Messages channel={channel} />
+        {channel.messages.length !== 0 && (
           <form className={styles.form} onSubmit={sendChat}>
             <input
               className={styles.chatBox}
