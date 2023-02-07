@@ -49,6 +49,16 @@ def handle_chat(data):
         emit("chat", data, broadcast=True, to=room)
 
 
+# @socketio.on("edit")
+# def handle_edit(data):
+#     message = Message.query.get(data['id'])
+#     db.session.delete(message)
+#     db.session.commit()
+
+#     if data['room']:
+#         room = data['room']
+#         emit("chat", data, broadcast=True, to=room)
+
 @socketio.on("delete")
 def handle_delete(data):
     message = Message.query.get(data['id'])

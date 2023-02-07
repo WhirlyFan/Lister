@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getChannelThunk } from "../../store/channel";
 
 export default function Channels({ setChannel }) {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => state.channel.channels);
+
+  const getChannel = (channelId) => {
+    dispatch(getChannelThunk(channelId)).then((channel) => {
+      setChannel(channel);
+      console.log(channel)
+    })
+  };
 
   return (
     <>
@@ -23,9 +32,7 @@ export default function Channels({ setChannel }) {
         return (
           <div
             key={`channel-${channel.id}`}
-            onClick={() => {
-              setChannel(channel);
-            }}
+            onClick={() => getChannel(channel.id)}
           >
             {channel.name ? channel.name : "general"}
           </div>

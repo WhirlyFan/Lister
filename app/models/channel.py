@@ -30,12 +30,21 @@ class Channel(db.Model):
     users = db.relationship("User", secondary="channel_members", back_populates="channels")
     messages = db.relationship("Message", cascade="all, delete-orphan", back_populates="channels")
 
-    def to_dict(self):
+    def to_dict_messages(self):
         return {
             'id': self.id,
             'name': self.name,
             'users': [user.to_dict_base() for user in self.users],
             'messages': [messages.to_dict() for messages in self.messages],
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+        }
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'users': [user.to_dict_base() for user in self.users],
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }

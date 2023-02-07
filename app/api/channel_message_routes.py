@@ -16,7 +16,7 @@ def channel(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    return {'channel': [channel.to_dict()]}
+    return channel.to_dict_messages()
 
 
 @channel_routes.route("/user/<int:id>", methods=["GET"])
