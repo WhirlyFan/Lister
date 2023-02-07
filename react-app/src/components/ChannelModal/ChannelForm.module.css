@@ -27,4 +27,13 @@
 
   .messages {
     margin: 0 1rem;
+    background-color: grey;
+  }
+
+  .message_header {
+    display: flex;
+  }
+
+  .message_username {
+    margin-right: .5rem;
   }

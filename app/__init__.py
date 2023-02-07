@@ -14,6 +14,7 @@ from .api.follower_routes import follower_routes
 from .api.channel_message_routes import channel_routes
 from .seeds import seed_commands
 from .config import Config
+from .websocket import socketio
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -40,6 +41,7 @@ app.register_blueprint(follower_routes, url_prefix='/api/followers')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
 db.init_app(app)
 Migrate(app, db)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
@@ -81,6 +83,10 @@ def api_help():
                               app.view_functions[rule.endpoint].__doc__]
                   for rule in app.url_map.iter_rules() if rule.endpoint != 'static'}
     return route_list
+
+
+if __name__ == '__main__':
+    socketio.run(app)
 
 
 @app.route('/', defaults={'path': ''})

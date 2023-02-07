@@ -16,9 +16,7 @@ export default function ChannelModel() {
       </div>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <ChannelForm
-            setShowModal={setShowModal}
-          />
+          <ChannelForm setShowModal={setShowModal} />
         </Modal>
       )}
     </>
