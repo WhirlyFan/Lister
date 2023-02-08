@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./ChannelForm.module.css";
+import AddChannelModal from "../AddChannelModal";
 import {
   getChannelThunk,
   deleteChannelThunk,
@@ -51,10 +52,6 @@ export default function ChannelForm({ setShowModal }) {
     };
   }, [user, dispatch, channel]);
 
-  const updateChatInput = (e) => {
-    setChatInput(e.target.value);
-  };
-
   const sendChat = (e) => {
     e.preventDefault();
     socket.emit("chat", {
@@ -73,13 +70,13 @@ export default function ChannelForm({ setShowModal }) {
     });
   };
 
-  const editMessage = (message) => {
-    socket.emit("edit", {
-      id: message.id,
-      message,
-      room: channel.id,
-    });
-  };
+  // const editMessage = (message) => {
+  //   socket.emit("edit", {
+  //     id: message.id,
+  //     message,
+  //     room: channel.id,
+  //   });
+  // };
 
   const deleteMessage = (messageId) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
@@ -103,9 +100,10 @@ export default function ChannelForm({ setShowModal }) {
       <div className={styles.channels}>
         <div className={styles.channels_header}>
           <div>{user.username}'s Channels</div>
-          <div className={styles.channel_add}>
+          <AddChannelModal />
+          {/* <div className={styles.channel_add}>
             <i className="fas fa-plus"></i>
-          </div>
+          </div> */}
         </div>
         <div>
           {channels.map((channel) => {
@@ -198,7 +196,7 @@ export default function ChannelForm({ setShowModal }) {
             <input
               className={styles.chat_input}
               value={chatInput}
-              onChange={updateChatInput}
+              onChange={(e) => setChatInput(e.target.value)}
               placeholder={"Message"}
             />
           </form>

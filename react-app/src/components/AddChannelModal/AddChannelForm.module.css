@@ -1,0 +1,12 @@
+.channel_add {
+    color: grey;
+    margin: 0 0.3rem;
+  }
+
+  .channel_add:hover {
+    cursor: pointer;
+  }
+
+  .channel_add:active {
+    transform: scale(0.9);
+  }
