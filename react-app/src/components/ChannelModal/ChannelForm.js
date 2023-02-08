@@ -23,7 +23,7 @@ export default function ChannelForm({ setShowModal }) {
 
   useEffect(() => {
     messageRef.current?.scrollIntoView();
-  }, [dispatch, channel]);
+  });
 
   useEffect(() => {
     // open socket connection
@@ -113,16 +113,22 @@ export default function ChannelForm({ setShowModal }) {
         <div>
           {channels.map((channel) => {
             if (channel.users.length < 2) {
-              channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+              if (!channel.name) {
+                channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+              }
             } else if (channel.users.length === 2) {
-              const other_user = channel.users.find((channel_member) => {
-                return channel_member.id !== user.id;
-              });
-              channel.name = other_user.username;
+              if (!channel.name) {
+                const other_user = channel.users.find((channel_member) => {
+                  return channel_member.id !== user.id;
+                });
+                channel.name = other_user.username;
+              }
             } else {
-              channel.name = `${channel.users[0].username} and ${
-                channel.users.length - 1
-              } others`;
+              if (!channel.name) {
+                channel.name = `${channel.users[0].username} and ${
+                  channel.users.length - 1
+                } others`;
+              }
             }
             return (
               <div

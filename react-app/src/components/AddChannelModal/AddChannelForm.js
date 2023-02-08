@@ -1,20 +1,34 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createChannelThunk } from "../../store/channel";
 
-export default function AddChannelForm() {
-//   const [users, setUsers] = useState([]);
+export default function AddChannelForm({ setShowModal }) {
+  //   const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
   const [channelName, setChannelName] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const channel = {
+      name: channelName.length ? channelName : null,
+    };
+    dispatch(createChannelThunk(channel));
+    setChannelName("");
+    setShowModal(false);
+  };
+
   return (
     <div>
-      <label>Add Channel</label>
-      <input
-        type="text"
-        value={channelName}
-        placeholder="Channel Name"
-        onChange={(e) => setChannelName(e.target.value)}
-        required
-      />
-      {/* <label>Users</label>
-        <input type="text" placeholder="User" /> */}
+      <form onSubmit={handleSubmit}>
+        <label>Add Channel</label>
+        <input
+          type="text"
+          value={channelName}
+          placeholder="(Optional) Channel Name"
+          onChange={(e) => setChannelName(e.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }

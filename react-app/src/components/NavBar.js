@@ -82,7 +82,7 @@ const NavBar = () => {
         </div>
       </ul>
       <div className={styles.panel}>
-        <h1 className={styles.title}>Welcome to Lister.WhirlyFan.com!</h1>
+        <h1 className={styles.title}>Welcome to Lister! Demo Account Available!</h1>
         <div className={styles.about_me}>
           <div>About Me:</div>
           <div>
