@@ -89,7 +89,7 @@ def create_channel():
 @login_required
 def edit_channel(id):
     """
-    Creates a channel for the current user.
+    Edits a channel at a given id.
     """
     channel = Channel.query.get(id)
     if not channel:
