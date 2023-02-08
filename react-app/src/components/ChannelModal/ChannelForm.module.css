@@ -42,6 +42,11 @@
 
 .message_header {
   display: flex;
+  justify-content: space-between;
+}
+
+.message_user_info {
+  display: flex;
 }
 
 .message_username {
@@ -60,4 +65,16 @@
   border: 1px solid #ccc;
   padding: 0.5rem;
   background-color: lightgrey;
+}
+
+.message_delete {
+  color: grey;
+}
+
+.message_delete:hover {
+  cursor: pointer;
+}
+
+.message_delete:active {
+  transform: scale(0.9);
 }

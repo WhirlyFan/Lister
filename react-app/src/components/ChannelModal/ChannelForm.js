@@ -62,6 +62,12 @@ export default function ChannelForm({ setShowModal }) {
     });
   };
 
+  const deleteMessage = (messageId) => {
+    if (window.confirm("Are you sure you want to delete this message?")) {
+      socket.emit("delete", { id: messageId, room: channel.id });
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
@@ -96,10 +102,20 @@ export default function ChannelForm({ setShowModal }) {
               return (
                 <div key={`message-${message.id}`}>
                   <div className={styles.message_header}>
-                    <strong className={styles.message_username}>
-                      {message.user.username}
-                    </strong>
-                    <div>{formatDateTime(message.created_at)}</div>
+                    <div className={styles.message_user_info}>
+                      <strong className={styles.message_username}>
+                        {message.user.username}
+                      </strong>
+                      <div>{formatDateTime(message.created_at)}</div>
+                    </div>
+                    {user.id === message.user.id && (
+                      <div
+                        className={styles.message_delete}
+                        onClick={() => deleteMessage(message.id)}
+                      >
+                        <i className="fas fa-trash-can"></i>
+                      </div>
+                    )}
                   </div>
                   <div>{message.message}</div>
                 </div>
