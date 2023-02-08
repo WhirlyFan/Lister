@@ -83,17 +83,17 @@
   background-color: lightgrey;
 }
 
-.message_delete {
+.delete {
   color: grey;
   margin: 0 0.3rem;
   margin-top: .3rem;
 }
 
-.message_delete:hover {
+.delete:hover {
   cursor: pointer;
 }
 
-.message_delete:active {
+.delete:active {
   transform: scale(0.9);
 }
 

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ChannelForm.module.css";
-import { getChannelThunk } from "../../store/channel";
+import {
+  getChannelThunk,
+  deleteChannelThunk,
+  getUserChannelsThunk,
+} from "../../store/channel";
 import formatDateTime from "../formatDateTime";
 import { io } from "socket.io-client";
 let socket;
@@ -81,6 +85,17 @@ export default function ChannelForm({ setShowModal }) {
     }
   };
 
+  const deleteChannel = (channelId) => {
+    if (window.confirm("Are you sure you want to delete this channel?")) {
+      dispatch(deleteChannelThunk(channelId)).then(() => {
+        if (channel.id === channelId) {
+          setChannel(null);
+        }
+        dispatch(getUserChannelsThunk(user.id));
+      });
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
@@ -104,8 +119,13 @@ export default function ChannelForm({ setShowModal }) {
               onClick={() => getChannel(channel.id)}
               className={styles.channel}
             >
-              {channel.name ? channel.name : "general"}
-              {console.log(channel)}
+              <div>{channel.name ? channel.name : "general"}</div>
+              <div
+                className={styles.delete}
+                onClick={() => deleteChannel(channel.id)}
+              >
+                <i className="fas fa-trash-can"></i>
+              </div>
             </div>
           );
         })}
@@ -137,7 +157,7 @@ export default function ChannelForm({ setShowModal }) {
                           <i className="fas fa-edit"></i>
                         </div> */}
                         <div
-                          className={styles.message_delete}
+                          className={styles.delete}
                           onClick={() => deleteMessage(message.id)}
                         >
                           <i className="fas fa-trash-can"></i>

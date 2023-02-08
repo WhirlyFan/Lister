@@ -38,6 +38,50 @@ export const getUserChannelsThunk = (id) => async (dispatch) => {
   return data;
 };
 
+export const createChannelThunk = (channel) => async (dispatch) => {
+  const res = await fetch(`/api/channels`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(channel),
+  });
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  dispatch(getUserChannels(data));
+  return data;
+};
+
+export const editChannelThunk = (channel) => async (dispatch) => {
+  const res = await fetch(`/api/channels/${channel.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(channel),
+  });
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  dispatch(getUserChannels(data));
+  return data;
+};
+
+export const deleteChannelThunk = (id) => async (dispatch) => {
+  const res = await fetch(`/api/channels/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  dispatch(getUserChannels(data));
+  return data;
+};
+
 //reducer
 const initialState = {
   channel: null,

@@ -25,15 +25,11 @@ def user_channels(id):
     """
     Queries for a channel by user id and returns those channels in a list nested in a dictionary of "channels"
     """
-    # this could get refactored to not return the messages so as to optimize queries when there is a lot of data
-    # messages are a key/value pair on the to_dict() method
     user = User.query.get(id)
     if not user:
         return {"errors": ["User not found"]}, 404
     channels = user.channels
     return {"channels": [channel.to_dict() for channel in channels]}
-    # channels = Channel.query.filter(Channel.id == user.id)
-    # return {"channels": [channel.to_dict() for channel in channels]}
 
 
 @channel_routes.route("/<int:id>/user/<int:user_id>", methods=["POST"])
