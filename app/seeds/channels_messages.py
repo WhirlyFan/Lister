@@ -1,9 +1,9 @@
 from app.models import db, Channel, Message, User, environment, SCHEMA
 
 def seed_channels_messages():
-    channel1 = Channel()
-    channel2 = Channel()
-    channel3 = Channel()
+    channel1 = Channel(owner_id = 1)
+    channel2 = Channel(owner_id = 1)
+    channel3 = Channel(owner_id = 2)
 
     db.session.add_all([channel1, channel2, channel3])
     db.session.commit()

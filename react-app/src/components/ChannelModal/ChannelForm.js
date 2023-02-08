@@ -22,6 +22,11 @@ export default function ChannelForm({ setShowModal }) {
         setChannel(channel);
       });
     });
+    socket.on("edit", () => {
+      dispatch(getChannelThunk(channel.id)).then((channel) => {
+        setChannel(channel);
+      });
+    });
     socket.on("delete", () => {
       dispatch(getChannelThunk(channel.id)).then((channel) => {
         setChannel(channel);
@@ -62,6 +67,14 @@ export default function ChannelForm({ setShowModal }) {
     });
   };
 
+  const editMessage = (message) => {
+    socket.emit("edit", {
+      id: message.id,
+      message,
+      room: channel.id,
+    });
+  };
+
   const deleteMessage = (messageId) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
       socket.emit("delete", { id: messageId, room: channel.id });
@@ -89,18 +102,25 @@ export default function ChannelForm({ setShowModal }) {
             <div
               key={`channel-${channel.id}`}
               onClick={() => getChannel(channel.id)}
+              className={styles.channel}
             >
               {channel.name ? channel.name : "general"}
+              {console.log(channel)}
             </div>
           );
         })}
       </div>
       <div className={styles.messages_main}>
         <div className={styles.messages}>
+          {!channel && (
+            <div className={styles.no_channel}>
+              Select a channel to start chatting!
+            </div>
+          )}
           {channel &&
             channel.messages.map((message) => {
               return (
-                <div key={`message-${message.id}`}>
+                <div key={`message-${message.id}`} className={styles.message}>
                   <div className={styles.message_header}>
                     <div className={styles.message_user_info}>
                       <strong className={styles.message_username}>
@@ -109,11 +129,19 @@ export default function ChannelForm({ setShowModal }) {
                       <div>{formatDateTime(message.created_at)}</div>
                     </div>
                     {user.id === message.user.id && (
-                      <div
-                        className={styles.message_delete}
-                        onClick={() => deleteMessage(message.id)}
-                      >
-                        <i className="fas fa-trash-can"></i>
+                      <div className={styles.message_icons}>
+                        {/* <div
+                          className={styles.message_edit}
+                          onClick={() => editMessage(message)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </div> */}
+                        <div
+                          className={styles.message_delete}
+                          onClick={() => deleteMessage(message.id)}
+                        >
+                          <i className="fas fa-trash-can"></i>
+                        </div>
                       </div>
                     )}
                   </div>

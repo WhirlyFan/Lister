@@ -22,6 +22,9 @@ class Channel(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True, unique=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')
+    ), nullable=False)
     name = db.Column(db.String(50), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(
@@ -33,6 +36,7 @@ class Channel(db.Model):
     def to_dict_messages(self):
         return {
             'id': self.id,
+            'owner_id': self.owner_id,
             'name': self.name,
             'users': [user.to_dict_base() for user in self.users],
             'messages': [messages.to_dict() for messages in self.messages],
@@ -43,6 +47,7 @@ class Channel(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
+            'owner_id': self.owner_id,
             'name': self.name,
             'users': [user.to_dict_base() for user in self.users],
             'created_at': self.created_at,

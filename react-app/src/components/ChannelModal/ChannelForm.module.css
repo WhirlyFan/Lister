@@ -27,6 +27,18 @@
   margin: 0 1rem;
   overflow-y: auto;
   width: 30%;
+  border-right: 1px solid #ccc;
+}
+
+.channel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.channel:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
 }
 
 .messages_main {
@@ -38,6 +50,10 @@
 
 .messages {
   overflow-y: auto;
+}
+
+.message:hover {
+  background-color: #f5f5f5;
 }
 
 .message_header {
@@ -69,6 +85,8 @@
 
 .message_delete {
   color: grey;
+  margin: 0 0.3rem;
+  margin-top: .3rem;
 }
 
 .message_delete:hover {
@@ -77,4 +95,28 @@
 
 .message_delete:active {
   transform: scale(0.9);
+}
+
+.message_edit {
+  color: grey;
+}
+
+.message_edit:hover {
+  cursor: pointer;
+}
+
+.message_edit:active {
+  transform: scale(0.9);
+}
+
+.message_icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.no_channel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

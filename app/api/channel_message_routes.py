@@ -73,7 +73,8 @@ def create_channel():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         channel = Channel(
-            name = form.data['name']
+            name = form.data['name'],
+            owner_id = user.id
         )
         db.session.add(channel)
         db.session.commit()
@@ -118,8 +119,11 @@ def delete_channel(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    # User at the 0th index is the owner as they got assigned to the channel first upon creation of channel
-    if user != channel.users[0]:
+    if len(channel.users) <= 2 and user in channel.users:
+        db.session.delete(channel)
+        db.session.commit()
+        return {"message": "Successfully deleted channel"}
+    if user.id != channel.owner_id:
         return {"errors": ["Unauthorized"]}, 401
     db.session.delete(channel)
     db.session.commit()
@@ -138,16 +142,12 @@ def delete_channel(id):
 #     channel = Channel.query.get(id)
 #     if not channel:
 #         return {"errors":  ["Channel not found"]}, 404
-#     # Only the owner can transfer ownership of a channel to users in the channel
-#     if user != channel.users[0] or new_owner not in channel.users:
+#     if user.id != channel.owner_id or user not in channel.users:
 #         return {"errors": ["Unauthorized"]}, 401
-#     channel.users.remove(new_owner)
-#     # doesn't work because insert is a list method. need a way to reorder table with SQLAlchemy ORM
-#     channel.users.insert(0, new_owner)
-#     # from sqlalchemy import desc
-#     # channel.users = Channel.users.filter(User.id.in_([new_owner.id, *[u.id for u in channel.users]])).order_by(desc(User.id == new_owner.id))
+#     channel.owner_id = new_owner.id
+#     db.session.add(channel)
 #     db.session.commit()
-#     return {"message": f"Owernship of Channel {channel.id} transfered to {new_owner.username}"}
+#     return {"message": f"Successfully transferred ownership of channel {channel.id} to {new_owner.username}"}
 
 @channel_routes.route("/<int:id>/messages", methods=["POST"])
 @login_required
