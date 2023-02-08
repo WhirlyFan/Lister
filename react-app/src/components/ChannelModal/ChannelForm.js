@@ -120,12 +120,12 @@ export default function ChannelForm({ setShowModal }) {
               className={styles.channel}
             >
               <div>{channel.name ? channel.name : "general"}</div>
-              <div
+              {(user.id === channel.owner_id || channel.users.length === 2) && <div
                 className={styles.delete}
                 onClick={() => deleteChannel(channel.id)}
               >
                 <i className="fas fa-trash-can"></i>
-              </div>
+              </div>}
             </div>
           );
         })}
