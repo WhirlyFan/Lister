@@ -89,26 +89,27 @@ export default function ChannelForm({ setShowModal }) {
           );
         })}
       </div>
-      <div className={styles.messages}>
-        <div>Messages</div>
-        {channel &&
-          channel.messages.map((message) => {
-            return (
-              <div key={`message-${message.id}`}>
-                <div className={styles.message_header}>
-                  <strong className={styles.message_username}>
-                    {message.user.username}
-                  </strong>
-                  <div>{formatDateTime(message.created_at)}</div>
+      <div className={styles.messages_main}>
+        <div className={styles.messages}>
+          {channel &&
+            channel.messages.map((message) => {
+              return (
+                <div key={`message-${message.id}`}>
+                  <div className={styles.message_header}>
+                    <strong className={styles.message_username}>
+                      {message.user.username}
+                    </strong>
+                    <div>{formatDateTime(message.created_at)}</div>
+                  </div>
+                  <div>{message.message}</div>
                 </div>
-                <div>{message.message}</div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
         {channel && (
           <form className={styles.form} onSubmit={sendChat}>
             <input
-              className={styles.chatBox}
+              className={styles.chat_input}
               value={chatInput}
               onChange={updateChatInput}
               placeholder={"Message"}

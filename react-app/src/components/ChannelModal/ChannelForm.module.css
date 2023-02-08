@@ -6,34 +6,58 @@
     transition: all 0.3s;
   }
 
-  .envelope:active {
-    color: #496fbe;
-    transform: scale(0.95);
-    text-decoration: none;
-  }
+.envelope:active {
+  color: #496fbe;
+  transform: scale(0.95);
+  text-decoration: none;
+}
 
-  .envelope:hover {
-    cursor: pointer;
-    color: #6c8cd8;
-  }
+.envelope:hover {
+  cursor: pointer;
+  color: #6c8cd8;
+}
 
-  .main {
-    display: flex;
-  }
+.main {
+  display: flex;
+  width: 50vw;
+  height: 50vh;
+}
 
-  .channels {
-    margin: 0 1rem;
-  }
+.channels {
+  margin: 0 1rem;
+  overflow-y: auto;
+  width: 30%;
+}
 
-  .messages {
-    margin: 0 1rem;
-    background-color: grey;
-  }
+.messages_main {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+}
 
-  .message_header {
-    display: flex;
-  }
+.messages {
+  overflow-y: auto;
+}
 
-  .message_username {
-    margin-right: .5rem;
-  }
+.message_header {
+  display: flex;
+}
+
+.message_username {
+  margin-right: .5rem;
+}
+
+.form {
+  margin-top: auto;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.chat_input {
+  width: 95%;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  background-color: lightgrey;
+}
