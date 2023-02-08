@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./ChannelForm.module.css";
@@ -19,6 +19,11 @@ export default function ChannelForm({ setShowModal }) {
   const channels = useSelector((state) => state.channel.channels);
   const [channel, setChannel] = useState(null);
   const [chatInput, setChatInput] = useState("");
+  const messageRef = useRef(null);
+
+  useEffect(() => {
+    messageRef.current?.scrollIntoView();
+  }, [dispatch, channel]);
 
   useEffect(() => {
     // open socket connection
@@ -190,6 +195,7 @@ export default function ChannelForm({ setShowModal }) {
                 </div>
               );
             })}
+          <div ref={messageRef} />
         </div>
         {channel && (
           <form className={styles.form} onSubmit={sendChat}>
