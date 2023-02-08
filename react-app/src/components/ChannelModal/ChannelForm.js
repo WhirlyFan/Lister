@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styles from "./ChannelForm.module.css";
 import {
   getChannelThunk,
@@ -12,6 +13,7 @@ let socket;
 
 export default function ChannelForm({ setShowModal }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => state.channel.channels);
   const [channel, setChannel] = useState(null);
@@ -99,36 +101,46 @@ export default function ChannelForm({ setShowModal }) {
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
-        <div>{user.username}'s Channels</div>
-        {channels.map((channel) => {
-          if (channel.users.length < 2) {
-            channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
-          } else if (channel.users.length === 2) {
-            const other_user = channel.users.find((channel_member) => {
-              return channel_member.id !== user.id;
-            });
-            channel.name = other_user.username;
-          } else {
-            channel.name = `${channel.users[0].username} and ${
-              channel.users.length - 1
-            } others`;
-          }
-          return (
-            <div
-              key={`channel-${channel.id}`}
-              onClick={() => getChannel(channel.id)}
-              className={styles.channel}
-            >
-              <div>{channel.name ? channel.name : "general"}</div>
-              {(user.id === channel.owner_id || channel.users.length === 2) && <div
-                className={styles.delete}
-                onClick={() => deleteChannel(channel.id)}
+        <div className={styles.channels_header}>
+          <div>{user.username}'s Channels</div>
+          <div className={styles.channel_add}>
+            <i className="fas fa-plus"></i>
+          </div>
+        </div>
+        <div>
+          {channels.map((channel) => {
+            if (channel.users.length < 2) {
+              channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+            } else if (channel.users.length === 2) {
+              const other_user = channel.users.find((channel_member) => {
+                return channel_member.id !== user.id;
+              });
+              channel.name = other_user.username;
+            } else {
+              channel.name = `${channel.users[0].username} and ${
+                channel.users.length - 1
+              } others`;
+            }
+            return (
+              <div
+                key={`channel-${channel.id}`}
+                onClick={() => getChannel(channel.id)}
+                className={styles.channel}
               >
-                <i className="fas fa-trash-can"></i>
-              </div>}
-            </div>
-          );
-        })}
+                <div>{channel.name ? channel.name : "general"}</div>
+                {(user.id === channel.owner_id ||
+                  channel.users.length === 2) && (
+                  <div
+                    className={styles.delete}
+                    onClick={() => deleteChannel(channel.id)}
+                  >
+                    <i className="fas fa-trash-can"></i>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div className={styles.messages_main}>
         <div className={styles.messages}>
@@ -137,13 +149,24 @@ export default function ChannelForm({ setShowModal }) {
               Select a channel to start chatting!
             </div>
           )}
+          {channel && !channel.messages.length && (
+            <div className={styles.no_messages}>No messages yet!</div>
+          )}
           {channel &&
             channel.messages.map((message) => {
               return (
                 <div key={`message-${message.id}`} className={styles.message}>
                   <div className={styles.message_header}>
                     <div className={styles.message_user_info}>
-                      <strong className={styles.message_username}>
+                      <strong
+                        className={styles.message_username}
+                        onClick={() => {
+                          history.push(
+                            `/profile/${message.user.id}/${message.user.username}`
+                          );
+                          setShowModal(false);
+                        }}
+                      >
                         {message.user.username}
                       </strong>
                       <div>{formatDateTime(message.created_at)}</div>
@@ -151,7 +174,7 @@ export default function ChannelForm({ setShowModal }) {
                     {user.id === message.user.id && (
                       <div className={styles.message_icons}>
                         {/* <div
-                          className={styles.message_edit}
+                          className={styles.edit}
                           onClick={() => editMessage(message)}
                         >
                           <i className="fas fa-edit"></i>
