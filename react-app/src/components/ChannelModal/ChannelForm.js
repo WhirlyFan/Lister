@@ -1,59 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styles from "./ChannelForm.module.css";
-import { getUserChannelsThunk } from "../../store/channel";
-// import LoadingBar from "../LoadingBar/LoadingBar";
-import Channels from "./Channels";
-import Messages from "./Messages";
+import AddChannelModal from "../AddChannelModal";
+import {
+  getChannelThunk,
+  deleteChannelThunk,
+  getUserChannelsThunk,
+} from "../../store/channel";
+import formatDateTime from "../formatDateTime";
 import { io } from "socket.io-client";
 let socket;
 
 export default function ChannelForm({ setShowModal }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [channel, setChannel] = useState([]);
+  const channels = useSelector((state) => state.channel.channels);
+  const [channel, setChannel] = useState(null);
   const [chatInput, setChatInput] = useState("");
-
-  useEffect(() => {
-    dispatch(getUserChannelsThunk(user.id)).then(() => {
-      //move this to the onClick on the index file to fix flickering
-      setIsLoaded(true);
-    });
-  }, [dispatch, user]);
 
   useEffect(() => {
     // open socket connection
     // create websocket
     socket = io();
-    // socket.on("chat", () => {
-    //   dispatch(getUserChannelsThunk(user.id)).then((messages) => {
-    //     setMessages(messages.Messages);
-    //   });
-    // });
-    // socket.on("delete", () => {
-    //   dispatch(getUserChannelsThunk(user.id)).then((messages) => {
-    //     setMessages(messages.Messages);
-    //   });
-    // });
-    //join room
-    socket.emit("join", {
-      user: user.username,
-      room: channel.id,
+    socket.on("chat", () => {
+      dispatch(getChannelThunk(channel.id)).then((channel) => {
+        setChannel(channel);
+      });
     });
+    socket.on("edit", () => {
+      dispatch(getChannelThunk(channel.id)).then((channel) => {
+        setChannel(channel);
+      });
+    });
+    socket.on("delete", () => {
+      dispatch(getChannelThunk(channel.id)).then((channel) => {
+        setChannel(channel);
+      });
+    });
+    //join room
+    if (channel) {
+      socket.emit("join", {
+        user: user.username,
+        room: channel.id,
+      });
+    }
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();
     };
-  }, [channelId, serverId, user.username, dispatch]);
-
-  if (!isLoaded) {
-    return null;
-  }
-
-  const updateChatInput = (e) => {
-    setChatInput(e.target.value);
-  };
+  }, [user, dispatch, channel]);
 
   const sendChat = (e) => {
     e.preventDefault();
@@ -67,21 +64,139 @@ export default function ChannelForm({ setShowModal }) {
     setChatInput("");
   };
 
+  const getChannel = (channelId) => {
+    dispatch(getChannelThunk(channelId)).then((channel) => {
+      setChannel(channel);
+    });
+  };
+
+  // const editMessage = (message) => {
+  //   socket.emit("edit", {
+  //     id: message.id,
+  //     message,
+  //     room: channel.id,
+  //   });
+  // };
+
+  const deleteMessage = (messageId) => {
+    if (window.confirm("Are you sure you want to delete this message?")) {
+      socket.emit("delete", { id: messageId, room: channel.id });
+    }
+  };
+
+  const deleteChannel = (channelId) => {
+    if (window.confirm("Are you sure you want to delete this channel?")) {
+      dispatch(deleteChannelThunk(channelId)).then(() => {
+        if (channel.id === channelId) {
+          setChannel(null);
+        }
+        dispatch(getUserChannelsThunk(user.id));
+      });
+    }
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
-        <div>{user.username}'s Channels</div>
-        <Channels setChannel={setChannel} />
+        <div className={styles.channels_header}>
+          <div>{user.username}'s Channels</div>
+          <AddChannelModal />
+          {/* <div className={styles.channel_add}>
+            <i className="fas fa-plus"></i>
+          </div> */}
+        </div>
+        <div>
+          {channels.map((channel) => {
+            if (channel.users.length < 2) {
+              channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+            } else if (channel.users.length === 2) {
+              const other_user = channel.users.find((channel_member) => {
+                return channel_member.id !== user.id;
+              });
+              channel.name = other_user.username;
+            } else {
+              channel.name = `${channel.users[0].username} and ${
+                channel.users.length - 1
+              } others`;
+            }
+            return (
+              <div
+                key={`channel-${channel.id}`}
+                onClick={() => getChannel(channel.id)}
+                className={styles.channel}
+              >
+                <div>{channel.name ? channel.name : "general"}</div>
+                {(user.id === channel.owner_id ||
+                  channel.users.length === 2) && (
+                  <div
+                    className={styles.delete}
+                    onClick={() => deleteChannel(channel.id)}
+                  >
+                    <i className="fas fa-trash-can"></i>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div className={styles.messages}>
-        <div>Messages</div>
-        <Messages channel={channel} />
-        {channel.messages.length !== 0 && (
+      <div className={styles.messages_main}>
+        <div className={styles.messages}>
+          {!channel && (
+            <div className={styles.no_channel}>
+              Select a channel to start chatting!
+            </div>
+          )}
+          {channel && !channel.messages.length && (
+            <div className={styles.no_messages}>No messages yet!</div>
+          )}
+          {channel &&
+            channel.messages.map((message) => {
+              return (
+                <div key={`message-${message.id}`} className={styles.message}>
+                  <div className={styles.message_header}>
+                    <div className={styles.message_user_info}>
+                      <strong
+                        className={styles.message_username}
+                        onClick={() => {
+                          history.push(
+                            `/profile/${message.user.id}/${message.user.username}`
+                          );
+                          setShowModal(false);
+                        }}
+                      >
+                        {message.user.username}
+                      </strong>
+                      <div>{formatDateTime(message.created_at)}</div>
+                    </div>
+                    {user.id === message.user.id && (
+                      <div className={styles.message_icons}>
+                        {/* <div
+                          className={styles.edit}
+                          onClick={() => editMessage(message)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </div> */}
+                        <div
+                          className={styles.delete}
+                          onClick={() => deleteMessage(message.id)}
+                        >
+                          <i className="fas fa-trash-can"></i>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div>{message.message}</div>
+                </div>
+              );
+            })}
+        </div>
+        {channel && (
           <form className={styles.form} onSubmit={sendChat}>
             <input
-              className={styles.chatBox}
+              className={styles.chat_input}
               value={chatInput}
-              onChange={updateChatInput}
+              onChange={(e) => setChatInput(e.target.value)}
               placeholder={"Message"}
             />
           </form>

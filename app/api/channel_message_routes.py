@@ -16,7 +16,7 @@ def channel(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    return {'channel': [channel.to_dict()]}
+    return channel.to_dict_messages()
 
 
 @channel_routes.route("/user/<int:id>", methods=["GET"])
@@ -25,22 +25,18 @@ def user_channels(id):
     """
     Queries for a channel by user id and returns those channels in a list nested in a dictionary of "channels"
     """
-    # this could get refactored to not return the messages so as to optimize queries when there is a lot of data
-    # messages are a key/value pair on the to_dict() method
     user = User.query.get(id)
     if not user:
         return {"errors": ["User not found"]}, 404
     channels = user.channels
     return {"channels": [channel.to_dict() for channel in channels]}
-    # channels = Channel.query.filter(Channel.id == user.id)
-    # return {"channels": [channel.to_dict() for channel in channels]}
 
 
 @channel_routes.route("/<int:id>/user/<int:user_id>", methods=["POST"])
 @login_required
 def user_in_channel(id, user_id):
     """
-    Adds/Removes a user to/from a channel if current_user owns channel
+    Adds/Removes a user to/from a channel
     """
     current = User.query.get(current_user.id)
     user = User.query.get(user_id)
@@ -49,15 +45,16 @@ def user_in_channel(id, user_id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    if current != channel.users[0]:
-        return {"errors": ["Unauthorized"]}, 401
+    if user.id == channel.owner_id:
+        return {"errors": ["Cannot remove or add owner"]}, 401
     if channel in user.channels:
         user.channels.remove(channel)
         db.session.commit()
         return {"message": f"Removed {user.username} from channel {channel.id}"}
-    user.channels.append(channel)
-    db.session.commit()
-    return {"message": f"Added {user.username} to channel {channel.id}"}
+    else:
+        user.channels.append(channel)
+        db.session.commit()
+        return {"message": f"Added {user.username} to channel {channel.id}"}
 
 
 @channel_routes.route("", methods=["POST"])
@@ -73,7 +70,8 @@ def create_channel():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         channel = Channel(
-            name = form.data['name']
+            name = form.data['name'],
+            owner_id = user.id
         )
         db.session.add(channel)
         db.session.commit()
@@ -88,7 +86,7 @@ def create_channel():
 @login_required
 def edit_channel(id):
     """
-    Creates a channel for the current user.
+    Edits a channel at a given id.
     """
     channel = Channel.query.get(id)
     if not channel:
@@ -118,8 +116,11 @@ def delete_channel(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    # User at the 0th index is the owner as they got assigned to the channel first upon creation of channel
-    if user != channel.users[0]:
+    if len(channel.users) <= 2 and user in channel.users:
+        db.session.delete(channel)
+        db.session.commit()
+        return {"message": "Successfully deleted channel"}
+    if user.id != channel.owner_id:
         return {"errors": ["Unauthorized"]}, 401
     db.session.delete(channel)
     db.session.commit()
@@ -138,16 +139,12 @@ def delete_channel(id):
 #     channel = Channel.query.get(id)
 #     if not channel:
 #         return {"errors":  ["Channel not found"]}, 404
-#     # Only the owner can transfer ownership of a channel to users in the channel
-#     if user != channel.users[0] or new_owner not in channel.users:
+#     if user.id != channel.owner_id or user not in channel.users:
 #         return {"errors": ["Unauthorized"]}, 401
-#     channel.users.remove(new_owner)
-#     # doesn't work because insert is a list method. need a way to reorder table with SQLAlchemy ORM
-#     channel.users.insert(0, new_owner)
-#     # from sqlalchemy import desc
-#     # channel.users = Channel.users.filter(User.id.in_([new_owner.id, *[u.id for u in channel.users]])).order_by(desc(User.id == new_owner.id))
+#     channel.owner_id = new_owner.id
+#     db.session.add(channel)
 #     db.session.commit()
-#     return {"message": f"Owernship of Channel {channel.id} transfered to {new_owner.username}"}
+#     return {"message": f"Successfully transferred ownership of channel {channel.id} to {new_owner.username}"}
 
 @channel_routes.route("/<int:id>/messages", methods=["POST"])
 @login_required
