@@ -5,6 +5,7 @@ import LogoutButton from "./auth/LogoutButton";
 import styles from "./NavBar.module.css";
 import lister from "../images/lister-title.png";
 import SearchBar from "./Search/SearchBar";
+import ChannelModal from "./ChannelModal"
 
 const NavBar = () => {
   const user = useSelector((state) => state.session.user);
@@ -41,6 +42,7 @@ const NavBar = () => {
         )}
         {user && (
           <div className={styles.nav_right}>
+            <ChannelModal/>
             <div>
               <NavLink
                 to={`/lists/${user.id}/${user.username}`}
@@ -80,7 +82,7 @@ const NavBar = () => {
         </div>
       </ul>
       <div className={styles.panel}>
-        <h1 className={styles.title}>Welcome to Lister.WhirlyFan.com!</h1>
+        <h1 className={styles.title}>Welcome to Lister! Demo Account Available!</h1>
         <div className={styles.about_me}>
           <div>About Me:</div>
           <div>
