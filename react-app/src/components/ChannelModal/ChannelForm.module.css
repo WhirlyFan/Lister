@@ -109,7 +109,6 @@
   color: grey;
   margin: 0 0.3rem;
   margin-top: .3rem;
-  z-index: 100000;
 }
 
 .delete:hover {
@@ -122,6 +121,8 @@
 
 .edit {
   color: grey;
+  margin: 0 0.3rem;
+  margin-top: .3rem;
 }
 
 .edit:hover {
@@ -149,4 +150,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.channel_icons {
+  display: flex;
 }
