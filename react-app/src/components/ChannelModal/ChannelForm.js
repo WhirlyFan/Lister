@@ -110,9 +110,6 @@ export default function ChannelForm({ setShowModal }) {
         <div className={styles.channels_header}>
           <div>{user.username}'s Channels</div>
           <AddChannelModal />
-          {/* <div className={styles.channel_add}>
-            <i className="fas fa-plus"></i>
-          </div> */}
         </div>
         <div>
           {channels.map((channel) => {
@@ -141,18 +138,25 @@ export default function ChannelForm({ setShowModal }) {
                 className={styles.channel}
               >
                 <div>{channel.name ? channel.name : "general"}</div>
-                {(user.id === channel.owner_id ||
-                  channel.users.length === 2) && (
-                  <div
-                    className={styles.delete}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteChannel(channel.id);
-                    }}
-                  >
-                    <i className="fas fa-trash-can"></i>
-                  </div>
-                )}
+                <div className={styles.channel_icons}>
+                  {/* {channel.owner_id === user.id && (
+                    <div className={styles.edit}>
+                      <i className="fas fa-edit"></i>
+                    </div>
+                  )} */}
+                  {(user.id === channel.owner_id ||
+                    channel.users.length === 2) && (
+                    <div
+                      className={styles.delete}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteChannel(channel.id);
+                      }}
+                    >
+                      <i className="fas fa-trash-can"></i>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

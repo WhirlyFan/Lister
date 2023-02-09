@@ -87,6 +87,9 @@ export default function AddChannelForm({ setShowModal }) {
         <input type="text" onChange={(e) => setSearch(e.target.value)} />
       </div>
       <ul className={styles.users}>
+        {!filteredUsers.length && search.length !== 0 && (
+          <li className={styles.user}>No users found</li>
+        )}
         {filteredUsers
           .map((user) => (
             <li key={`user-${user.id}`} className={styles.user}>
