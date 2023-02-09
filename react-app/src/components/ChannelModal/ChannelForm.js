@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styles from "./ChannelForm.module.css";
@@ -19,6 +19,15 @@ export default function ChannelForm({ setShowModal }) {
   const channels = useSelector((state) => state.channel.channels);
   const [channel, setChannel] = useState(null);
   const [chatInput, setChatInput] = useState("");
+  const messageRef = useRef(null);
+
+  useEffect(() => {
+    messageRef.current?.scrollIntoView();
+  });
+
+  useEffect(() => {
+    dispatch(getUserChannelsThunk(user.id));
+  }, [dispatch, user]);
 
   useEffect(() => {
     // open socket connection
@@ -87,7 +96,7 @@ export default function ChannelForm({ setShowModal }) {
   const deleteChannel = (channelId) => {
     if (window.confirm("Are you sure you want to delete this channel?")) {
       dispatch(deleteChannelThunk(channelId)).then(() => {
-        if (channel.id === channelId) {
+        if (channel?.id === channelId) {
           setChannel(null);
         }
         dispatch(getUserChannelsThunk(user.id));
@@ -108,16 +117,22 @@ export default function ChannelForm({ setShowModal }) {
         <div>
           {channels.map((channel) => {
             if (channel.users.length < 2) {
-              channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+              if (!channel.name) {
+                channel.name = channel.users[0].username; //this code should never run if channels are properly getting deleted
+              }
             } else if (channel.users.length === 2) {
-              const other_user = channel.users.find((channel_member) => {
-                return channel_member.id !== user.id;
-              });
-              channel.name = other_user.username;
+              if (!channel.name) {
+                const other_user = channel.users.find((channel_member) => {
+                  return channel_member.id !== user.id;
+                });
+                channel.name = other_user.username;
+              }
             } else {
-              channel.name = `${channel.users[0].username} and ${
-                channel.users.length - 1
-              } others`;
+              if (!channel.name) {
+                channel.name = `${channel.users[0].username} and ${
+                  channel.users.length - 1
+                } others`;
+              }
             }
             return (
               <div
@@ -130,7 +145,10 @@ export default function ChannelForm({ setShowModal }) {
                   channel.users.length === 2) && (
                   <div
                     className={styles.delete}
-                    onClick={() => deleteChannel(channel.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteChannel(channel.id);
+                    }}
                   >
                     <i className="fas fa-trash-can"></i>
                   </div>
@@ -190,6 +208,7 @@ export default function ChannelForm({ setShowModal }) {
                 </div>
               );
             })}
+          <div ref={messageRef} />
         </div>
         {channel && (
           <form className={styles.form} onSubmit={sendChat}>

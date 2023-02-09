@@ -57,6 +57,23 @@ def user_in_channel(id, user_id):
         return {"message": f"Added {user.username} to channel {channel.id}"}
 
 
+@channel_routes.route("/<int:id>/users", methods=["POST"])
+@login_required
+def add_users(id):
+    """Adds a list of users to a channel given a list of user ids"""
+    channel = Channel.query.get(id)
+    if not channel:
+        return {"errors": ["Channel not found"]}, 404
+    users = request.json['users']
+    counter = 0
+    for user in users:
+        user = User.query.get(user['id'])
+        if user not in channel.users:
+            counter += 1
+            channel.users.append(user)
+            db.session.commit()
+    return {"message": f"Added {counter} users to channel {channel.id}"}
+
 @channel_routes.route("", methods=["POST"])
 @login_required
 def create_channel():

@@ -118,8 +118,19 @@ export const getUserThunk = (userId) => async (dispatch) => {
   return data;
 };
 
-export const getUsersThunk = (query) => async (dispatch) => {
-  const response = await fetch(`/api/users?q=${query}&limit=20`);
+// export const getUsersThunk = (query) => async (dispatch) => {
+//   const response = await fetch(`/api/users?q=${query}&limit=20`);
+
+//   if (!response.ok) {
+//     throw response;
+//   }
+//   const data = await response.json();
+//   dispatch(getUsers(data));
+//   return data;
+// };
+
+export const getUsersThunk = () => async (dispatch) => {
+  const response = await fetch(`/api/users`);
 
   if (!response.ok) {
     throw response;

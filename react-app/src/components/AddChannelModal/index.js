@@ -10,7 +10,7 @@ export default function ChannelModel() {
     <>
       <div>
         <i
-          className={`${styles.channel_add} fas fa-plus`}
+          className={`${styles.add_icon} fas fa-plus`}
           onClick={() => setShowModal(true)}
         ></i>
       </div>
