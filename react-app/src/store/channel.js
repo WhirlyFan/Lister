@@ -82,6 +82,21 @@ export const deleteChannelThunk = (id) => async (dispatch) => {
   return data;
 };
 
+export const addChannelMembersThunk = (channelId, users) => async () => {
+  const res = await fetch(`/api/channels/${channelId}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(users),
+  });
+  if (!res.ok) {
+    throw res;
+  }
+  const data = await res.json();
+  return data;
+};
+
 //reducer
 const initialState = {
   channel: null,

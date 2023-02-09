@@ -26,6 +26,10 @@ export default function ChannelForm({ setShowModal }) {
   });
 
   useEffect(() => {
+    dispatch(getUserChannelsThunk(user.id));
+  }, [dispatch, user]);
+
+  useEffect(() => {
     // open socket connection
     // create websocket
     socket = io();
@@ -92,7 +96,7 @@ export default function ChannelForm({ setShowModal }) {
   const deleteChannel = (channelId) => {
     if (window.confirm("Are you sure you want to delete this channel?")) {
       dispatch(deleteChannelThunk(channelId)).then(() => {
-        if (channel.id === channelId) {
+        if (channel?.id === channelId) {
           setChannel(null);
         }
         dispatch(getUserChannelsThunk(user.id));
@@ -141,7 +145,10 @@ export default function ChannelForm({ setShowModal }) {
                   channel.users.length === 2) && (
                   <div
                     className={styles.delete}
-                    onClick={() => deleteChannel(channel.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteChannel(channel.id);
+                    }}
                   >
                     <i className="fas fa-trash-can"></i>
                   </div>

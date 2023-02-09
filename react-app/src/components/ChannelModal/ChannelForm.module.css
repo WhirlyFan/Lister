@@ -109,6 +109,7 @@
   color: grey;
   margin: 0 0.3rem;
   margin-top: .3rem;
+  z-index: 100000;
 }
 
 .delete:hover {

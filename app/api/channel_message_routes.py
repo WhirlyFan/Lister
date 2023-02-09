@@ -64,7 +64,6 @@ def add_users(id):
     channel = Channel.query.get(id)
     if not channel:
         return {"errors": ["Channel not found"]}, 404
-    print(request.json['users'])
     users = request.json['users']
     counter = 0
     for userId in users:
