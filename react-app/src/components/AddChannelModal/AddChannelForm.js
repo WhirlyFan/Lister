@@ -86,7 +86,7 @@ export default function AddChannelForm({ setShowModal }) {
           >
             {user.username}
           </li>
-        ))}
+        )).slice(0, 5)}
       </ul>
     </div>
   );
