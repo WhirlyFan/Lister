@@ -66,7 +66,7 @@ export default function AddChannelForm({ setShowModal }) {
               <div>
                 <i
                   onClick={() => setUsers(users.filter((u) => u !== user))}
-                  className="fas fa-x"
+                  className="fas fa-remove"
                 ></i>
               </div>
             </li>
@@ -76,17 +76,20 @@ export default function AddChannelForm({ setShowModal }) {
       <label>Users</label>
       <input type="text" onChange={(e) => setSearch(e.target.value)} />
       <ul>
-        {filteredUsers.map((user) => (
-          <li
-            key={`user-${user.id}`}
-            onClick={() => {
-              if (users.includes(user)) return;
-              setUsers([...users, user]);
-            }}
-          >
-            {user.username}
-          </li>
-        )).slice(0, 5)}
+        {filteredUsers
+          .map((user) => (
+            <li key={`user-${user.id}`}>
+              <div>{user.username}</div>
+              <i
+                onClick={() => {
+                  if (users.includes(user)) return;
+                  setUsers([...users, user]);
+                }}
+                className="fas fa-plus"
+              ></i>
+            </li>
+          ))
+          .slice(0, 5)}
       </ul>
     </div>
   );
