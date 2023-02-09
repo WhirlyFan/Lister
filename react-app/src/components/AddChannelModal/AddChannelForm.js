@@ -33,7 +33,8 @@ export default function AddChannelForm({ setShowModal }) {
           filteredUser.username
             .toLowerCase()
             .includes(search.length ? search.toLowerCase() : null) &&
-          filteredUser.id !== user.id && !users.includes(filteredUser)
+          filteredUser.id !== user.id &&
+          !users.includes(filteredUser)
       )
     );
   }, [allUsers, search, user, users]);
@@ -65,20 +66,22 @@ export default function AddChannelForm({ setShowModal }) {
           onChange={(e) => setChannelName(e.target.value)}
         />
         <button type="submit">Submit</button>
-        <ul className={styles.users}>
-          {users.map((user) => (
-            <li key={`user-${user.id}`} className={styles.user}>
-              <div>{user.username}</div>
-              <i
-                onClick={() => setUsers(users.filter((u) => u !== user))}
-                className={`${styles.remove_icon} fas fa-remove`}
-              ></i>
-            </li>
-          ))}
-        </ul>
       </form>
-      <label>Users</label>
-      <input type="text" onChange={(e) => setSearch(e.target.value)} />
+      <ul className={styles.users}>
+        {users.map((user) => (
+          <li key={`user-${user.id}`} className={styles.user}>
+            <div>{user.username}</div>
+            <i
+              onClick={() => setUsers(users.filter((u) => u !== user))}
+              className={`${styles.remove_icon} fas fa-remove`}
+            ></i>
+          </li>
+        ))}
+      </ul>
+      <div className={styles.form}>
+        <label>Add Users</label>
+        <input type="text" onChange={(e) => setSearch(e.target.value)} />
+      </div>
       <ul className={styles.users}>
         {filteredUsers
           .map((user) => (
