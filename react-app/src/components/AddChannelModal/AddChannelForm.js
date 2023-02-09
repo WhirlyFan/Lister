@@ -59,34 +59,34 @@ export default function AddChannelForm({ setShowModal }) {
           onChange={(e) => setChannelName(e.target.value)}
         />
         <button type="submit">Submit</button>
-        <ul>
+        <ul className={styles.users}>
           {users.map((user) => (
-            <li key={`user-${user.id}`}>
+            <li key={`user-${user.id}`} className={styles.user}>
               <div>{user.username}</div>
-              <div>
-                <i
-                  onClick={() => setUsers(users.filter((u) => u !== user))}
-                  className="fas fa-remove"
-                ></i>
-              </div>
+              <i
+                onClick={() => setUsers(users.filter((u) => u !== user))}
+                className={`${styles.remove_icon} fas fa-remove`}
+              ></i>
             </li>
           ))}
         </ul>
       </form>
       <label>Users</label>
       <input type="text" onChange={(e) => setSearch(e.target.value)} />
-      <ul>
+      <ul className={styles.users}>
         {filteredUsers
           .map((user) => (
-            <li key={`user-${user.id}`}>
+            <li key={`user-${user.id}`} className={styles.user}>
               <div>{user.username}</div>
-              <i
-                onClick={() => {
-                  if (users.includes(user)) return;
-                  setUsers([...users, user]);
-                }}
-                className="fas fa-plus"
-              ></i>
+              {!users.includes(user) && (
+                <i
+                  onClick={() => {
+                    if (users.includes(user)) return;
+                    setUsers([...users, user]);
+                  }}
+                  className={`${styles.add_icon} fas fa-plus`}
+                ></i>
+              )}
             </li>
           ))
           .slice(0, 5)}

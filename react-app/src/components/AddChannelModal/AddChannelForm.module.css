@@ -1,12 +1,43 @@
-.channel_add {
+.add_icon {
     color: grey;
     margin: 0 0.3rem;
   }
 
-  .channel_add:hover {
+  .add_icon:hover {
     cursor: pointer;
   }
 
-  .channel_add:active {
+  .add_icon:active {
     transform: scale(0.9);
+  }
+
+  .remove_icon {
+    color: grey;
+    margin: 0 0.3rem;
+  }
+
+  .remove_icon:hover {
+    cursor: pointer;
+  }
+
+  .remove_icon:active {
+    transform: scale(0.9);
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+
+  .user > * {
+    margin: 0 0.5rem;
+  }
+
+  .users {
+    display: flex;
+    margin: 0.5rem 0;
   }
