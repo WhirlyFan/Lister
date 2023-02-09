@@ -41,6 +41,10 @@ export default function AddChannelForm({ setShowModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!users.length) {
+      alert("Please add at least one other user to the channel")
+      return
+    }
     const channel = {
       name: channelName.length ? channelName : null,
     };
@@ -65,7 +69,7 @@ export default function AddChannelForm({ setShowModal }) {
           placeholder="(Optional) Channel Name"
           onChange={(e) => setChannelName(e.target.value)}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="blue_button">Submit</button>
       </form>
       <ul className={styles.users}>
         {users.map((user) => (
