@@ -15,22 +15,28 @@ export default function AddChannelForm({ setShowModal }) {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   // const allUsers = useSelector((state) => state.session.users);
 
-  //this is for the filtered list of users
+  // This effect is for fetching all users once
   useEffect(() => {
     dispatch(getUsersThunk()).then((data) => {
-      setFilteredUsers(
-        data.users.filter(
-          (filteredUser) =>
-            filteredUser.username
-              .toLowerCase()
-              .includes(search.length ? search.toLowerCase() : null) &&
-            filteredUser.id !== user.id
-        )
-      );
+      setAllUsers(data.users);
     });
-  }, [dispatch, search, user]);
+  }, [dispatch]);
+
+  // This effect is for filtering the list of users
+  useEffect(() => {
+    setFilteredUsers(
+      allUsers.filter(
+        (filteredUser) =>
+          filteredUser.username
+            .toLowerCase()
+            .includes(search.length ? search.toLowerCase() : null) &&
+          filteredUser.id !== user.id && !users.includes(filteredUser)
+      )
+    );
+  }, [allUsers, search, user, users]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,15 +84,12 @@ export default function AddChannelForm({ setShowModal }) {
           .map((user) => (
             <li key={`user-${user.id}`} className={styles.user}>
               <div>{user.username}</div>
-              {!users.includes(user) && (
-                <i
-                  onClick={() => {
-                    if (users.includes(user)) return;
-                    setUsers([...users, user]);
-                  }}
-                  className={`${styles.add_icon} fas fa-plus`}
-                ></i>
-              )}
+              <i
+                onClick={() => {
+                  setUsers([...users, user]);
+                }}
+                className={`${styles.add_icon} fas fa-plus`}
+              ></i>
             </li>
           ))
           .slice(0, 5)}
