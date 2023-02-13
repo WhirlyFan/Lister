@@ -10,6 +10,11 @@ li {
   list-style: none;
 }
 
+.beta {
+  color: red;
+  font-weight: 700;
+}
+
 body {
   display: block;
   margin: 0 10vw;
