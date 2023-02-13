@@ -126,6 +126,7 @@ export default function ChannelForm({ setShowModal }) {
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
+        <i className="beta">Beta Mode</i>
         <div className={styles.channels_header}>
           <div>{user.username}'s Channels</div>
           <AddChannelModal />
