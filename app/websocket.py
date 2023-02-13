@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit, send, join_room, leave_room
-from app.models import db, Message
+from app.models import db, Message, Channel
 import os
 
 
@@ -49,8 +49,8 @@ def handle_chat(data):
         emit("chat", data, broadcast=True, to=room)
 
 
-@socketio.on("edit")
-def handle_edit(data):
+@socketio.on("edit-message")
+def handle_edit_message(data):
     message = Message.query.get(data['id'])
     message.message = data['message']
     db.session.add(message)
@@ -61,8 +61,8 @@ def handle_edit(data):
         emit("chat", data, broadcast=True, to=room)
 
 
-@socketio.on("delete")
-def handle_delete(data):
+@socketio.on("delete-message")
+def handle_delete_message(data):
     message = Message.query.get(data['id'])
     db.session.delete(message)
     db.session.commit()
@@ -70,3 +70,24 @@ def handle_delete(data):
     if data['room']:
         room = data['room']
         emit("chat", data, broadcast=True, to=room)
+
+
+@socketio.on("delete-channel")
+def handle_delete_channel(data):
+    channel = Channel.query.get(data['id'])
+    db.session.delete(channel)
+    db.session.commit()
+    if data['room']:
+        room = data['room']
+        emit("delete-channel", data, broadcast=True, to=room)
+
+
+@socketio.on("edit-channel")
+def handle_edit_channel(data):
+    channel = Channel.query.get(data['id'])
+    channel.name = data['name']
+    db.session.add(channel)
+    db.session.commit()
+    if data['room']:
+        room = data['room']
+        emit("edit-channel", data, broadcast=True, to=room)
