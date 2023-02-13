@@ -10,6 +10,7 @@ import {
 } from "../../store/channel";
 import formatDateTime from "../formatDateTime";
 import { io } from "socket.io-client";
+import EditMessageModal from "../EditMessageModal";
 let socket;
 
 export default function ChannelForm({ setShowModal }) {
@@ -79,13 +80,17 @@ export default function ChannelForm({ setShowModal }) {
     });
   };
 
-  // const editMessage = (message) => {
-  //   socket.emit("edit", {
-  //     id: message.id,
-  //     message,
-  //     room: channel.id,
-  //   });
-  // };
+  const editMessage = (messageId, editedMessage) => {
+    if (editedMessage === "") {
+      socket.emit("delete", { id: messageId, room: channel.id });
+      return;
+    }
+    socket.emit("edit", {
+      id: messageId,
+      message: editedMessage,
+      room: channel.id,
+    });
+  };
 
   const deleteMessage = (messageId) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
@@ -195,10 +200,16 @@ export default function ChannelForm({ setShowModal }) {
                       <div className={styles.message_icons}>
                         {/* <div
                           className={styles.edit}
-                          onClick={() => editMessage(message)}
+                          onClick={() => {
+                            editMessage(message);
+                          }}
                         >
                           <i className="fas fa-edit"></i>
                         </div> */}
+                        <EditMessageModal
+                          message={message}
+                          editMessage={editMessage}
+                        />
                         <div
                           className={styles.delete}
                           onClick={() => deleteMessage(message.id)}
