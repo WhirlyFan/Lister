@@ -10,6 +10,7 @@ import {
 } from "../../store/channel";
 import formatDateTime from "../formatDateTime";
 import { io } from "socket.io-client";
+import EditMessageModal from "../EditMessageModal";
 let socket;
 
 export default function ChannelForm({ setShowModal }) {
@@ -38,16 +39,27 @@ export default function ChannelForm({ setShowModal }) {
         setChannel(channel);
       });
     });
-    socket.on("edit", () => {
+    //this is faking the websocket by dispatching the thunk
+    socket.on("edit-message", () => {
       dispatch(getChannelThunk(channel.id)).then((channel) => {
         setChannel(channel);
       });
     });
-    socket.on("delete", () => {
+    //this is faking the websocket by dispatching the thunk
+    socket.on("delete-message", () => {
       dispatch(getChannelThunk(channel.id)).then((channel) => {
         setChannel(channel);
       });
     });
+    //this is faking the websocket by dispatching the thunk
+    // socket.on("delete-channel", () => {
+    //   dispatch(getUserChannelsThunk(user.id));
+    // });
+    // socket.on("edit-channel", () => {
+    //   dispatch(getUserChannelsThunk(user.id));
+    // });
+
+    //this code is not working when channel is empty e.g., before selecting a channel
     //join room
     if (channel) {
       socket.emit("join", {
@@ -79,22 +91,29 @@ export default function ChannelForm({ setShowModal }) {
     });
   };
 
-  // const editMessage = (message) => {
-  //   socket.emit("edit", {
-  //     id: message.id,
-  //     message,
-  //     room: channel.id,
-  //   });
-  // };
+  const editMessage = (messageId, editedMessage) => {
+    if (editedMessage === "") {
+      socket.emit("delete-message", { id: messageId, room: channel.id });
+      return;
+    }
+    socket.emit("edit-message", {
+      id: messageId,
+      message: editedMessage,
+      room: channel.id,
+    });
+  };
 
   const deleteMessage = (messageId) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
-      socket.emit("delete", { id: messageId, room: channel.id });
+      socket.emit("delete-message", { id: messageId, room: channel.id });
     }
   };
 
   const deleteChannel = (channelId) => {
     if (window.confirm("Are you sure you want to delete this channel?")) {
+      // socket.emit("delete-channel", { id: channelId, room: channelId });
+
+      //non websocket version that doesn't update on other user's screens
       dispatch(deleteChannelThunk(channelId)).then(() => {
         if (channel?.id === channelId) {
           setChannel(null);
@@ -107,6 +126,7 @@ export default function ChannelForm({ setShowModal }) {
   return (
     <div className={styles.main}>
       <div className={styles.channels}>
+        <i className="beta">Beta Mode</i>
         <div className={styles.channels_header}>
           <div>{user.username}'s Channels</div>
           <AddChannelModal />
@@ -195,10 +215,16 @@ export default function ChannelForm({ setShowModal }) {
                       <div className={styles.message_icons}>
                         {/* <div
                           className={styles.edit}
-                          onClick={() => editMessage(message)}
+                          onClick={() => {
+                            editMessage(message);
+                          }}
                         >
                           <i className="fas fa-edit"></i>
                         </div> */}
+                        <EditMessageModal
+                          message={message}
+                          editMessage={editMessage}
+                        />
                         <div
                           className={styles.delete}
                           onClick={() => deleteMessage(message.id)}
