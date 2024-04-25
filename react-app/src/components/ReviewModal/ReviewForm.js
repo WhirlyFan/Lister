@@ -69,7 +69,7 @@ export default function ReviewForm({
         required
       />
       <button type="submit" className="blue_button">
-        Edit
+        Save
       </button>
       <button
         type="button"
